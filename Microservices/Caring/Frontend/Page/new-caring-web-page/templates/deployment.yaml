@@ -22,6 +22,7 @@ spec:
       containers:
         - name: new-caring-web-page
           image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-react-frontend-share:{{ .Values.App.Version }}"
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: new-caring-web-page-config
