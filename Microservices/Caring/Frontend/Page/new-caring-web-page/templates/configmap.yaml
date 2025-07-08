@@ -6,3 +6,7 @@ data:
   {{- range $key, $value := .Values.App.ConfigMap.Data }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
+
+  {{- if .Values.App.ServiceAccountCredentials }}
+  GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
+  {{- end }}
