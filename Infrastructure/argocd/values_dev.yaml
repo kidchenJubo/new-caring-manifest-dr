@@ -192,8 +192,8 @@
           id: microsoft
           name: Microsoft
           config:
-            clientID: "4778e26d-e250-4b7a-9242-1677a18cf008"
-            clientSecret: "iow8Q~QUqF43QDjJnPDb7VU2JKEPEtQeZVmiyaqi"
+            clientID: "22c6657c-e1a3-4aca-a60c-aa6424bf28c2"
+            clientSecret: "KXm8Q~i2WCXZl.L.srul0dyyy41jyqqikiq-JcNF"
             tenant: organizations
             hostedDomains:
               - jubo.health
