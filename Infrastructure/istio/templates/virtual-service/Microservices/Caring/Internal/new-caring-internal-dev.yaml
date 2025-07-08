@@ -1,0 +1,56 @@
+{{- if .Values.Settings.Urls.DevBackendApiCaring }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: new-caring-internal-dev
+  namespace: istio-system
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - istio-system/infra-gateway-internal
+  http:
+    - name: api
+      corsPolicy:
+        allowOrigins:
+          - exact: "http://localhost:3000"
+          - exact: "https://new-caring-dev-caring.jubo.health"
+          - exact: "https://*.caringcm.com.tw"
+        allowMethods:
+          - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: "24h"
+      match:
+        - uri:
+            regex: "/[A|a][P|p][I|i]/.*"
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80
+    - name: resource
+      match:
+        - uri:
+            regex: "/[R|r][E|e][S|s][O|o][U|u][R|r][C|c][E|e]/.*"
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80
+    - name: v2
+      match:
+        - uri:
+            regex: "/[V|v](?:[0-9]|[1-9][0-9])/.*"
+      route:
+        - destination:
+            host: new-caring-web-page.new-caring-web-page-dev.svc.cluster.local
+            port:
+              number: 80
+{{ end }}

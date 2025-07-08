@@ -1,0 +1,13 @@
+App:
+  Replicas: 1
+  Version: 1.2.1-caring
+  ConfigMap:
+    Data:
+      DEPLOY: qat
+  AppResources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 400m
+      memory: 800Mi

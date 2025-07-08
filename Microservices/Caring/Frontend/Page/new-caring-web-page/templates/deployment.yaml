@@ -1,0 +1,24 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-caring-web-page
+spec:
+  replicas: {{ .Values.App.Replicas }}
+  selector:
+    matchLabels:
+      app: new-caring-web-page
+  template:
+    metadata:
+      labels:
+        app: new-caring-web-page
+    spec:
+      containers:
+        - name: new-caring-web-page
+          image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-react-frontend-share:{{ .Values.App.Version }}"
+          envFrom:
+            - configMapRef:
+                name: new-caring-web-page-config
+          ports:
+            - containerPort: 3000
+          resources:
+{{ toYaml .Values.App.AppResources | indent 11 }}

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-caring-web-api
+spec:
+  replicas: {{ .Values.App.Replicas }}
+  selector:
+    matchLabels:
+      app: new-caring-web-api
+  template:
+    metadata:
+      labels:
+        app: new-caring-web-api
+    spec:
+      serviceAccountName: new-caring-web-api
+      {{- if .Values.App.ServiceAccountCredentials }}
+      volumes:
+        - name: secret-sa-volume
+          secret:
+            secretName: new-caring-web-api-sa-secret
+      {{- end }}
+      containers:
+        - name: new-caring-web-api
+          image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-web-api:{{ .Values.App.Version }}"
+          envFrom:
+            - configMapRef:
+                name: new-caring-web-api-config
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MY_POD_SERVICE_ACCOUNT
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
+          {{- if .Values.App.ServiceAccountCredentials }}
+          volumeMounts:
+            - mountPath: /app/secrets
+              name: secret-sa-volume
+          {{- end }}
+          ports:
+            - containerPort: 8080
+{{/*          livenessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /health*/}}
+{{/*              port: 8080*/}}
+{{/*            initialDelaySeconds: 30*/}}
+{{/*            periodSeconds: 10*/}}
+{{/*            timeoutSeconds: 5*/}}
+{{/*            failureThreshold: 3*/}}
+          resources: 
+{{ toYaml .Values.App.AppResources | indent 11 }}
+        - name: cloud-sql-proxy
+          image: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:{{ .Values.SqlProxy.Version }}"
+          args:
+            - "--private-ip"
+            - "--auto-iam-authn"
+            - "--port=5432"
+            - "{{ .Values.SqlProxy.InstanceName }}"
+          resources: 
+{{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true

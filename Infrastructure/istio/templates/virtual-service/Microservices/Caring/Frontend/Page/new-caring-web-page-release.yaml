@@ -1,0 +1,18 @@
+{{- if .Values.Settings.Urls.ReleaseFrontendCaring }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: new-caring-web-page-release
+  namespace: istio-system
+spec:
+  hosts:
+    - {{ .Values.Settings.Urls.ReleaseFrontendCaring }}
+  gateways:
+    - istio-system/infra-gateway
+  http:
+    - route:
+        - destination:
+            host:  new-caring-web-page.new-caring-web-page-release.svc.cluster.local
+            port:
+              number: 80
+{{ end }}

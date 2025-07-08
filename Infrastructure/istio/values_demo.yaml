@@ -1,0 +1,51 @@
+gateway:
+  service:
+    # Type of service. Set to "None" to disable the service entirely
+    type: LoadBalancer
+    ports:
+      - name: https
+        port: 443
+        protocol: TCP
+        targetPort: 443
+      - name: http
+        port: 80
+        protocol: TCP
+        targetPort: 80
+    loadBalancerIP: ""
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 1000m
+      memory: 500Mi
+
+istiod:
+  pilot:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1000Mi
+  meshConfig:
+    accessLogFile: /dev/stdout
+    accessLogEncoding: JSON
+    defaultConfig:
+      gatewayTopology:
+        numTrustedProxies: 1
+
+Settings:
+  UseKeycloak: false
+  UseStorage: true
+  Urls:
+    ArgoCD: new-caring-demo-argocd.jubo.health
+
+    # Backend
+
+    # Caring
+    DemoBackendApiCaring: new-caring-demo-api-caring.jubo.health
+    DemoBackendApiCaringStorage: new-caring-demo-api-caring-storage.jubo.health
+
+    # Frontend
+
+    # Caring
+    DemoFrontendCaring: new-caring-demo-caring.jubo.health

@@ -1,0 +1,13 @@
+App:
+  Replicas: 2
+  Version: 1.1.37-caring
+  ConfigMap:
+    Data:
+      DEPLOY: release
+  AppResources:
+    requests:
+      cpu: 200m
+      memory: 400Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi

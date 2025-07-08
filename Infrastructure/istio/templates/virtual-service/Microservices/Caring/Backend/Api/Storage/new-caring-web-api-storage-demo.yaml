@@ -1,0 +1,20 @@
+{{- if and .Values.Settings.UseStorage .Values.Settings.Urls.DemoBackendApiCaringStorage }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: new-caring-web-api-storage-demo
+  namespace: istio-system
+spec:
+  hosts:
+    - {{ .Values.Settings.Urls.DemoBackendApiCaringStorage }}
+  gateways:
+    - istio-system/infra-gateway
+  http:
+    - rewrite:
+        authority: storage.googleapis.com 
+      route:
+        - destination:
+            host: storage.googleapis.com
+            port:
+              number: 443
+{{ end }}
