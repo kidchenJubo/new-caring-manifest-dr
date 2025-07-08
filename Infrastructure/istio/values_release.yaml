@@ -42,10 +42,10 @@ Settings:
     # Backend
 
     # Caring
-    ReleaseBackendApiCaring: new-caring-release-api-caring.jubo.health
-    ReleaseBackendApiCaringStorage: new-caring-release-api-caring-storage.jubo.health
+    ReleaseBackendApiCaring: new-caring-release-api.jubo.health
+    ReleaseBackendApiCaringStorage: new-caring-release-api-storage.jubo.health
 
     # Frontend
 
     # Caring
-    ReleaseFrontendCaring: new-caring-release-caring.jubo.health
+    ReleaseFrontendCaring: new-caring-release.jubo.health

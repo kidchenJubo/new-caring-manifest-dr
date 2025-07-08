@@ -42,10 +42,10 @@ Settings:
     # Backend
 
     # Caring
-    DemoBackendApiCaring: new-caring-demo-api-caring.jubo.health
-    DemoBackendApiCaringStorage: new-caring-demo-api-caring-storage.jubo.health
+    DemoBackendApiCaring: new-caring-demo-api.jubo.health
+    DemoBackendApiCaringStorage: new-caring-demo-api-storage.jubo.health
 
     # Frontend
 
     # Caring
-    DemoFrontendCaring: new-caring-demo-caring.jubo.health
+    DemoFrontendCaring: new-caring-demo.jubo.health

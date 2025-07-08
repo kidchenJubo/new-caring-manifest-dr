@@ -44,13 +44,13 @@ Settings:
     # Backend
 
     # Caring
-    DevBackendApiCaring: new-caring-dev-api-caring.jubo.health
-    DevBackendApiCaringStorage: new-caring-dev-api-caring-storage.jubo.health
+    DevBackendApiCaring: new-caring-dev-api.jubo.health
+    DevBackendApiCaringStorage: new-caring-dev-api-storage.jubo.health
 
     # Frontend
 
     # Caring
-    DevFrontendCaring: new-caring-dev-caring.jubo.health
+    DevFrontendCaring: new-caring-dev.jubo.health
 
     # dev ↑↑↑
 
@@ -59,13 +59,13 @@ Settings:
     # Backend
 
     # Caring
-    QatBackendApiCaring: new-caring-qat-api-caring.jubo.health
-    QatBackendApiCaringStorage: new-caring-qat-api-caring-storage.jubo.health
+    QatBackendApiCaring: new-caring-qat-api.jubo.health
+    QatBackendApiCaringStorage: new-caring-qat-api-storage.jubo.health
 
     # Frontend
 
     # Caring
-    QatFrontendCaring: new-caring-qat-caring.jubo.health
+    QatFrontendCaring: new-caring-qat.jubo.health
 
     # qat ↑↑↑
 
@@ -74,12 +74,12 @@ Settings:
     # Backend
 
     # Caring
-    DemoBackendApiCaring: new-caring-demo-api-caring.jubo.health
-    DemoBackendApiCaringStorage: new-caring-demo-api-caring-storage.jubo.health
+    DemoBackendApiCaring: new-caring-demo-api.jubo.health
+    DemoBackendApiCaringStorage: new-caring-demo-api-storage.jubo.health
 
     # Frontend
 
     # Caring
-    DemoFrontendCaring: new-caring-demo-caring.jubo.health
+    DemoFrontendCaring: new-caring-demo.jubo.health
 
     # demo ↑↑↑

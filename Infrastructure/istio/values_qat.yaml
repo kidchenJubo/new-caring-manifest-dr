@@ -42,10 +42,10 @@ Settings:
     # Backend
 
     # Caring
-    QatBackendApiCaring: new-caring-qat-api-caring.jubo.health
-    QatBackendApiCaringStorage: new-caring-qat-api-caring-storage.jubo.health
+    QatBackendApiCaring: new-caring-qat-api.jubo.health
+    QatBackendApiCaringStorage: new-caring-qat-api-storage.jubo.health
 
     # Frontend
 
     # Caring
-    QatFrontendCaring: new-caring-qat-caring.jubo.health
+    QatFrontendCaring: new-caring-qat.jubo.health

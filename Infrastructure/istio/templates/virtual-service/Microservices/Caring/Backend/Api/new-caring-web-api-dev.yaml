@@ -14,7 +14,7 @@ spec:
       corsPolicy:
         allowOrigins:
           - exact: "http://localhost:3000"
-          - exact: "https://new-caring-dev-caring.jubo.health"
+          - exact: "https://*.jubo.health"
           - exact: "https://*.caringcm.com.tw"
         allowMethods:
           - OPTIONS
