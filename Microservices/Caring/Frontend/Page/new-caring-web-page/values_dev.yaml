@@ -11,14 +11,3 @@ App:
     limits:
       cpu: 400m
       memory: 800Mi
-
-image:
-  pullPolicy: IfNotPresent
-
-workloadIdentity:
-  enabled: true
-  gcpServiceAccount: "new-caring-gar-reader@jubo-care-platform.iam.gserviceaccount.com"
-  namespace: "new-caring-web-page-dev"
-
-rbac:
-  enabled: true

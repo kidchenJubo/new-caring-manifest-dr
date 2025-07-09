@@ -1,26 +1,23 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
-  namespace: {{ .Values.workloadIdentity.namespace }}
+  name: new-caring-web-page
 spec:
   replicas: {{ .Values.App.Replicas }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: new-caring-web-page
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: new-caring-web-page
     spec:
-      serviceAccountName: {{ .Chart.Name }}-sa
       containers:
-        - name: {{ .Chart.Name }}
-          image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-react-frontend-share:{{ .Values.App.Version }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: new-caring-web-page
+          image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-web-page:{{ .Values.App.Version }}"
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-config
+                name: new-caring-web-page-config
           ports:
             - containerPort: 3000
           resources:
