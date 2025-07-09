@@ -12,15 +12,24 @@ spec:
       labels:
         app: new-caring-web-page
     spec:
-      imagePullSecrets:
-        - name: {{ .Values.imagePullSecrets.name }}
+      serviceAccountName: new-caring-web-page
+      {{- if .Values.App.ServiceAccountCredentials }}
+      volumes:
+        - name: secret-sa-volume
+          secret:
+            secretName: new-caring-web-page-sa-secret
+      {{- end }}
       containers:
         - name: new-caring-web-page
           image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-react-frontend-share:{{ .Values.App.Version }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
                 name: new-caring-web-page-config
+          {{- if .Values.App.ServiceAccountCredentials }}
+          volumeMounts:
+            - mountPath: /app/secrets
+              name: secret-sa-volume
+          {{- end }}
           ports:
             - containerPort: 3000
           resources:
