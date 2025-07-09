@@ -5,6 +5,19 @@ metadata:
 data:
   ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
 
+  ConnectionStrings__PostgreSqlMaster: "{{ .Values.App. }}"
+  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App. }}"
+  OpenTelemetry__EndPoint: "{{ .Values.App. }}"
+  OpenTelemetry__Protocol: "{{ .Values.App. }}"
+  Redis__ConnectionString: "{{ .Values.App. }}"
+  JCP__EndPoint: "{{ .Values.App. }}"
+  JCP__Brand: "{{ .Values.App. }}"
+  JCP__Product: "{{ .Values.App. }}"
+  JCP__Environment: "{{ .Values.App. }}"
+  JCP__Name: "{{ .Values.App. }}"
+  JCP__Version: "{{ .Values.App. }}"
+
+
   {{- if .Values.App.ServiceAccountCredentials }}
   GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
   {{- end }}
