@@ -3790,6 +3790,12 @@
           helm:
             valueFiles:
               - values_dev.yaml
+          helm:
+            values: |
+              workloadIdentity:
+                enabled: true
+                gcpServiceAccount: "new-caring-gar-reader@jubo-care-platform.iam.gserviceaccount.com"
+                namespace: "new-caring-web-page-dev"
       destination:
         server: https://kubernetes.default.svc
         namespace: new-caring-web-page-dev
