@@ -5,18 +5,17 @@ metadata:
 data:
   ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
 
-  ConnectionStrings__PostgreSqlMaster: "{{ .Values.App. }}"
-  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App. }}"
-  OpenTelemetry__EndPoint: "{{ .Values.App. }}"
-  OpenTelemetry__Protocol: "{{ .Values.App. }}"
-  Redis__ConnectionString: "{{ .Values.App. }}"
-  JCP__EndPoint: "{{ .Values.App. }}"
-  JCP__Brand: "{{ .Values.App. }}"
-  JCP__Product: "{{ .Values.App. }}"
-  JCP__Environment: "{{ .Values.App. }}"
-  JCP__Name: "{{ .Values.App. }}"
-  JCP__Version: "{{ .Values.App. }}"
-
+  ConnectionStrings__PostgreSqlMaster: "{{ .Values.App.ConnectionStrings.PostgreSqlMaster }}"
+  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App.ConnectionStrings.PostgreSqlMaster }}"
+  OpenTelemetry__EndPoint: "{{ .Values.App.OpenTelemetry.EndPoint }}"
+  OpenTelemetry__Protocol: "{{ .Values.App.OpenTelemetry.Protocol }}"
+  Redis__ConnectionString: "{{ .Values.App.Redis.ConnectionString }}"
+  JCP__EndPoint: "{{ .Values.App.JCP.EndPoint }}"
+  JCP__Brand: "{{ .Values.App.JCP.Brand }}"
+  JCP__Product: "{{ .Values.App.JCP.Product }}"
+  JCP__Environment: "{{ .Values.App.JCP.Environment }}"
+  JCP__Name: "{{ .Values.App.JCP.Name }}"
+  JCP__Version: "{{ .Values.App.JCP.Version }}"
 
   {{- if .Values.App.ServiceAccountCredentials }}
   GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
