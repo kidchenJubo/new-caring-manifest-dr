@@ -6,7 +6,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*.caringcm.com.tw"
+    - "*.caringcm1.com.tw"
   gateways:
     - istio-system/infra-gateway-internal
   http:
