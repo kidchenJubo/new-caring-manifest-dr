@@ -29,17 +29,13 @@ ingress:
         - path: /v2
           pathType: Prefix
           backend:
-            service:
-              name: dummy-frontend-service-dev # 虛擬服務
-              port:
-                number: 80
+            serviceName: dummy-frontend-service-dev
+            servicePort: 80
         - path: /api
           pathType: Prefix
           backend:
-            service:
-              name: dummy-backend-service-dev # 虛擬服務
-              port:
-                number: 80
+            serviceName: dummy-backend-service-dev
+            servicePort: 80
 
 frontendConfig:
   enabled: false
