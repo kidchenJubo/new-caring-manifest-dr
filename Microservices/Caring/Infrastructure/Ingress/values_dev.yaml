@@ -26,13 +26,13 @@ ingress:
   hosts:
     - host: "*.caringcm.com.tw"
       paths:
-        - path: /v2
-          pathType: Prefix
+        - path: /v2/*
+          pathType: ImplementationSpecific
           backend:
             serviceName: dummy-frontend-service-dev
             servicePort: 80
-        - path: /api
-          pathType: Prefix
+        - path: /api/*
+          pathType: ImplementationSpecific
           backend:
             serviceName: dummy-backend-service-dev
             servicePort: 80
