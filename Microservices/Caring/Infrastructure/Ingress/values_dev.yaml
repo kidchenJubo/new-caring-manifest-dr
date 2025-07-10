@@ -7,7 +7,7 @@ ingress:
     # networking.gke.io/v1beta1.FrontendConfig: "new-caring-frontend-config"
     # networking.gke.io/managed-certificates: "new-caring-ssl-policy"
   hosts:
-    - host: *.caringcm.com.tw
+    - host: "*.caringcm.com.tw"
       paths:
         - path: /v2/*
           pathType: ImplementationSpecific
