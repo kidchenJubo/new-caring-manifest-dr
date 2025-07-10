@@ -20,8 +20,6 @@ spec:
                 name: {{ .Chart.Name }}-config
           ports:
             - containerPort: 3000
-          resources:
-{{ toYaml .Values.App.AppResources | indent 11 }}
           livenessProbe:
             httpGet:
               path: /
@@ -33,3 +31,5 @@ spec:
               port: 3000
             initialDelaySeconds: 5
             periodSeconds: 5
+          resources:
+{{ toYaml .Values.App.AppResources | indent 11 }}
