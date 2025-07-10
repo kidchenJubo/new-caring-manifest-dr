@@ -54,7 +54,7 @@ spec:
           ports:
             - containerPort: 8080
           resources: 
-            {{- toYaml .Values.resources | nindent 12 }}
+{{ toYaml .Values.App.AppResources | indent 11 }}
           livenessProbe:
             httpGet:
               path: /health

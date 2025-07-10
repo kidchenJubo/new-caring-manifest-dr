@@ -21,7 +21,7 @@ spec:
           ports:
             - containerPort: 3000
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+{{ toYaml .Values.App.AppResources | indent 11 }}
           livenessProbe:
             httpGet:
               path: /
