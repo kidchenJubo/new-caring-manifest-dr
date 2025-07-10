@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dummy-frontend-service-dev
+  namespace: new-caring-ingress-dev
+spec:
+  ports:
+    - port: 80

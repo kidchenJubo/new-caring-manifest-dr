@@ -3,6 +3,23 @@ ingress:
   className: "gce"
   annotations:
     kubernetes.io/ingress.class: "gce"
+    # 前端服務配置
+    nginx.ingress.kubernetes.io/upstream-vhost: "new-caring-web-page.new-caring-web-page-dev.svc.cluster.local"
+    # 後端服務配置
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, PATCH, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~ ^/api {
+        proxy_pass http://new-caring-web-api.new-caring-web-api-dev.svc.cluster.local;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+      }
+      location ~ ^/v2 {
+        proxy_pass http://new-caring-web-page.new-caring-web-page-dev.svc.cluster.local;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+      }
     # kubernetes.io/ingress.global-static-ip-name: "new-caring-static-ip"
     # networking.gke.io/v1beta1.FrontendConfig: "new-caring-frontend-config"
     # networking.gke.io/managed-certificates: "new-caring-ssl-policy"
@@ -12,12 +29,12 @@ ingress:
         - path: /v2/*
           pathType: ImplementationSpecific
           backend:
-            serviceName: new-caring-web-page
+            serviceName: dummy-frontend-service-dev
             servicePort: 80
         - path: /api/*
           pathType: ImplementationSpecific
           backend:
-            serviceName: new-caring-web-api
+            serviceName: dummy-backend-service-dev
             servicePort: 80
 
 frontendConfig:
