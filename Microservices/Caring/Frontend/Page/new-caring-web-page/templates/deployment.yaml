@@ -17,7 +17,7 @@ spec:
           image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-web-page:{{ .Values.App.Version }}"
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-config
+                name: "{{ .Chart.Name }}-config"
           ports:
             - containerPort: 3000
           livenessProbe:
@@ -27,6 +27,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
+            httpGet:
               path: /
               port: 3000
             initialDelaySeconds: 5

@@ -17,14 +17,14 @@ spec:
       volumes:
         - name: secret-sa-volume
           secret:
-            secretName: {{ .Chart.Name }}-sa-secret
+            secretName: "{{ .Chart.Name }}-sa-secret"
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-web-api:{{ .Values.App.Version }}"
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-config
+                name: "{{ .Chart.Name }}-config"
           env:
             - name: MY_NODE_NAME
               valueFrom:
@@ -77,7 +77,7 @@ spec:
             - "--port=5432"
             - "{{ .Values.SqlProxy.InstanceName }}"
           resources: 
-            {{- toYaml .Values.SqlProxy.SqlProxyResources | nindent 12 }}
+{{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
           securityContext:
             # The default Cloud SQL proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.

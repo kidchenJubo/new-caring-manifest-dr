@@ -1,7 +1,7 @@
 ﻿kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ .Chart.Name }}-config
+  name: "{{ .Chart.Name }}-config"
 data:
   {{- range $key, $value := .Values.App.ConfigMap.Data }}
   {{ $key }}: {{ $value | quote }}
