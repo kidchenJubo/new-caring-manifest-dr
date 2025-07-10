@@ -1,0 +1,28 @@
+ingress:
+  enabled: true
+  className: "gce"
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    # kubernetes.io/ingress.global-static-ip-name: "new-caring-static-ip"
+    # networking.gke.io/v1beta1.FrontendConfig: "new-caring-frontend-config"
+    # networking.gke.io/managed-certificates: "new-caring-ssl-policy"
+  hosts:
+    - host: *.caringcm.com.tw
+      paths:
+        - path: /v2/*
+          pathType: ImplementationSpecific
+          backend:
+            serviceName: new-caring-web-page
+            servicePort: 80
+        - path: /api/*
+          pathType: ImplementationSpecific
+          backend:
+            serviceName: new-caring-web-api
+            servicePort: 80
+
+frontendConfig:
+  enabled: false
+  spec:
+    redirectToHttps:
+      enabled: false
+      responseCodeName: MOVED_PERMANENTLY_DEFAULT

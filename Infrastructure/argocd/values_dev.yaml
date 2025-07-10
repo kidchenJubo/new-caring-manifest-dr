@@ -3715,7 +3715,9 @@
         namespace: argocd
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
 
@@ -3740,7 +3742,9 @@
         namespace: istio-system
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
       ignoreDifferences:
@@ -3752,6 +3756,31 @@
     # dev ↓↓↓
 
     # Caring
+    - name: new-caring-ingress-dev
+      namespace: argocd
+      project: default
+      annotations:
+        meta.helm.sh/release-name: argocd
+        meta.helm.sh/release-namespace: argocd
+      labels:
+        app.kubernetes.io/managed-by: Helm
+      sources:
+        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+          targetRevision: main
+          path: Microservices/Caring/Infrastructure/Ingress
+          helm:
+            valueFiles:
+              - values_dev.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: new-caring-ingress-dev
+      revisionHistoryLimit: 3
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
     - name: new-caring-web-api-dev
       namespace: argocd
       project: default
@@ -3772,7 +3801,9 @@
         namespace: new-caring-web-api-dev
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
     - name: new-caring-web-page-dev
@@ -3795,7 +3826,9 @@
         namespace: new-caring-web-page-dev
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
 
@@ -3824,7 +3857,9 @@
         namespace: new-caring-web-api-qat
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
     - name: new-caring-web-page-qat
@@ -3847,7 +3882,9 @@
         namespace: new-caring-web-page-qat
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
 
@@ -3876,7 +3913,9 @@
         namespace: new-caring-web-api-demo
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
     - name: new-caring-web-page-demo
@@ -3899,7 +3938,9 @@
         namespace: new-caring-web-page-demo
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
 

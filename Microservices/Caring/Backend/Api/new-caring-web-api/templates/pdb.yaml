@@ -2,7 +2,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: new-caring-web-api-pdb
+  name: {{ .Chart.Name }}-pdb
 spec:
 {{- if .Values.App.UsePDB.UseUnavailable }}
   maxUnavailable: 1
@@ -11,5 +11,5 @@ spec:
 {{- end }}
   selector:
     matchLabels:
-      app: new-caring-web-api
+      app: {{ .Chart.Name }}
 {{- end }}

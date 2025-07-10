@@ -1,11 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: new-caring-web-api
+  name: {{ .Chart.Name }}
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
 spec:
+  type: ClusterIP
   selector:
-    app: new-caring-web-api
+    app: {{ .Chart.Name }}
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 8080

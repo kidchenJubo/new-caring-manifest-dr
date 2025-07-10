@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: new-caring-web-api-config
+  name: {{ .Chart.Name }}-config
 data:
   ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
 
