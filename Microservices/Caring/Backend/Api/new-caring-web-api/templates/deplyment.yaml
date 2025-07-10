@@ -72,7 +72,6 @@ spec:
         - name: cloud-sql-proxy
           image: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:{{ .Values.SqlProxy.Version }}"
           args:
-            - "--private-ip"
             - "--auto-iam-authn"
             - "--port=5432"
             - "{{ .Values.SqlProxy.InstanceName }}"
