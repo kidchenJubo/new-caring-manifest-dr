@@ -7,7 +7,6 @@ spec:
     istio: istio
   servers:
     - hosts:
-        - "*.caringcm.com.tw"
         - "*"
       port:
         name: http
