@@ -3,8 +3,10 @@ kind: Service
 metadata:
   name: {{ .Chart.Name }}
   annotations:
-    cloud.google.com/neg: '{"ingress": true, "exposed_ports": {"80":{}}}'
-    cloud.google.com/neg-status: '{}'
+    # 禁用自動 NEG 創建
+    cloud.google.com/neg: '{"ingress": false}'
+    # 指定使用手動創建的 NEG
+    cloud.google.com/neg-status: '{"network_endpoint_groups":{"80":"neg-new-caring-web-page"},"zones":["asia-east1-a,asia-east1-b,asia-east1-c"]}'
 spec:
   type: ClusterIP
   selector:
