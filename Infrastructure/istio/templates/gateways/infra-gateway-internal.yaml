@@ -8,7 +8,7 @@ spec:
     istio: ingressgateway
   servers:
     - hosts:
-        - "*.caringcm.com.tw"
+        - "upgrade-dev-02.caringcm.com.tw"
       port:
         name: http
         number: 80
