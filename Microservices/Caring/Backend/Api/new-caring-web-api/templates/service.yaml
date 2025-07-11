@@ -4,6 +4,7 @@ metadata:
   name: {{ .Chart.Name }}
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
+    cloud.google.com/neg-status: '{"network_endpoint_groups":{"80":"neg-{{ .Chart.Name }}"},"zones":["asia-east1-a,asia-east1-b,asia-east1-c"]}'
 spec:
   type: ClusterIP
   selector:
