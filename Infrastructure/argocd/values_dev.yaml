@@ -3812,112 +3812,112 @@
     # qat ↓↓↓
 
     # Caring
-    - name: new-caring-web-api-qat
-      namespace: argocd
-      project: default
-      annotations:
-        meta.helm.sh/release-name: argocd
-        meta.helm.sh/release-namespace: argocd
-      labels:
-        app.kubernetes.io/managed-by: Helm
-      sources:
-        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
-          targetRevision: main
-          path: Microservices/Caring/Backend/Api/new-caring-web-api
-          helm:
-            valueFiles:
-              - values_qat.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: new-caring-web-api-qat
-      revisionHistoryLimit: 3
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-    - name: new-caring-web-page-qat
-      namespace: argocd
-      project: default
-      annotations:
-        meta.helm.sh/release-name: argocd
-        meta.helm.sh/release-namespace: argocd
-      labels:
-        app.kubernetes.io/managed-by: Helm
-      sources:
-        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
-          targetRevision: main
-          path: Microservices/Caring/Frontend/Page/new-caring-web-page
-          helm:
-            valueFiles:
-              - values_qat.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: new-caring-web-page-qat
-      revisionHistoryLimit: 3
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+    # - name: new-caring-web-api-qat
+    #   namespace: argocd
+    #   project: default
+    #   annotations:
+    #     meta.helm.sh/release-name: argocd
+    #     meta.helm.sh/release-namespace: argocd
+    #   labels:
+    #     app.kubernetes.io/managed-by: Helm
+    #   sources:
+    #     - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+    #       targetRevision: main
+    #       path: Microservices/Caring/Backend/Api/new-caring-web-api
+    #       helm:
+    #         valueFiles:
+    #           - values_qat.yaml
+    #   destination:
+    #     server: https://kubernetes.default.svc
+    #     namespace: new-caring-web-api-qat
+    #   revisionHistoryLimit: 3
+    #   syncPolicy:
+    #     automated:
+    #       prune: true
+    #       selfHeal: true
+    #     syncOptions:
+    #       - CreateNamespace=true
+    # - name: new-caring-web-page-qat
+    #   namespace: argocd
+    #   project: default
+    #   annotations:
+    #     meta.helm.sh/release-name: argocd
+    #     meta.helm.sh/release-namespace: argocd
+    #   labels:
+    #     app.kubernetes.io/managed-by: Helm
+    #   sources:
+    #     - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+    #       targetRevision: main
+    #       path: Microservices/Caring/Frontend/Page/new-caring-web-page
+    #       helm:
+    #         valueFiles:
+    #           - values_qat.yaml
+    #   destination:
+    #     server: https://kubernetes.default.svc
+    #     namespace: new-caring-web-page-qat
+    #   revisionHistoryLimit: 3
+    #   syncPolicy:
+    #     automated:
+    #       prune: true
+    #       selfHeal: true
+    #     syncOptions:
+    #       - CreateNamespace=true
 
     # qat ↑↑↑
 
     # demo ↓↓↓
 
     # Caring
-    - name: new-caring-web-api-demo
-      namespace: argocd
-      project: default
-      annotations:
-        meta.helm.sh/release-name: argocd
-        meta.helm.sh/release-namespace: argocd
-      labels:
-        app.kubernetes.io/managed-by: Helm
-      sources:
-        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
-          targetRevision: main
-          path: Microservices/Caring/Backend/Api/new-caring-web-api
-          helm:
-            valueFiles:
-              - values_demo.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: new-caring-web-api-demo
-      revisionHistoryLimit: 3
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-    - name: new-caring-web-page-demo
-      namespace: argocd
-      project: default
-      annotations:
-        meta.helm.sh/release-name: argocd
-        meta.helm.sh/release-namespace: argocd
-      labels:
-        app.kubernetes.io/managed-by: Helm
-      sources:
-        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
-          targetRevision: main
-          path: Microservices/Caring/Frontend/Page/new-caring-web-page
-          helm:
-            valueFiles:
-              - values_demo.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: new-caring-web-page-demo
-      revisionHistoryLimit: 3
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+    # - name: new-caring-web-api-demo
+    #   namespace: argocd
+    #   project: default
+    #   annotations:
+    #     meta.helm.sh/release-name: argocd
+    #     meta.helm.sh/release-namespace: argocd
+    #   labels:
+    #     app.kubernetes.io/managed-by: Helm
+    #   sources:
+    #     - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+    #       targetRevision: main
+    #       path: Microservices/Caring/Backend/Api/new-caring-web-api
+    #       helm:
+    #         valueFiles:
+    #           - values_demo.yaml
+    #   destination:
+    #     server: https://kubernetes.default.svc
+    #     namespace: new-caring-web-api-demo
+    #   revisionHistoryLimit: 3
+    #   syncPolicy:
+    #     automated:
+    #       prune: true
+    #       selfHeal: true
+    #     syncOptions:
+    #       - CreateNamespace=true
+    # - name: new-caring-web-page-demo
+    #   namespace: argocd
+    #   project: default
+    #   annotations:
+    #     meta.helm.sh/release-name: argocd
+    #     meta.helm.sh/release-namespace: argocd
+    #   labels:
+    #     app.kubernetes.io/managed-by: Helm
+    #   sources:
+    #     - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+    #       targetRevision: main
+    #       path: Microservices/Caring/Frontend/Page/new-caring-web-page
+    #       helm:
+    #         valueFiles:
+    #           - values_demo.yaml
+    #   destination:
+    #     server: https://kubernetes.default.svc
+    #     namespace: new-caring-web-page-demo
+    #   revisionHistoryLimit: 3
+    #   syncPolicy:
+    #     automated:
+    #       prune: true
+    #       selfHeal: true
+    #     syncOptions:
+    #       - CreateNamespace=true
 
     # demo ↑↑↑
 
