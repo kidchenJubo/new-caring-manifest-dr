@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 0.0.2
+  Version: 0.0.3
   UseHPA: false
   UsePDB:
     enabled: false
@@ -23,7 +23,7 @@ App:
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
   JCP:
-    EndPoint: "https://jcp-dev-api-share.jubo.health"
+    EndPoint: "http://10.140.0.7"
     Brand: "caring"
     Product: "caring"
     Environment: "dev"
