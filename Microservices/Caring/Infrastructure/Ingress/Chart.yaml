@@ -1,6 +1,0 @@
-apiVersion: v2
-name: new-caring-ingress
-description: Shared Ingress Configuration
-type: application
-version: 1.0.0
-appVersion: "1.0.0"
