@@ -8,6 +8,7 @@ spec:
   servers:
     - hosts:
         - "*.caringcm.com.tw"
+        - "*"
       port:
         name: http
         number: 80
