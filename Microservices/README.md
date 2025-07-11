@@ -16,3 +16,7 @@ kubectl -n new-caring-web-api-dev annotate --overwrite serviceaccount \
     new-caring-web-api \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
 ```
+
+```bash
+gcloud compute ssh --zone "asia-east1-c" "new-caring" --project "static-map-242406"
+```
