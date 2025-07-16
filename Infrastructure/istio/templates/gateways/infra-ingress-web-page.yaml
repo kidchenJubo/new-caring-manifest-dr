@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: new-caring-ingress
+  namespace: new-caring-web-page-dev
   annotations:
     kubernetes.io/ingress.class: "gce"
     kubernetes.io/ingress.allow-http: "true"
@@ -10,14 +11,6 @@ spec:
     - host: "*.caringcm.com.tw"
       http:
         paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: new-caring-web-api
-                namespace: new-caring-web-api-dev
-                port:
-                  number: 80
           - path: /v2
             pathType: Prefix
             backend:
