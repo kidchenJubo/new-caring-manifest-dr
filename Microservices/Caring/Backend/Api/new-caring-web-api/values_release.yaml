@@ -1,5 +1,7 @@
 App:
   Replicas: 5
+  MinReplicas: 1
+  MaxReplicas: 5
   Version: 0.0.1
   UseHPA: true
   UsePDB:

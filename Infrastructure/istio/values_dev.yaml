@@ -11,7 +11,7 @@ gateway:
         port: 80
         protocol: TCP
         targetPort: 80
-    loadBalancerIP: "35.234.29.87" # 先空字串讓 GKE 取得 External IP 之後再回來填上那個 IP
+    loadBalancerIP: "35.187.158.151" # 先空字串讓 GKE 取得 External IP 之後再回來填上那個 IP
   resources:
     requests:
       cpu: 50m
