@@ -3756,31 +3756,6 @@
     # dev ↓↓↓
 
     # Caring
-    - name: new-caring-ingress-dev
-      namespace: argocd
-      project: default
-      annotations:
-        meta.helm.sh/release-name: argocd
-        meta.helm.sh/release-namespace: argocd
-      labels:
-        app.kubernetes.io/managed-by: Helm
-      sources:
-        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
-          targetRevision: main
-          path: Microservices/Caring/Infrastructure/Ingress
-          helm:
-            valueFiles:
-              - ingress_dev.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: new-caring-ingress-dev
-      revisionHistoryLimit: 3
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
     - name: new-caring-web-api-dev
       namespace: argocd
       project: default
