@@ -14,6 +14,6 @@ spec:
             prefix: /api
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            host: new-caring-web-api.new-caring-dev.svc.cluster.local
             port:
               number: 80
