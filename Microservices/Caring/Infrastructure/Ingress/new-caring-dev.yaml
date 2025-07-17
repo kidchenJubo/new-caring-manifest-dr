@@ -9,7 +9,7 @@ metadata:
     networking.gke.io/load-balancer-type: "Internal"
 spec:
   rules:
-    - host: "*"
+    - host: "*.caringcm.com.tw"
       http:
         paths:
           - path: /health
@@ -17,7 +17,6 @@ spec:
             backend:
               service:
                 name: new-caring-web-api
-                namespace: new-caring-dev
                 port:
                   number: 80
           - path: /api
@@ -25,7 +24,6 @@ spec:
             backend:
               service:
                 name: new-caring-web-api
-                namespace: new-caring-dev
                 port:
                   number: 80
           - path: /
@@ -33,7 +31,6 @@ spec:
             backend:
               service:
                 name: new-caring-web-page
-                namespace: new-caring-dev
                 port:
                   number: 80
           - path: /v2
@@ -41,6 +38,5 @@ spec:
             backend:
               service:
                 name: new-caring-web-page
-                namespace: new-caring-dev
                 port:
                   number: 80
