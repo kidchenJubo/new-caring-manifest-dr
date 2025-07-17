@@ -32,7 +32,7 @@ spec:
             regex: "/[A|a][P|p][I|i]/.*"
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            host: new-caring-web-api.new-caring-dev.svc.cluster.local
             port:
               number: 80
     - name: resource
@@ -41,7 +41,7 @@ spec:
             regex: "/[R|r][E|e][S|s][O|o][U|u][R|r][C|c][E|e]/.*"
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            host: new-caring-web-api.new-caring-dev.svc.cluster.local
             port:
               number: 80
 {{ end }}
