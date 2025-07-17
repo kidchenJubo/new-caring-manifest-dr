@@ -30,13 +30,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: new-caring-web-page
+                name: istio-ingressgateway
                 port:
                   number: 80
           - path: /v2
             pathType: Prefix
             backend:
               service:
-                name: new-caring-web-page
+                name: istio-ingressgateway
                 port:
                   number: 80
