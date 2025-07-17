@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-ingressgateway
+  namespace: new-caring-dev
+  labels:
+    app: istio-ingressgateway
+    istio: ingressgateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  template:
+    metadata:
+      labels:
+        app: istio-ingressgateway
+        istio: ingressgateway
+    spec:
+      containers:
+        - name: istio-proxy
+          image: istio/proxyv2:1.20.3
+          ports:
+            - containerPort: 8080
+              name: http2
+            - containerPort: 15021
+              name: status-port
+          env:
+            - name: ISTIO_META_ROUTER_MODE
+              value: "sni-dnat"
+            - name: PROXY_CONFIG
+              value: |
+                {
+                  "proxyMetadata": {
+                    "DNS_AGENT": "false"
+                  }
+                }
+          readinessProbe:
+            httpGet:
+              path: /healthz/ready
+              port: 15021
+            initialDelaySeconds: 1
+            periodSeconds: 2
