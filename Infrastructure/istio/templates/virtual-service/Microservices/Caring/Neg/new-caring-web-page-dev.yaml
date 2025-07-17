@@ -16,6 +16,6 @@ spec:
         uri: /
       route:
         - destination:
-            host: new-caring-web-page.new-caring-web-page-dev.svc.cluster.local
+            host: new-caring-web-page.new-caring-dev.svc.cluster.local
             port:
               number: 80
