@@ -12,10 +12,10 @@ spec:
     istio: ingressgateway
   ports:
     - name: http2
-      protocol: HTTP
+      protocol: TCP
       port: 80
       targetPort: 8080
     - name: status-port
-      protocol: HTTP
+      protocol: TCP
       port: 15021
       targetPort: 15021
