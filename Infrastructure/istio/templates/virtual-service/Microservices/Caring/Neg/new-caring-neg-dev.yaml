@@ -1,0 +1,52 @@
+{{- if .Values.Settings.Urls.DevBackendApiCaring }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: new-caring-neg-dev
+spec:
+  gateways:
+    - istio-system/infra-gateway-neg
+  hosts:
+    - "*"
+  http:
+    - match:
+        - uri:
+            exact: /
+      route:
+        - destination:
+            host: new-caring-web-page.new-caring-web-api-page.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /v2
+      route:
+        - destination:
+            host: new-caring-web-page.new-caring-web-api-page.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            exact: /health
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            exact: /healthz/ready
+      route:
+        - destination:
+            host: istio-ingressgateway-status.istio-system.svc.cluster.local
+            port:
+              number: 15021
+{{ end }}
