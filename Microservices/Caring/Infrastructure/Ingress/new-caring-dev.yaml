@@ -16,27 +16,27 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: istio-ingressgateway
+                name: new-caring-web-api
                 port:
                   number: 80
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: istio-ingressgateway
+                name: new-caring-web-api
                 port:
                   number: 80
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: istio-ingressgateway
+                name: new-caring-web-page
                 port:
                   number: 80
           - path: /v2
             pathType: Prefix
             backend:
               service:
-                name: istio-ingressgateway
+                name: new-caring-web-page
                 port:
                   number: 80
