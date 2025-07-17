@@ -1,4 +1,7 @@
 gateway:
+  istio-ingressgateway:
+    serviceAnnotations:
+      cloud.google.com/neg: '{"ingress": true}'
   service:
     # Type of service. Set to "None" to disable the service entirely
     type: LoadBalancer
