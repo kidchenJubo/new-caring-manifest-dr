@@ -5,52 +5,41 @@ metadata:
   name: new-caring-internal-dev
   namespace: istio-system
 spec:
-  hosts:
-    - "*"
   gateways:
     - istio-system/infra-gateway-internal
+  hosts:
+    - "*"
   http:
-    - name: api
-      corsPolicy:
-        allowOrigins:
-          - exact: "http://localhost:3000"
-          - exact: "https://*.jubo.health"
-          - exact: "https://*.caringcm.com.tw"
-        allowMethods:
-          - OPTIONS
-          - GET
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        allowHeaders:
-          - "*"
-        allowCredentials: true
-        maxAge: "24h"
-      match:
+    - match:
         - uri:
-            regex: "/[A|a][P|p][I|i]/.*"
+            prefix: /api
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            host: new-caring-web-api
             port:
               number: 80
-    - name: resource
-      match:
+    - match:
         - uri:
-            regex: "/[R|r][E|e][S|s][O|o][U|u][R|r][C|c][E|e]/.*"
+            prefix: /v2
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            host: new-caring-web-page
             port:
               number: 80
-    - name: v2
-      match:
+    - match:
         - uri:
-            regex: "/[V|v](?:[0-9]|[1-9][0-9])/.*"
+            exact: /health
       route:
         - destination:
-            host: new-caring-web-page.new-caring-web-page-dev.svc.cluster.local
+            host: new-caring-web-api-neg
             port:
               number: 80
+    - match:
+        - uri:
+            exact: /healthz/ready
+      route:
+        - destination:
+            host: istio-ingressgateway-status.istio-system.svc.cluster.local
+            port:
+              number: 15021
 {{ end }}
