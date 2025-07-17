@@ -3767,7 +3767,7 @@
               - values_qat.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-api-qat
+        namespace: new-caring-qat
       revisionHistoryLimit: 3
       syncPolicy:
         automated: {}
@@ -3790,7 +3790,7 @@
               - values_qat.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-page-qat
+        namespace: new-caring-qat
       revisionHistoryLimit: 3
       syncPolicy:
         automated: {}

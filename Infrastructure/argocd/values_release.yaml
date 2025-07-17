@@ -3767,7 +3767,7 @@
               - values_release.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-api-release
+        namespace: new-caring-release
       revisionHistoryLimit: 3
       syncPolicy:
         automated: {}
@@ -3790,7 +3790,7 @@
               - values_release.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-page-release
+        namespace: new-caring-release
       revisionHistoryLimit: 3
       syncPolicy:
         automated: {}

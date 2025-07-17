@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: new-caring-ingress
+  namespace: new-caring-dev
+  annotations:
+    kubernetes.io/ingress.class: "gce-internal"
+    kubernetes.io/ingress.allow-http: "true"
+    networking.gke.io/load-balancer-type: "Internal"
+spec:
+  rules:
+    - host: "*"
+      http:
+        paths:
+          - path: /health
+            pathType: Prefix
+            backend:
+              service:
+                name: new-caring-web-api
+                namespace: new-caring-dev
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: new-caring-web-api
+                namespace: new-caring-dev
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: new-caring-web-page
+                namespace: new-caring-dev
+                port:
+                  number: 80
+          - path: /v2
+            pathType: Prefix
+            backend:
+              service:
+                name: new-caring-web-page
+                namespace: new-caring-dev
+                port:
+                  number: 80

@@ -3773,7 +3773,7 @@
               - values_dev.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-api-dev
+        namespace: new-caring-dev
       revisionHistoryLimit: 3
       syncPolicy:
         automated:
@@ -3798,7 +3798,7 @@
               - values_dev.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-page-dev
+        namespace: new-caring-dev
       revisionHistoryLimit: 3
       syncPolicy:
         automated:
@@ -3829,7 +3829,7 @@
     #           - values_qat.yaml
     #   destination:
     #     server: https://kubernetes.default.svc
-    #     namespace: new-caring-web-api-qat
+    #     namespace: new-caring-qat
     #   revisionHistoryLimit: 3
     #   syncPolicy:
     #     automated:
@@ -3854,7 +3854,7 @@
     #           - values_qat.yaml
     #   destination:
     #     server: https://kubernetes.default.svc
-    #     namespace: new-caring-web-page-qat
+    #     namespace: new-caring-qat
     #   revisionHistoryLimit: 3
     #   syncPolicy:
     #     automated:
@@ -3885,7 +3885,7 @@
     #           - values_demo.yaml
     #   destination:
     #     server: https://kubernetes.default.svc
-    #     namespace: new-caring-web-api-demo
+    #     namespace: new-caring-demo
     #   revisionHistoryLimit: 3
     #   syncPolicy:
     #     automated:
@@ -3910,7 +3910,7 @@
     #           - values_demo.yaml
     #   destination:
     #     server: https://kubernetes.default.svc
-    #     namespace: new-caring-web-page-demo
+    #     namespace: new-caring-demo
     #   revisionHistoryLimit: 3
     #   syncPolicy:
     #     automated:

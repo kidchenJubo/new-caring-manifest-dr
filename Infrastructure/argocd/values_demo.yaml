@@ -3767,7 +3767,7 @@
               - values_demo.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-api-demo
+        namespace: new-caring-demo
       revisionHistoryLimit: 3
       syncPolicy:
         automated: {}
@@ -3790,7 +3790,7 @@
               - values_demo.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-page-demo
+        namespace: new-caring-demo
       revisionHistoryLimit: 3
       syncPolicy:
         automated: {}
