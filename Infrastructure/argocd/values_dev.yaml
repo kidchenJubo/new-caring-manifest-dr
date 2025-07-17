@@ -3752,6 +3752,26 @@
           kind: ValidatingWebhookConfiguration
           jqPathExpressions:
             - ".webhooks[]?.failurePolicy"
+        - group: networking.k8s.io # 忽略特定字段的差異
+          kind: Ingress
+          name: new-caring-ingress
+          namespace: new-caring-web-api-dev
+          jsonPointers:
+            - /status
+            - /metadata/annotations/ingress.kubernetes.io~1backends
+            - /metadata/annotations/ingress.kubernetes.io~1forwarding-rule
+            - /metadata/annotations/ingress.kubernetes.io~1target-proxy
+            - /metadata/annotations/ingress.kubernetes.io~1url-map
+        - group: networking.k8s.io # 忽略特定字段的差異
+          kind: Ingress
+          name: new-caring-ingress
+          namespace: new-caring-web-page-dev
+          jsonPointers:
+            - /status
+            - /metadata/annotations/ingress.kubernetes.io~1backends
+            - /metadata/annotations/ingress.kubernetes.io~1forwarding-rule
+            - /metadata/annotations/ingress.kubernetes.io~1target-proxy
+            - /metadata/annotations/ingress.kubernetes.io~1url-map
 
     # dev ↓↓↓
 
