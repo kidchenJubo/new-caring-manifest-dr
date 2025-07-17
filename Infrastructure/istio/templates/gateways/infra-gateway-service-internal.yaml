@@ -6,7 +6,7 @@ metadata:
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     istio: ingressgateway
     app: istio-ingressgateway
