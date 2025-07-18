@@ -25,7 +25,7 @@ App:
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
   JCP:
-    EndPoint: "http://10.140.0.7"
+    EndPoint: "http://10.140.0.80"
     Brand: "caring"
     Product: "caring"
     Environment: "dev"
