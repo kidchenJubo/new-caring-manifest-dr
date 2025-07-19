@@ -29,15 +29,4 @@ spec:
           name: requests_per_second
         target:
           type: AverageValue
-          averageValue: 1000
-    - type: Object
-      object:
-        describedObject:
-          apiVersion: networking.istio.io/v1beta1
-          kind: Gateway
-          name: istio-ingressgateway
-        metric:
-          name: request_count
-        target:
-          type: Value
-          value: 200
+          averageValue: 200
