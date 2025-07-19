@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: new-caring-web-page-neg-dev
+  name: new-caring-web-api-neg-dev
   namespace: istio-system
 spec:
   hosts:
@@ -11,9 +11,9 @@ spec:
   http:
     - match:
         - uri:
-            prefix: /v2
+            prefix: /api
       route:
         - destination:
-            host: new-caring-web-page.new-caring-dev.svc.cluster.local
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
             port:
               number: 80

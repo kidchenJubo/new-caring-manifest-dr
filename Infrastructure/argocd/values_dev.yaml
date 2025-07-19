@@ -3773,7 +3773,8 @@
               - values_dev.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-dev
+        namespace: new-caring-web-api-dev
+
       revisionHistoryLimit: 3
       syncPolicy:
         automated:
@@ -3798,7 +3799,7 @@
               - values_dev.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-dev
+        namespace: new-caring-web-page-dev
       revisionHistoryLimit: 3
       syncPolicy:
         automated:
