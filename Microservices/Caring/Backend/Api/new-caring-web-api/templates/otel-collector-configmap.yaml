@@ -35,8 +35,8 @@ data:
         endpoint: 0.0.0.0:8888
         resource_to_telemetry_conversion:
           enabled: true
-      logging:
-        loglevel: debug
+      debug:
+        verbosity: detailed
       {{- if .Values.OtelCollector.Exporters.Jaeger }}
       otlp:
         endpoint: {{ .Values.OtelCollector.Exporters.Jaeger.Endpoint }}
@@ -59,15 +59,15 @@ data:
         traces:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [logging{{ if .Values.OtelCollector.Exporters.Jaeger }}, otlp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
+          exporters: [debug{{ if .Values.OtelCollector.Exporters.Jaeger }}, otlp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
         metrics:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [prometheus, logging]
+          exporters: [prometheus, debug]
         logs:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [logging]
+          exporters: [debug]
 
       extensions: [health_check, pprof]
       telemetry:
