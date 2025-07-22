@@ -27,6 +27,10 @@ spec:
               containerPort: 4318
             - name: metrics
               containerPort: 8888
+            - name: health-check
+              containerPort: 13133
+            - name: pprof
+              containerPort: 1777
           volumeMounts:
             - name: otel-collector-config
               mountPath: /conf
@@ -38,12 +42,16 @@ spec:
               port: 13133
             initialDelaySeconds: 10
             periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /
               port: 13133
             initialDelaySeconds: 5
             periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
       volumes:
         - name: otel-collector-config
           configMap:
