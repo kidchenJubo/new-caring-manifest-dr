@@ -46,6 +46,13 @@ data:
       {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
       googlecloud:
         project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
+        compression: gzip
+        {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue }}
+        sending_queue:
+          enabled: true
+          num_consumers: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue.num_consumers }}
+          queue_size: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue.queue_size }}
+        {{- end }}
       {{- end }}
 
     extensions:
@@ -72,4 +79,4 @@ data:
       extensions: [health_check, pprof]
       telemetry:
         logs:
-          level: debug 
+          level: warn 

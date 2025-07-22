@@ -59,3 +59,6 @@ OtelCollector:
     #  Endpoint: "jaeger-collector:4317"
     GoogleCloudTrace:
       Project: "static-map-242406"
+      SendingQueue:
+        num_consumers: 2
+        queue_size: 5000
