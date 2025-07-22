@@ -59,5 +59,3 @@ OtelCollector:
     #  Endpoint: "jaeger-collector:4317"
     GoogleCloudTrace:
       Project: "static-map-242406"
-      Location: "asia-east1"
-      LogLevel: "info"

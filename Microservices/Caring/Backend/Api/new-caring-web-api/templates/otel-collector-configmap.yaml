@@ -46,12 +46,6 @@ data:
       {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
       googlecloud:
         project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
-        {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.Location }}
-        location: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Location }}
-        {{- end }}
-        {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.LogLevel }}
-        log_level: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.LogLevel }}
-        {{- end }}
       {{- end }}
 
     service:
