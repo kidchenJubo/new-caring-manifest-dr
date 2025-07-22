@@ -46,7 +46,6 @@ data:
       {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
       googlecloud:
         project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
-        compression: gzip
         {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue }}
         sending_queue:
           enabled: true
