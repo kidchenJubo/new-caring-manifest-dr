@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-otel-collector
+  labels:
+    app: {{ .Chart.Name }}-otel-collector
+spec:
+  replicas: {{ .Values.OtelCollector.Replicas | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-otel-collector
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-otel-collector
+    spec:
+      serviceAccountName: {{ .Chart.Name }}-otel-collector
+      containers:
+        - name: otel-collector
+          image: "{{ .Values.OtelCollector.Image }}:{{ .Values.OtelCollector.Version }}"
+          args:
+            - "--config=/conf/collector.yaml"
+          ports:
+            - name: otlp-grpc
+              containerPort: 4317
+            - name: otlp-http
+              containerPort: 4318
+            - name: metrics
+              containerPort: 8888
+          volumeMounts:
+            - name: otel-collector-config
+              mountPath: /conf
+          resources:
+{{ toYaml .Values.OtelCollector.Resources | indent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 13133
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 13133
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: otel-collector-config
+          configMap:
+            name: {{ .Chart.Name }}-otel-collector-config 
