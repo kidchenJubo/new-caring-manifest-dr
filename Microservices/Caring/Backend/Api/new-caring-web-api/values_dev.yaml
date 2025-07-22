@@ -20,7 +20,7 @@ App:
     PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
   OpenTelemetry:
-    EndPoint: "https://127.0.0.1:4317"
+    EndPoint: "{{ .Chart.Name }}-otel-collector:4317"
     Protocol: "grpc"
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
@@ -42,3 +42,22 @@ SqlProxy:
     limits:
       cpu: 200m
       memory: 400Mi
+
+OtelCollector:
+  Replicas: 1
+  Image: otel/opentelemetry-collector-contrib
+  Version: 0.128.0
+  Resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  Exporters:
+    #Jaeger: # use otlp protocol
+    #  Endpoint: "jaeger-collector:4317"
+    GoogleCloudTrace:
+      Project: "static-map-242406"
+      Location: "asia-east1"
+      LogLevel: "info"

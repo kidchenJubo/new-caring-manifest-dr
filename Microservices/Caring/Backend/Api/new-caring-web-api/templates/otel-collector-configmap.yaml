@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-otel-collector-config
+  labels:
+    app: {{ .Chart.Name }}-otel-collector
+data:
+  collector.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    processors:
+      batch:
+        timeout: 1s
+        send_batch_size: 1024
+      memory_limiter:
+        check_interval: 1s
+        limit_mib: 1000
+      resource:
+        attributes:
+          - key: environment
+            value: "{{ .Values.App.Env }}"
+            action: upsert
+          - key: service.name
+            value: "{{ .Chart.Name }}"
+            action: upsert
+
+    exporters:
+      prometheus:
+        endpoint: 0.0.0.0:8888
+        resource_to_telemetry_conversion:
+          enabled: true
+      logging:
+        loglevel: debug
+      {{- if .Values.OtelCollector.Exporters.Jaeger }}
+      otlp:
+        endpoint: {{ .Values.OtelCollector.Exporters.Jaeger.Endpoint }}
+        tls:
+          insecure: true # 內部網路，或是加上ssl相關設定
+      {{- end }}
+      {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
+      googlecloud:
+        project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
+        {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.Location }}
+        location: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Location }}
+        {{- end }}
+        {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.LogLevel }}
+        log_level: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.LogLevel }}
+        {{- end }}
+      {{- end }}
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, batch, resource]
+          exporters: [logging{{ if .Values.OtelCollector.Exporters.Jaeger }}, otlp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, batch, resource]
+          exporters: [prometheus, logging]
+        logs:
+          receivers: [otlp]
+          processors: [memory_limiter, batch, resource]
+          exporters: [logging]
+
+      extensions: [health_check, pprof]
+      telemetry:
+        logs:
+          level: debug 
