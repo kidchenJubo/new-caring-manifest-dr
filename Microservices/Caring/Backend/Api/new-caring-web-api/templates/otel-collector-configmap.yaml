@@ -46,6 +46,8 @@ data:
       {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
       googlecloud:
         project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
+        log:
+          default_log_name: otel-collector-exported-log
         {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue }}
         sending_queue:
           enabled: true
