@@ -69,11 +69,11 @@ data:
         metrics:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [prometheus, debug]
+          exporters: [debug, prometheus{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
         logs:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [debug]
+          exporters: [debug{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
 
       extensions: [health_check, pprof]
       telemetry:
