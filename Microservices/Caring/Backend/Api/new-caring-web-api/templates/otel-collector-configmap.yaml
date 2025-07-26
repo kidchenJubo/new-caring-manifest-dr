@@ -48,7 +48,6 @@ data:
         project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
         log:
           default_log_name: otel-collector-exported-log
-        trace:
         {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue }}
         sending_queue:
           enabled: true
@@ -76,7 +75,7 @@ data:
         logs:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [debug{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
+          exporters: [{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}googlecloud{{ end }}]
 
       extensions: [health_check, pprof]
       telemetry:
