@@ -49,7 +49,6 @@ data:
         log:
           default_log_name: otel-collector-exported-log
         trace:
-          enabled: true
         {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue }}
         sending_queue:
           enabled: true
