@@ -46,8 +46,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.serviceAccountName
-            - name: OTEL_TRACES_EXPORTER
-              value: otlp
           {{- if .Values.App.ServiceAccountCredentials }}
           volumeMounts:
             - mountPath: /app/secrets
