@@ -55,6 +55,15 @@ data:
           queue_size: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue.queue_size }}
         {{- end }}
       {{- end }}
+      {{- if .Values.OtelCollector.Exporters.Elasticsearch }}
+      elasticsearch:
+        endpoints: {{ .Values.OtelCollector.Exporters.Elasticsearch.Endpoints }}
+        index: {{ .Values.OtelCollector.Exporters.Elasticsearch.Index }}
+        user: {{ .Values.OtelCollector.Exporters.Elasticsearch.User }}
+        password: {{ .Values.OtelCollector.Exporters.Elasticsearch.Password }}
+        tls:
+          insecure: true
+      {{- end }}
 
     extensions:
       health_check:
@@ -71,7 +80,7 @@ data:
         metrics:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [debug, prometheus, googlecloud]
+          exporters: [debug, prometheus]
         logs:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
