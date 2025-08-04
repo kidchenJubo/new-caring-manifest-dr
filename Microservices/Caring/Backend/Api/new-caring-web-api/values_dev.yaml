@@ -1,5 +1,5 @@
 App:
-  Replicas: 3
+  Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
   Version: 0.0.3
