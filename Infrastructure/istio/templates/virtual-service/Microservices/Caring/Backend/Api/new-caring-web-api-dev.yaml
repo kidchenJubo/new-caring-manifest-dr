@@ -30,8 +30,6 @@ spec:
       match:
         - uri:
             regex: "/[A|a][P|p][I|i]/.*"
-        - uri:
-            regex: "/[S|s][W|w][A|a][G|g][G|g][E|e][R|r]/.*"
       route:
         - destination:
             host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
