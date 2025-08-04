@@ -51,7 +51,6 @@ data:
           queue_size: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue.queue_size }}
         {{- end }}
       {{- end }}
-      {{- if .Values.OtelCollector.Exporters.Elasticsearch }}
 
     extensions:
       health_check:
