@@ -31,17 +31,13 @@ data:
             action: upsert
 
     exporters:
-      prometheus:
-        endpoint: 0.0.0.0:9464
-        resource_to_telemetry_conversion:
-          enabled: true
       debug:
         verbosity: detailed
-      {{- if .Values.OtelCollector.Exporters.Jaeger }}
-      otlp:
-        endpoint: {{ .Values.OtelCollector.Exporters.Jaeger.Endpoint }}
+      {{- if .Values.OtelCollector.Exporters.JCP }}
+      otlp/jcp:
+        endpoint: {{ .Values.OtelCollector.Exporters.JCP }}
         tls:
-          insecure: true # 內部網路，或是加上ssl相關設定
+          insecure: true
       {{- end }}
       {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
       googlecloud:
@@ -56,14 +52,6 @@ data:
         {{- end }}
       {{- end }}
       {{- if .Values.OtelCollector.Exporters.Elasticsearch }}
-      elasticsearch:
-        endpoints: {{ .Values.OtelCollector.Exporters.Elasticsearch.Endpoints }}
-        index: {{ .Values.OtelCollector.Exporters.Elasticsearch.Index }}
-        user: {{ .Values.OtelCollector.Exporters.Elasticsearch.User }}
-        password: {{ .Values.OtelCollector.Exporters.Elasticsearch.Password }}
-        tls:
-          insecure: true
-      {{- end }}
 
     extensions:
       health_check:
@@ -76,15 +64,15 @@ data:
         traces:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [debug{{ if .Values.OtelCollector.Exporters.Jaeger }}, otlp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
+          exporters: [{{ if .Values.OtelCollector.Exporters.JCP }}otlp/jcp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
         metrics:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [debug, prometheus]
+          exporters: [{{ if .Values.OtelCollector.Exporters.JCP }}otlp/jcp{{ end }}]
         logs:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}googlecloud{{ end }}]
+          exporters: [{{ if .Values.OtelCollector.Exporters.JCP }}otlp/jcp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
 
       extensions: [health_check, pprof]
       telemetry:

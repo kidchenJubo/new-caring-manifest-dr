@@ -25,7 +25,7 @@ App:
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
   JCP:
-    EndPoint: "http://10.140.0.80"
+    EndPoint: "https://jcp-dev-api.jubo.health/"
     Brand: "caring"
     Product: "caring"
     Environment: "dev"
@@ -55,10 +55,9 @@ OtelCollector:
       cpu: 500m
       memory: 1Gi
   Exporters:
-    #Jaeger: # use otlp protocol
-    #  Endpoint: "jaeger-collector:4317"
+    JCP: 35.221.223.171:14317
     GoogleCloudTrace:
-      Project: "static-map-242406"
+      Project: static-map-242406
       SendingQueue:
         num_consumers: 2
         queue_size: 5000
