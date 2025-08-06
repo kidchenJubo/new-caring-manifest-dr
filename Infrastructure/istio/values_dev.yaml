@@ -34,8 +34,8 @@ istiod:
         numTrustedProxies: 1
 
 Settings:
-  UseKeycloak: false
   UseStorage: true
+
   Urls:
     ArgoCD: new-caring-dev-argocd.jubo.health
 
