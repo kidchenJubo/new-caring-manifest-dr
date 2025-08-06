@@ -1,3 +1,4 @@
+{{- if .Values.OtelCollector }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -56,3 +57,4 @@ spec:
         - name: otel-collector-config
           configMap:
             name: {{ .Chart.Name }}-otel-collector-config 
+{{ end }}
