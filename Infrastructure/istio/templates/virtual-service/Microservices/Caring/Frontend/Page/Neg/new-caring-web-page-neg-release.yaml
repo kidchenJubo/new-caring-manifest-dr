@@ -1,20 +1,21 @@
+{{- if .Values.Settings.Urls.ReleaseFrontendCaring }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: new-caring-web-api-neg-dev
+  name: new-caring-web-page-neg-release
   namespace: istio-system
 spec:
   hosts:
-    - "upgrade-dev-01.caringcm.com.tw"
-    - "upgrade-dev-02.caringcm.com.tw"
+    - "*.caringcm.com.tw"
   gateways:
     - istio-system/infra-gateway-neg
   http:
     - match:
         - uri:
-            prefix: /api
+            prefix: /v2
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            host: new-caring-web-page.new-caring-web-page-release.svc.cluster.local
             port:
               number: 80
+{{ end }}

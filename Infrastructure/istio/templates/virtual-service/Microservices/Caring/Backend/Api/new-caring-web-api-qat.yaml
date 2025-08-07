@@ -35,13 +35,4 @@ spec:
             host: new-caring-web-api.new-caring-web-api-qat.svc.cluster.local
             port:
               number: 80
-    - name: resource
-      match:
-        - uri:
-            regex: "/[R|r][E|e][S|s][O|o][U|u][R|r][C|c][E|e]/.*"
-      route:
-        - destination:
-            host: new-caring-web-api.new-caring-web-api-qat.svc.cluster.local
-            port:
-              number: 80
 {{ end }}

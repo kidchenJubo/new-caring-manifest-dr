@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 0.0.2
+  Version: 0.0.3
   UseHPA: false
   UsePDB:
     enabled: false
@@ -20,7 +20,7 @@ App:
     PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
   OpenTelemetry:
-    EndPoint: "https://127.0.0.1:4317"
+    EndPoint: "http://35.221.223.171:14317"
     Protocol: "grpc"
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
