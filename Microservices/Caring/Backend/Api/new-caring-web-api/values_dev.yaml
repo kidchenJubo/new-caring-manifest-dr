@@ -20,7 +20,7 @@ App:
     PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
   OpenTelemetry:
-    EndPoint: "http://35.221.223.171:14317"
+    EndPoint: "http://new-caring-web-api-otel-collector:4317"
     Protocol: "grpc"
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
