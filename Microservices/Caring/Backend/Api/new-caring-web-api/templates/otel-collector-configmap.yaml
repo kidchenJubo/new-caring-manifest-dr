@@ -40,17 +40,19 @@ data:
         tls:
           insecure: true
       {{- end }}
-      {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace }}
+      {{- if .Values.OtelCollector.Exporters.GoogleCloud }}
+      otlp/googlecloud:
+        endpoint: telemetry.googleapis.com:443
+        auth:
+          authenticator: googleclientauth
       googlecloud:
-        project: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.Project }}
+        project: {{ .Values.OtelCollector.Exporters.GoogleCloud.Project }}
         log:
           default_log_name: otel-collector-exported-log
-        {{- if .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue }}
         sending_queue:
           enabled: true
-          num_consumers: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue.num_consumers }}
-          queue_size: {{ .Values.OtelCollector.Exporters.GoogleCloudTrace.SendingQueue.queue_size }}
-        {{- end }}
+          num_consumers: 2
+          queue_size: 10000
       {{- end }}
 
     extensions:
@@ -58,13 +60,14 @@ data:
         endpoint: 0.0.0.0:13133
       pprof:
         endpoint: 0.0.0.0:1777
+      googleclientauth:
 
     service:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [memory_limiter, batch, resource]
-          exporters: [{{ if .Values.OtelCollector.Exporters.JCP }}otlp/jcp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
+          processors: [memory_limiter, batch, resource, resource/gcp_project_id]
+          exporters: [{{ if .Values.OtelCollector.Exporters.GoogleCloud }}otlp/googlecloud{{ end }}]
         metrics:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
@@ -72,7 +75,7 @@ data:
         logs:
           receivers: [otlp]
           processors: [memory_limiter, batch, resource]
-          exporters: [{{ if .Values.OtelCollector.Exporters.JCP }}otlp/jcp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloudTrace }}, googlecloud{{ end }}]
+          exporters: [{{ if .Values.OtelCollector.Exporters.JCP }}otlp/jcp{{ end }}{{ if .Values.OtelCollector.Exporters.GoogleCloud }}, googlecloud{{ end }}]
 
       extensions: [health_check, pprof]
       telemetry:

@@ -47,22 +47,18 @@ SqlProxy:
     limits:
       cpu: 200m
       memory: 400Mi
-
-OtelCollector:
-  Replicas: 1
-  Image: otel/opentelemetry-collector-contrib
-  Version: 0.128.0
-  Resources:
-    requests:
-      cpu: 100m
-      memory: 200Mi
-    limits:
-      cpu: 500m
-      memory: 1Gi
-  Exporters:
-    JCP: 35.221.223.171:14317
-    GoogleCloudTrace:
-      Project: static-map-242406
-      SendingQueue:
-        num_consumers: 2
-        queue_size: 5000
+# OtelCollector:
+#   Replicas: 1
+#   Image: otel/opentelemetry-collector-contrib
+#   Version: 0.128.0
+#   Resources:
+#     requests:
+#       cpu: 100m
+#       memory: 200Mi
+#     limits:
+#       cpu: 500m
+#       memory: 1Gi
+#   Exporters:
+#     JCP: 35.221.223.171:14317
+#     GoogleCloud:
+#       Project: static-map-242406
