@@ -32,7 +32,7 @@ App:
     Brand: "JCP"
     Product: "Caring"
     Environment: "dev"
-    Name: "caring-dev"
+    ApplicationName: "caring-dev"
     Version: "0.0.1"
   CloudPubSub:
     ProjectId: "static-map-242406"

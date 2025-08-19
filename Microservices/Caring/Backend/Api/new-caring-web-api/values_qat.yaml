@@ -31,7 +31,7 @@ App:
     Brand: "caring"
     Product: "caring"
     Environment: "qat"
-    Name: "caring-qat"
+    ApplicationName: "caring-qat"
     Version: "0.0.1"
   CloudPubSub:
     ProjectId: "static-map-242406"
