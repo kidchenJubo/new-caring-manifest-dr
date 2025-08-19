@@ -19,6 +19,8 @@ App:
   ConnectionStrings:
     PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    CHomeConnection: "Server=35.189.173.199,9900;Database=QAT_CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+    OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
     EndPoint: "http://35.221.223.171:14317"
     Protocol: "grpc"
