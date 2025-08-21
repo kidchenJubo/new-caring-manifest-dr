@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ .Chart.Name }}-config"
+data:
+  ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
+
+  OpenTelemetry__EndPoint: "{{ .Values.OpenTelemetry.EndPoint }}"
+  OpenTelemetry__Protocol: "{{ .Values.OpenTelemetry.Protocol }}"
+  CloudPubSub__ProjectId: "{{ .Values.CloudPubSub.ProjectId }}"
+  CloudPubSub__TopicId: "{{ .Values.CloudPubSub.UserActivityLogTopicId }}"
+  CloudPubSub__UserActivityLogSubscriptionId: "{{ .Values.CloudPubSub.UserActivityLogTopicId }}-sub"
+  JCP__EndPoint: "{{ .Values.JCP.EndPoint }}"
