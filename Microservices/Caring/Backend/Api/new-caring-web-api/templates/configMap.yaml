@@ -6,7 +6,9 @@ data:
   ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
 
   ConnectionStrings__PostgreSqlMaster: "{{ .Values.App.ConnectionStrings.PostgreSqlMaster }}"
-  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App.ConnectionStrings.PostgreSqlMaster }}"
+  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App.ConnectionStrings.PostgreSqlSlave }}"
+  ConnectionStrings__CHomeConnection: "{{ .Values.App.ConnectionStrings.CHomeConnection }}"
+  ConnectionStrings__OldCaringConnection: "{{ .Values.App.ConnectionStrings.OldCaringConnection }}"
   OpenTelemetry__EndPoint: "{{ .Values.App.OpenTelemetry.EndPoint }}"
   OpenTelemetry__Protocol: "{{ .Values.App.OpenTelemetry.Protocol }}"
   Redis__ConnectionString: "{{ .Values.App.Redis.ConnectionString }}"
