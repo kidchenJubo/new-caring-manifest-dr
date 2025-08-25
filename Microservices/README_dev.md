@@ -33,4 +33,14 @@ gcloud iam service-accounts add-iam-policy-binding \
 kubectl -n new-caring-web-api-demo annotate --overwrite serviceaccount \
     new-caring-web-api \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+   --project=static-map-242406   --role="roles/iam.workloadIdentityUser" \
+   --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-event-consumer-dev/caring-event-consumer] \
+   n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+   --project=static-map-242406   --role="roles/iam.workloadIdentityUser" \
+   --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-event-consumer-qat/caring-event-consumer] \
+   n-c-b-a@static-map-242406.iam.gserviceaccount.com
 ```
