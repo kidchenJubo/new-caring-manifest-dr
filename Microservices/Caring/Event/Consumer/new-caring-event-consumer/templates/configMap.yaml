@@ -11,3 +11,7 @@ data:
   CloudPubSub__TopicId: "{{ .Values.CloudPubSub.UserActivityLogTopicId }}"
   CloudPubSub__UserActivityLogSubscriptionId: "{{ .Values.CloudPubSub.UserActivityLogTopicId }}-sub"
   JCP__EndPoint: "{{ .Values.JCP.EndPoint }}"
+
+  {{- if .Values.App.ServiceAccountCredentials }}
+  GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
+  {{- end }}

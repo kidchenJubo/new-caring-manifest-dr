@@ -13,6 +13,12 @@ spec:
         app: {{ .Chart.Name }}
     spec:
       serviceAccountName: {{ .Chart.Name }}
+      {{- if .Values.App.ServiceAccountCredentials }}
+      volumes:
+        - name: secret-sa-volume
+          secret:
+            secretName: "{{ .Chart.Name }}-sa-secret"
+      {{- end }}
       containers:
         - name: event-consumer-worker
           image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-event-consumer-worker:{{ .Values.App.Version }}"
@@ -40,6 +46,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.serviceAccountName
+          {{- if .Values.App.ServiceAccountCredentials }}
+          volumeMounts:
+            - mountPath: /app/secrets
+              name: secret-sa-volume
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /health
