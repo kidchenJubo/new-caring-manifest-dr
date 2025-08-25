@@ -1,0 +1,25 @@
+App:
+  Replicas: 1
+  MinReplicas: 1
+  MaxReplicas: 1
+  Version: 0.0.8
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  Env: Development
+  AppResources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 400m
+      memory: 400Mi
+  OpenTelemetry:
+    EndPoint: "http://35.221.223.171:14317"
+    Protocol: "grpc"
+  JCP:
+    EndPoint: "http://jcp-dev-api.jubo.health.internal"
+  CloudPubSub:
+    ProjectId: "static-map-242406"
+    UserActivityLogTopicId: "caring-dev-user-activity-log"
