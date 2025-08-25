@@ -15,11 +15,11 @@ App:
     limits:
       cpu: 400m
       memory: 400Mi
-  OpenTelemetry:
-    EndPoint: "http://35.221.223.171:14317"
-    Protocol: "grpc"
-  JCP:
-    EndPoint: "http://jcp-dev-api.jubo.health.internal"
-  CloudPubSub:
-    ProjectId: "static-map-242406"
-    UserActivityLogTopicId: "caring-dev-user-activity-log"
+OpenTelemetry:
+  EndPoint: "http://35.221.223.171:14317"
+  Protocol: "grpc"
+JCP:
+  EndPoint: "http://jcp-dev-api.jubo.health.internal"
+CloudPubSub:
+  ProjectId: "static-map-242406"
+  UserActivityLogTopicId: "caring-dev-user-activity-log"
