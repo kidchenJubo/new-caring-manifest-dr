@@ -15,6 +15,7 @@ App:
     limits:
       cpu: 400m
       memory: 800Mi
+  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
 OpenTelemetry:
   EndPoint: "http://35.221.223.171:14317"
   Protocol: "grpc"
