@@ -1,5 +1,10 @@
-
 # Installation
+
+```shell
+gcloud config set project "static-map-242406"
+
+gcloud auth application-default set-quota-project "static-map-242406"
+```
 
 # Create Cluster With Use NAT IP
 
