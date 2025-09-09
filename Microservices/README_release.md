@@ -5,7 +5,7 @@ gcloud config set project "static-map-242406"
 
 gcloud auth application-default set-quota-project "static-map-242406"
 
-gcloud container clusters get-credentials caring-release --region=asia-east1
+gcloud container clusters get-credentials caring-tw --region=asia-east1
 
 gcloud iam service-accounts add-iam-policy-binding \
     --role="roles/iam.workloadIdentityUser" \
