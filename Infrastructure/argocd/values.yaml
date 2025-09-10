@@ -3976,6 +3976,32 @@
         syncOptions:
           - CreateNamespace=true
 
+    - name: new-caring-event-consumer-demo
+      namespace: argocd
+      project: default
+      annotations:
+        meta.helm.sh/release-name: argocd
+        meta.helm.sh/release-namespace: argocd
+      labels:
+        app.kubernetes.io/managed-by: Helm
+      sources:
+        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+          targetRevision: main_new_version_merge
+          path: Microservices/Caring/Event/Consumer/new-caring-event-consumer
+          helm:
+            valueFiles:
+              - values_demo.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: new-caring-event-consumer-demo
+      revisionHistoryLimit: 3
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
     # demo ↑↑↑
 
     # release ↓↓↓
@@ -4025,6 +4051,32 @@
       destination:
         server: https://kubernetes.default.svc
         namespace: new-caring-release
+      revisionHistoryLimit: 3
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
+    - name: new-caring-event-consumer-release
+      namespace: argocd
+      project: default
+      annotations:
+        meta.helm.sh/release-name: argocd
+        meta.helm.sh/release-namespace: argocd
+      labels:
+        app.kubernetes.io/managed-by: Helm
+      sources:
+        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+          targetRevision: main_new_version_merge
+          path: Microservices/Caring/Event/Consumer/new-caring-event-consumer
+          helm:
+            valueFiles:
+              - values_release.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: new-caring-event-consumer-release
       revisionHistoryLimit: 3
       syncPolicy:
         automated:
