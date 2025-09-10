@@ -6,8 +6,8 @@ App:
       DEPLOY: dev
   AppResources:
     requests:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 200m
+      memory: 512Mi
     limits:
-      cpu: 400m
-      memory: 800Mi
+      cpu: 1000m
+      memory: 1280Mi

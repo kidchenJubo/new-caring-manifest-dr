@@ -10,11 +10,11 @@ App:
   Env: qat
   AppResources:
     requests:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 200m
+      memory: 512Mi
     limits:
-      cpu: 400m
-      memory: 800Mi
+      cpu: 1000m
+      memory: 1280Mi
   ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
 OpenTelemetry:
   EndPoint: "http://35.221.223.171:14317"

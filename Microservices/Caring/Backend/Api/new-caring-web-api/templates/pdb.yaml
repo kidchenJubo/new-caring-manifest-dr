@@ -5,9 +5,9 @@ metadata:
   name: "{{ .Chart.Name }}-pdb"
 spec:
 {{- if .Values.App.UsePDB.UseUnavailable }}
-  maxUnavailable: 1
+  maxUnavailable: 40%
 {{- else }}
-  minAvailable: 1
+  minAvailable: 60%
 {{- end }}
   selector:
     matchLabels:
