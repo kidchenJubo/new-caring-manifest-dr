@@ -7,7 +7,8 @@ spec:
   hosts:
     - "*.caringcm.com.tw"
   gateways:
-    - istio-system/infra-gateway-neg-release
+    # - istio-system/infra-gateway-neg-release
+    - istio-system/infra-gateway-neg-dev
   http:
     - match:
         - uri:

@@ -17,7 +17,8 @@ spec:
     - "test.caringcm.com.tw"
     - "test00.caringcm.com.tw"
   gateways:
-    - istio-system/infra-gateway-neg-demo
+    # - istio-system/infra-gateway-neg-demo
+    - istio-system/infra-gateway-neg-dev
   http:
     - match:
         - uri:
