@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: new-caring-web-api-internal-dev
+  namespace: istio-system
+spec:
+  hosts:
+    - "upgrade-dev-01.caringcm.com.tw"
+    - "upgrade-dev-02.caringcm.com.tw"
+  gateways:
+    - istio-system/infra-gateway-internal-dev
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80

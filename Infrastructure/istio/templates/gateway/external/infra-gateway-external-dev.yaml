@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: infra-gateway-external-dev
+  namespace: istio-system
+spec:
+  selector:
+    istio: gateway-external-dev
+  servers:
+    - hosts:
+        - "*.jubo.health"
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: jubo-health-certificate
+        mode: SIMPLE
+    - hosts:
+        - "*.jubo.health"
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
