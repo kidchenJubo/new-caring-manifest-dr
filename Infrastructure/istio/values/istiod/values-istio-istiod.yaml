@@ -210,6 +210,11 @@ _internal_defaults_do_not_set:
   # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
   meshConfig:
     enablePrometheusMerge: true
+    accessLogFile: /dev/stdout
+    accessLogEncoding: JSON
+    defaultConfig:
+      gatewayTopology:
+        numTrustedProxies: 1
 
   experimental:
     stableValidationPolicy: false
