@@ -17,4 +17,4 @@ kubectl rollout restart deployment new-caring-web-api -n new-caring-web-api-demo
 
 kubectl rollout restart deployment caring-event-consumer -n new-caring-event-consumer-dev
 kubectl rollout restart deployment caring-event-consumer -n new-caring-event-consumer-qat
-kubectl rollout restart deployment caring-event-consumer -n new-caring-event-consumer-qat
+kubectl rollout restart deployment caring-event-consumer -n new-caring-event-consumer-demo
