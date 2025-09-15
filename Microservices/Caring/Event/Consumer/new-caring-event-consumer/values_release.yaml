@@ -20,7 +20,7 @@ OpenTelemetry:
   EndPoint: "http://35.221.223.171:14317"
   Protocol: "grpc"
 JCP:
-  EndPoint: "http://jcp-release-api.jubo.health.internal"
+  EndPoint: "http://jcp-release-api-01.jubo.health.internal"
 CloudPubSub:
   ProjectId: "static-map-242406"
-  UserActivityLogTopicId: "caring-release-user-activity-log"
+  UserActivityLogTopicId: "caring-staging-user-activity-log"

@@ -27,7 +27,7 @@ App:
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=9"
   JCP:
-    EndPoint: "http://jcp-release-api.jubo.health.internal"
+    EndPoint: "http://jcp-release-api-01.jubo.health.internal"
     Brand: "caring"
     Product: "caring"
     Environment: "release"
@@ -35,8 +35,8 @@ App:
     Version: "1.0.0"
   CloudPubSub:
     ProjectId: "static-map-242406"
-    DataSyncTopicId: "caring-release-data-sync"
-    UserActivityLogTopicId: "caring-release-user-activity-log"
+    DataSyncTopicId: "caring-staging-data-sync"
+    UserActivityLogTopicId: "caring-staging-user-activity-log"
 
 SqlProxy:
   Version: 2.18.1
