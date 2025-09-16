@@ -23,4 +23,4 @@ JCP:
   EndPoint: "http://jcp-release-api.jubo.health.internal"
 CloudPubSub:
   ProjectId: "static-map-242406"
-  UserActivityLogTopicId: "caring-release-user-activity-log"
+  UserActivityLogTopicId: "caring-staging-user-activity-log"

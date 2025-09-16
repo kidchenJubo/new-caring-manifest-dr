@@ -2,7 +2,7 @@ App:
   Replicas: 6
   MinReplicas: 6
   MaxReplicas: 18
-  Version: 0.0.27
+  Version: 0.0.40
   UseHPA: true
   UsePDB:
     enabled: true
@@ -35,8 +35,8 @@ App:
     Version: "1.0.0"
   CloudPubSub:
     ProjectId: "static-map-242406"
-    DataSyncTopicId: "caring-release-data-sync"
-    UserActivityLogTopicId: "caring-release-user-activity-log"
+    DataSyncTopicId: "caring-staging-data-sync"
+    UserActivityLogTopicId: "caring-staging-user-activity-log"
 
 SqlProxy:
   Version: 2.18.1
