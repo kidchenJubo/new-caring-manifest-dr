@@ -3717,7 +3717,9 @@
         namespace: argocd
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
 
@@ -3739,7 +3741,9 @@
         namespace: istio-system
       revisionHistoryLimit: 3
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
       ignoreDifferences:
@@ -3769,12 +3773,8 @@
       destination:
         server: https://kubernetes.default.svc
         namespace: new-caring-web-api-dev
-
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-web-page-dev
       namespace: argocd
@@ -3795,10 +3795,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-web-page-dev
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-event-consumer-dev
       namespace: argocd
@@ -3819,10 +3816,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-event-consumer-dev
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     # dev ↑↑↑
 
@@ -3847,12 +3841,8 @@
       destination:
         server: https://kubernetes.default.svc
         namespace: new-caring-web-api-qat
-
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-web-page-qat
       namespace: argocd
@@ -3873,10 +3863,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-web-page-qat
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-event-consumer-qat
       namespace: argocd
@@ -3897,10 +3884,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-event-consumer-qat
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     # qat ↑↑↑
 
@@ -3925,12 +3909,8 @@
       destination:
         server: https://kubernetes.default.svc
         namespace: new-caring-web-api-demo
-
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-web-page-demo
       namespace: argocd
@@ -3951,10 +3931,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-web-page-demo
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-event-consumer-demo
       namespace: argocd
@@ -3975,10 +3952,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-event-consumer-demo
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     # demo ↑↑↑
 
@@ -4004,10 +3978,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-web-api-release
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-web-page-release
       namespace: argocd
@@ -4028,10 +3999,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-web-page-release
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     - name: new-caring-event-consumer-release
       namespace: argocd
@@ -4052,10 +4020,7 @@
         server: https://kubernetes.default.svc
         namespace: new-caring-event-consumer-release
       revisionHistoryLimit: 3
-      syncPolicy:
-        automated: {}
-        syncOptions:
-          - CreateNamespace=true
+      syncPolicy: {}
 
     # release ↑↑↑
 
