@@ -3717,9 +3717,7 @@
         namespace: argocd
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3741,9 +3739,7 @@
         namespace: istio-system
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
       ignoreDifferences:
@@ -3776,9 +3772,7 @@
 
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3802,9 +3796,7 @@
         namespace: new-caring-web-page-dev
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3828,9 +3820,7 @@
         namespace: new-caring-event-consumer-dev
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3860,9 +3850,7 @@
 
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3886,9 +3874,7 @@
         namespace: new-caring-web-page-qat
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3912,9 +3898,7 @@
         namespace: new-caring-event-consumer-qat
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3944,9 +3928,7 @@
 
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3970,9 +3952,7 @@
         namespace: new-caring-web-page-demo
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -3996,9 +3976,7 @@
         namespace: new-caring-event-consumer-demo
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -4027,9 +4005,7 @@
         namespace: new-caring-web-api-release
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -4053,9 +4029,7 @@
         namespace: new-caring-web-page-release
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
@@ -4079,9 +4053,7 @@
         namespace: new-caring-event-consumer-release
       revisionHistoryLimit: 3
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}
         syncOptions:
           - CreateNamespace=true
 
