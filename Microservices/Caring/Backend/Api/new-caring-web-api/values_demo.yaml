@@ -22,7 +22,7 @@ App:
     CHomeConnection: "Server=10.140.0.40,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
-    EndPoint: "http://35.221.223.171:14317"
+    EndPoint: "http://34.81.223.27:14317"
     Protocol: "grpc"
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=8"

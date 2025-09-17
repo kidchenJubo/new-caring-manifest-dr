@@ -23,7 +23,7 @@ App:
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
     # EndPoint: "http://new-caring-web-api-otel-collector:4317"
-    EndPoint: "http://35.221.223.171:14317"
+    EndPoint: "http://34.81.223.27:14317"
     Protocol: "grpc"
   Redis:
     ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
@@ -61,6 +61,6 @@ SqlProxy:
 #       cpu: 500m
 #       memory: 1Gi
 #   Exporters:
-#     JCP: 35.221.223.171:14317
+#     JCP: 34.81.223.27:14317
 #     GoogleCloud:
 #       Project: static-map-242406
