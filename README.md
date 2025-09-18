@@ -1,1 +1,1 @@
-# New Caring Manifest
+# Jubo New Caring Manifest

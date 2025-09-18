@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+# EnvoyFilter: Configure the Ingress Gateway to trust Cloudflare.
+# 這份配置會讓 Gateway 從 X-Forwarded-For Header 中解析真實的客戶端 IP。
+# -----------------------------------------------------------------------------
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: xff-trust-cloudflare-release
+  # 必須部署在 Istio 的根命名空間，通常是 istio-system
+  namespace: istio-system
+spec:
+  # 選擇要應用此配置的目標 Pod，也就是 Ingress Gateway
+  workloadSelector:
+    labels:
+      istio: gateway-external-release
+  configPatches:
+    - applyTo: NETWORK_FILTER
+      match:
+        context: GATEWAY
+        listener:
+          filterChain:
+            filter:
+              name: "envoy.filters.network.http_connection_manager"
+      patch:
+        operation: MERGE
+        value:
+          typed_config:
+            "@type": "type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager"
+            # xff_num_trusted_hops 告訴 Envoy 要信任 X-Forwarded-For Header 中的幾層代理。
+            # 因為流量只經過 Cloudflare 這一層代理，所以設定為 1。
+            xff_num_trusted_hops: 1
+            # 建議同時設定，確保 Envoy 正確處理 Header
+            use_remote_address: true

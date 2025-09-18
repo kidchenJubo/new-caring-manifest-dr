@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: new-caring-web-api-qat
+  namespace: istio-system
+spec:
+  hosts:
+    - "new-caring-qat-api.jubo.health"
+  gateways:
+    - istio-system/infra-gateway-external-qat
+  http:
+    - name: api
+      corsPolicy:
+        allowOrigins:
+          - exact: "http://localhost:3000"
+          - exact: "https://*.jubo.health"
+          - exact: "https://*.caringcm.com.tw"
+        allowMethods:
+          - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: "24h"
+      match:
+        - uri:
+            regex: "/[A|a][P|p][I|i]/.*"
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-qat.svc.cluster.local
+            port:
+              number: 80
