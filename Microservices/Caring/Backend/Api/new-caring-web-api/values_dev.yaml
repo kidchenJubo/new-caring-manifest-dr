@@ -23,10 +23,10 @@ App:
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
     # EndPoint: "http://new-caring-web-api-otel-collector:4317"
-    EndPoint: "http://34.81.223.27:14317"
+    EndPoint: "http://127.0.0.1:4317"
     Protocol: "grpc"
   Redis:
-    ConnectionString: "35.221.238.96:16379,defaultDatabase=6"
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
   JCP:
     EndPoint: "http://jcp-dev-api.jubo.health.internal"
     Brand: "JCP"
@@ -61,6 +61,6 @@ SqlProxy:
 #       cpu: 500m
 #       memory: 1Gi
 #   Exporters:
-#     JCP: 34.81.223.27:14317
+#     JCP: 127.0.0.1:4317
 #     GoogleCloud:
 #       Project: static-map-242406

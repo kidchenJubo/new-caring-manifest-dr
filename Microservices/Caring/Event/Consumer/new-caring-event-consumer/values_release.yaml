@@ -17,7 +17,7 @@ App:
       memory: 1280Mi
   ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
 OpenTelemetry:
-  EndPoint: "http://34.81.223.27:14317"
+  EndPoint: "http://127.0.0.1:4317"
   Protocol: "grpc"
 JCP:
   EndPoint: "http://jcp-release-api.jubo.health.internal"
