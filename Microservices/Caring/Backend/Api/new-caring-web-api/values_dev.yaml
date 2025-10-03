@@ -22,8 +22,7 @@ App:
     CHomeConnection: "Server=10.140.15.234,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
-    # EndPoint: "http://new-caring-web-api-otel-collector:4317"
-    EndPoint: "http://127.0.0.1:4317"
+    EndPoint: "http://otel-collector.opentelemetry.svc.cluster.local:4317"
     Protocol: "grpc"
   Redis:
     ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
@@ -49,18 +48,3 @@ SqlProxy:
     limits:
       cpu: 200m
       memory: 512Mi
-# OtelCollector:
-#   Replicas: 1
-#   Image: otel/opentelemetry-collector-contrib
-#   Version: 0.128.0
-#   Resources:
-#     requests:
-#       cpu: 100m
-#       memory: 200Mi
-#     limits:
-#       cpu: 500m
-#       memory: 1Gi
-#   Exporters:
-#     JCP: 127.0.0.1:4317
-#     GoogleCloud:
-#       Project: static-map-242406

@@ -3752,6 +3752,30 @@
           jqPathExpressions:
             - ".webhooks[]?.failurePolicy"
 
+    # OpenTelemetry Collector (共用於所有環境)
+    - name: otel-collector
+      namespace: argocd
+      project: default
+      annotations:
+        meta.helm.sh/release-name: argocd
+        meta.helm.sh/release-namespace: argocd
+      labels:
+        app.kubernetes.io/managed-by: Helm
+      sources:
+        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+          targetRevision: main
+          path: Microservices/Caring/Observability/otel-collector
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: opentelemetry
+      revisionHistoryLimit: 3
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
     # dev ↓↓↓
 
     # Caring

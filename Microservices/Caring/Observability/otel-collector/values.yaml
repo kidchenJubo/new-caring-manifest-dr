@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: us-docker.pkg.dev/cloud-ops-agents-artifacts/google-cloud-opentelemetry-collector/otelcol-google
+  tag: "0.131.0"
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 200Mi
+  requests:
+    cpu: 50m
+    memory: 100Mi
+
+gcp:
+  projectId: "static-map-242406"
