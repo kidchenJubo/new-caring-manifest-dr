@@ -28,7 +28,7 @@ spec:
       labels:
         app: opentelemetry-collector
     spec:
-      serviceAccountName: {{ .Chart.Name }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
       securityContext:
         {}
       containers:
