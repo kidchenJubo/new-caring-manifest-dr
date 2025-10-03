@@ -154,13 +154,13 @@ data:
       otlp:
         protocols:
           grpc:
-            endpoint: ${env:MY_POD_IP}:4317
+            endpoint: 0.0.0.0:4317
           http:
             cors:
               allowed_origins:
               - http://*
               - https://*
-            endpoint: ${env:MY_POD_IP}:4318
+            endpoint: 0.0.0.0:4318
       otlp/self-metrics:
         protocols:
           grpc:
@@ -221,6 +221,7 @@ data:
           - otlp
       telemetry:
         logs:
+          level: debug
           encoding: json
         metrics:
           readers:
