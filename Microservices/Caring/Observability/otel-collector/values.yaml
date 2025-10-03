@@ -12,9 +12,5 @@ resources:
     cpu: 50m
     memory: 100Mi
 
-serviceAccount:
-  create: false
-  name: new-caring-web-api
-
 gcp:
   projectId: "static-map-242406"

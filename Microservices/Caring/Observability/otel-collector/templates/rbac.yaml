@@ -43,5 +43,5 @@ roleRef:
   name: opentelemetry-collector
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.serviceAccount.name }}
+    name: {{ .Chart.Name }}
     namespace: {{ .Release.Namespace }}
