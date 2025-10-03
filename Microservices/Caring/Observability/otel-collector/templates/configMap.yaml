@@ -185,14 +185,14 @@ data:
           exporters:
           - googlemanagedprometheus
           - debug
-          #processors:
-          # - k8sattributes
-          # - memory_limiter
-          # - metricstarttime
-          # - resourcedetection
-          # - transform/collision
-          # - transform/aco-gke
-          #- batch
+          processors:
+          - k8sattributes
+          - memory_limiter
+          - metricstarttime
+          - resourcedetection
+          - transform/collision
+          - transform/aco-gke
+          - batch
           receivers:
           - otlp
         metrics/self-metrics:
@@ -211,17 +211,16 @@ data:
           exporters:
           - otlphttp
           - debug
-          # processors:
-          # - k8sattributes
-          # - memory_limiter
-          # - resource/gcp_project_id
-          # - resourcedetection
-          # - batch
+          processors:
+          - k8sattributes
+          - memory_limiter
+          - resource/gcp_project_id
+          - resourcedetection
+          - batch
           receivers:
           - otlp
       telemetry:
         logs:
-          level: debug
           encoding: json
         metrics:
           readers:
