@@ -30,8 +30,6 @@ data:
         # Use the googleclientauth extension to authenticate with Google credentials
         auth:
           authenticator: googleclientauth
-      debug:
-        verbosity: detailed
 
 
     extensions:
@@ -184,7 +182,6 @@ data:
         metrics/otlp:
           exporters:
           - googlemanagedprometheus
-          - debug
           processors:
           - k8sattributes
           - memory_limiter
@@ -210,7 +207,6 @@ data:
         traces:
           exporters:
           - otlphttp
-          - debug
           processors:
           - k8sattributes
           - memory_limiter
