@@ -1,6 +1,6 @@
 App:
   Replicas: 3
-  Version: 2.1.39-caring
+  Version: 2.1.41-caring
   ConfigMap:
     Data:
       DEPLOY: release
