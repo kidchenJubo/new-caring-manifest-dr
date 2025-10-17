@@ -37,6 +37,7 @@ App:
     ProjectId: "static-map-242406"
     DataSyncTopicId: "caring-staging-data-sync"
     UserActivityLogTopicId: "caring-release-user-activity-log"
+    UserEventHandlingTopicId: "caring-release-user-event-handling"
 
 SqlProxy:
   Version: 2.18.1
