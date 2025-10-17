@@ -5,9 +5,14 @@ metadata:
 data:
   ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
 
+  ConnectionStrings__CaringDbContext: "{{ .Values.ConnectionStrings.CaringDbContext }}"
+  ConnectionStrings__CHomeConnection: "{{ .Values.ConnectionStrings.CHomeConnection }}"
+  ConnectionStrings__OldCaringConnection: "{{ .Values.ConnectionStrings.OldCaringConnection }}"
   OpenTelemetry__EndPoint: "{{ .Values.OpenTelemetry.EndPoint }}"
   OpenTelemetry__Protocol: "{{ .Values.OpenTelemetry.Protocol }}"
   CloudPubSub__ProjectId: "{{ .Values.CloudPubSub.ProjectId }}"
   CloudPubSub__TopicId: "{{ .Values.CloudPubSub.UserActivityLogTopicId }}"
   CloudPubSub__UserActivityLogSubscriptionId: "{{ .Values.CloudPubSub.UserActivityLogTopicId }}-sub"
   JCP__EndPoint: "{{ .Values.JCP.EndPoint }}"
+  JCP__Ca: "{{ .Values.JCP.Ca }}"
+  JCP__Cs: "{{ .Values.JCP.Cs }}"
