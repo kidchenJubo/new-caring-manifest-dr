@@ -30,3 +30,4 @@ App:
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-demo-user-activity-log"
+    UserEventHandlingSubscriptionId: "caring-demo-user-event-handling"

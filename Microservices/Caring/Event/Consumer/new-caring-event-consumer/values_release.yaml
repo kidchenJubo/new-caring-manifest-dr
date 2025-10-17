@@ -29,4 +29,5 @@ App:
     Cs: "f8f44b836dba473da5a25d908c642f84"
   CloudPubSub:
     ProjectId: "static-map-242406"
-    UserActivityLogTopicId: "caring-staging-user-activity-log"
+    UserActivityLogTopicId: "caring-release-user-activity-log"
+    UserEventHandlingSubscriptionId: "caring-release-user-event-handling"

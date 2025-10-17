@@ -36,7 +36,7 @@ App:
   CloudPubSub:
     ProjectId: "static-map-242406"
     DataSyncTopicId: "caring-staging-data-sync"
-    UserActivityLogTopicId: "caring-staging-user-activity-log"
+    UserActivityLogTopicId: "caring-release-user-activity-log"
 
 SqlProxy:
   Version: 2.18.1
