@@ -198,6 +198,14 @@
             hostedDomains:
               - jubo.health
 
+      # 修改 Argo CD 自己的主設定 ConfigMap
+      resource.customizations: |
+        ConfigMap:
+          argocd-cm:
+            ignoreDifferences:
+              - jsonPointers:
+                - /data/dex.config
+
       # OIDC configuration as an alternative to dex (optional).
       # oidc.config: |
       #   name: AzureAD
@@ -3727,13 +3735,6 @@
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-        # 同步時忽略 argocd-cm 的 data/dex.config 內容
-        ignoreDifferences:
-          - group: ""                 # core API group
-            kind: ConfigMap
-            name: argocd-cm           # 要忽略的 ConfigMap
-            jsonPointers:
-              - /data/dex.config      # 忽略 dex.config 欄位的異動
 
     # istio
     - name: istio
