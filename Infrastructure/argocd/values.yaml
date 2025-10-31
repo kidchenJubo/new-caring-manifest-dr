@@ -3727,6 +3727,13 @@
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+        # 同步時忽略 argocd-cm 的 data/dex.config 內容
+        ignoreDifferences:
+          - group: ""                 # core API group
+            kind: ConfigMap
+            name: argocd-cm           # 要忽略的 ConfigMap
+            jsonPointers:
+              - /data/dex.config      # 忽略 dex.config 欄位的異動
 
     # istio
     - name: istio
