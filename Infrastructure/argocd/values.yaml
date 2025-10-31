@@ -3217,7 +3217,7 @@
     # -- Contains centrally managed global application subscriptions
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/subscriptions/
     subscriptions:
-      {}
+      []
       # subscription for on-sync-status-unknown trigger notifications
       # - recipients:
       #     - teams:new-caring-notification-channel
