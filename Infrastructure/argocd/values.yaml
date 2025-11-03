@@ -3717,6 +3717,7 @@
       annotations:
         meta.helm.sh/release-name: argocd
         meta.helm.sh/release-namespace: argocd
+        argocd.argoproj.io/sync-options: Skip=true
       labels:
         app.kubernetes.io/managed-by: Helm
       sources:
@@ -3733,7 +3734,7 @@
       syncPolicy:
         automated:
           prune: true
-          selfHeal: true
+          selfHeal: false
         syncOptions:
           - CreateNamespace=true
           - RespectIgnoreDifferences=true
