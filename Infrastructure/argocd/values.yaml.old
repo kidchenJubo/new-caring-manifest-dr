@@ -198,15 +198,6 @@
             hostedDomains:
               - jubo.health
 
-      # 修改 Argo CD 自己的主設定 ConfigMap
-      resource.customizations: |
-        ConfigMap/argocd-cm:
-          ignoreDifferences: '{"jsonPointers":["/data/dex.config"]}'
-
-      # resource.customizations.ignoreResourceUpdates.ConfigMap: |
-      #   jsonPointers:
-      #     - /data/dex.config
-
       # OIDC configuration as an alternative to dex (optional).
       # oidc.config: |
       #   name: AzureAD
@@ -252,12 +243,7 @@
       ## Server properties
       # -- Run server without TLS
       ## NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template.
-      server.insecure: true
-      # 確保了 Helm chart 的所有後續部署都強制 dex 使用 http endpoint 而不是 https endpoint
-      dexserver.disable.tls: true
-      server.dex.server.strict.tls: false
-      server.dex.server: http://argocd-dex-server:5556
-
+      server.insecure: false
       # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
       server.basehref: /
       # -- Used if Argo CD is running behind reverse proxy under subpath different from /
@@ -3736,7 +3722,6 @@
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-          - RespectIgnoreDifferences=true
 
     # istio
     - name: istio
@@ -3768,28 +3753,28 @@
             - ".webhooks[]?.failurePolicy"
 
     # OpenTelemetry Collector (共用於所有環境)
-#    - name: otel-collector
-#      namespace: argocd
-#      project: default
-#      annotations:
-#        meta.helm.sh/release-name: argocd
-#        meta.helm.sh/release-namespace: argocd
-#      labels:
-#        app.kubernetes.io/managed-by: Helm
-#      sources:
-#        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
-#          targetRevision: main
-#          path: Microservices/Caring/Observability/otel-collector
-#      destination:
-#        server: https://kubernetes.default.svc
-#        namespace: opentelemetry
-#      revisionHistoryLimit: 3
-#      syncPolicy:
-#        automated:
-#          prune: true
-#          selfHeal: true
-#        syncOptions:
-#          - CreateNamespace=true
+    #- name: otel-collector
+    #  namespace: argocd
+    #  project: default
+    #  annotations:
+    #    meta.helm.sh/release-name: argocd
+    #    meta.helm.sh/release-namespace: argocd
+    #  labels:
+    #    app.kubernetes.io/managed-by: Helm
+    #  sources:
+    #    - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+    #      targetRevision: main
+    #      path: Microservices/Caring/Observability/otel-collector
+    #  destination:
+    #    server: https://kubernetes.default.svc
+    #    namespace: opentelemetry
+    #  revisionHistoryLimit: 3
+    #  syncPolicy:
+    #    automated:
+    #      prune: true
+    #      selfHeal: true
+    #    syncOptions:
+    #      - CreateNamespace=true
 
     # dev ↓↓↓
 
