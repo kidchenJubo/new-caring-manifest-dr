@@ -186,17 +186,9 @@
       timeout.hard.reconciliation: 0s
 
       # Dex configuration
+      # 從 yaml 改為 json 以方便 jenksin 替換 secret
       dex.config: |
-        connectors:
-        - type: microsoft
-          id: microsoft
-          name: Microsoft
-          config:
-            clientID: "22c6657c-e1a3-4aca-a60c-aa6424bf28c2"
-            clientSecret: "KXm8Q~i2WCXZl.L.srul0dyyy41jyqqikiq-JcNF"
-            tenant: organizations
-            hostedDomains:
-              - jubo.health
+        {"connectors": [{"type": "microsoft", "id": "microsoft", "name": "Microsoft", "config": {"clientID": "50b6ed34-b030-4104-a14d-c8bc139b7d2b", "clientSecret": "kj38Q~VOegP9nCoFSltZ5JN06QTDPmKO3MDmBdmv", "tenant": "organizations", "hostedDomains": ["jubo.health"]}}]}
 
       # 修改 Argo CD 自己的主設定 ConfigMap
       # resource.customizations: |
