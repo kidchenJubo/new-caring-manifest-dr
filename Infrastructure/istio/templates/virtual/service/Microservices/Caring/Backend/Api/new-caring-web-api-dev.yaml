@@ -28,7 +28,16 @@ spec:
         maxAge: "24h"
       match:
         - uri:
-            regex: "/[A|a][P|p][I|i]/.*"
+            regex: "(?i)/api/.*"
+      route:
+        - destination:
+            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80
+    - name: swagger
+      match:
+        - uri:
+            prefix: "/swagger"
       route:
         - destination:
             host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
