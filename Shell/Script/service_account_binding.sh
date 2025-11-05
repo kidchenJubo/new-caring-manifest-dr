@@ -87,3 +87,7 @@ gcloud iam service-accounts add-iam-policy-binding \
 kubectl -n new-caring-event-consumer-release annotate --overwrite serviceaccount \
     caring-event-consumer \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+# 賦予 JCP pubsub 權限
+gcloud projects add-iam-policy-binding jubo-care-platform --member="serviceAccount:n-c-b-a@static-map-242406.iam.gserviceaccount.com" --role="roles/pubsub.subscriber"
+
