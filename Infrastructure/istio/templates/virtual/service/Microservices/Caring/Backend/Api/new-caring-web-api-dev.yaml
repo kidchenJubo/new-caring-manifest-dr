@@ -29,15 +29,8 @@ spec:
       match:
         - uri:
             regex: "(?i)/api/.*"
-      route:
-        - destination:
-            host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
-            port:
-              number: 80
-    - name: swagger
-      match:
         - uri:
-            prefix: "/swagger/"
+            regex: "(?i)/swagger/.*"
       route:
         - destination:
             host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
