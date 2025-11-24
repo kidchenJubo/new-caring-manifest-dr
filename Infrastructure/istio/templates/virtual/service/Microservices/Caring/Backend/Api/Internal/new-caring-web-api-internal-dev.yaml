@@ -7,6 +7,7 @@ spec:
   hosts:
     - "upgrade-dev-01.caringcm.com.tw"
     - "upgrade-dev-02.caringcm.com.tw"
+    - "upgrade-dev-03.caringcm.com.tw"
   gateways:
     - istio-system/infra-gateway-internal-dev
   http:

@@ -16,3 +16,5 @@ data:
   JCP__EndPoint: "{{ .Values.App.JCP.EndPoint }}"
   JCP__Ca: "{{ .Values.App.JCP.Ca }}"
   JCP__Cs: "{{ .Values.App.JCP.Cs }}"
+  JCP__CloudPubSub__ProjectId: "{{ .Values.App.JCP.CloudPubSub.ProjectId }}"
+  JCP__CloudPubSub__OrganizationEventHandlingSubscriptionId: "{{ .Values.App.JCP.CloudPubSub.OrganizationEventHandlingSubscriptionId }}"
