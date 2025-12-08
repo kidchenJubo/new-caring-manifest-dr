@@ -27,6 +27,10 @@ App:
     EndPoint: "http://jcp-qat-api.jubo.health.internal"
     Ca: "ShareITN01CA01"
     Cs: "f8f44b836dba473da5a25d908c642f84"
+    CloudPubSub:
+      ProjectId: "jubo-care-platform"
+      OrganizationEventHandlingSubscriptionId: "qat_caring_organization_data_sync_sub"
+      JcpUserEventHandlingSubscriptionId: "qat_caring_user_data_sync_sub"
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-qat-user-activity-log"
