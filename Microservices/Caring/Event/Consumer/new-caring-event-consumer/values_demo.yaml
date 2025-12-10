@@ -31,6 +31,7 @@ App:
       ProjectId: "jubo-care-platform"
       OrganizationEventHandlingSubscriptionId: "demo_caring_organization_data_sync_sub"
       JcpUserEventHandlingSubscriptionId: "demo_caring_user_data_sync_sub"
+      JcpUserPrivilegeEventHandlingSubscriptionId: "demo_organization_user_privilege_sync_caring_sub"
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-demo-user-activity-log"

@@ -19,3 +19,4 @@ data:
   JCP__CloudPubSub__ProjectId: "{{ .Values.App.JCP.CloudPubSub.ProjectId }}"
   JCP__CloudPubSub__OrganizationEventHandlingSubscriptionId: "{{ .Values.App.JCP.CloudPubSub.OrganizationEventHandlingSubscriptionId }}"
   JCP__CloudPubSub__JcpUserEventHandlingSubscriptionId: "{{ .Values.App.JCP.CloudPubSub.JcpUserEventHandlingSubscriptionId }}"
+  JCP__CloudPubSub__JcpUserPrivilegeEventHandlingSubscriptionId: "{{ .Values.App.JCP.CloudPubSub.JcpUserPrivilegeEventHandlingSubscriptionId }}"
