@@ -18,6 +18,8 @@ data:
   JCP__Environment: "{{ .Values.App.JCP.Environment }}"
   JCP__Name: "{{ .Values.App.JCP.Name }}"
   JCP__Version: "{{ .Values.App.JCP.Version }}"
+  JCP__ManageJcpCA: "{{ .Values.App.JCP.ManageJcpCA }}"
+  JCP__ManageJcpCS: "{{ .Values.App.JCP.ManageJcpCS }}"
   CloudPubSub__ProjectId: "{{ .Values.App.CloudPubSub.ProjectId }}"
   CloudPubSub__DataSyncTopicId: "{{ .Values.App.CloudPubSub.DataSyncTopicId }}"
   CloudPubSub__UserActivityLogTopicId: "{{ .Values.App.CloudPubSub.UserActivityLogTopicId }}"

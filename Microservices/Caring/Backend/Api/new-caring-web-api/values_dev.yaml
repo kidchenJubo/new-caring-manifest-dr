@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.0.4.2-dev-1
+  Version: 2.0.4.2-dev-2
   UseHPA: false
   UsePDB:
     enabled: false
@@ -33,6 +33,8 @@ App:
     Environment: "dev"
     Name: "caring-dev"
     Version: "1.0.0"
+    ManageJcpCA: "ShareITN01CA01"
+    ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
   CloudPubSub:
     ProjectId: "static-map-242406"
     DataSyncTopicId: "caring-dev-data-sync"
