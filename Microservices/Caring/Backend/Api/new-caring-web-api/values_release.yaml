@@ -33,6 +33,8 @@ App:
     Environment: "release"
     Name: "caring-release"
     Version: "1.0.0"
+    ManageJcpCA: "ShareITN01CA01"
+    ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
   CloudPubSub:
     ProjectId: "static-map-242406"
     DataSyncTopicId: "caring-staging-data-sync"
