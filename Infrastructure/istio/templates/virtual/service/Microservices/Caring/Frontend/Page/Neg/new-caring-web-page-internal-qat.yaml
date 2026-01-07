@@ -14,6 +14,8 @@ spec:
     - match:
         - uri:
             prefix: /v2
+        - uri:
+            prefix: /
       route:
         - destination:
             host: new-caring-web-page.new-caring-web-page-qat.svc.cluster.local
