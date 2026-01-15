@@ -44,8 +44,7 @@
 
     # -- Common labels for the all resources
     additionalLabels:
-      cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "new-caring-argocd-80"}}}'
-      # {}
+      {}
       # app: argo-cd
 
     # -- Number of old deployment ReplicaSets to retain. The rest will be garbage collected.
@@ -1913,7 +1912,9 @@
     ## Server service configuration
     service:
       # -- Server service annotations
-      annotations: {}
+      # annotations: {}
+      annotations:
+        cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "new-caring-argocd-80"}}}'
       # -- Server service labels
       labels: {}
       # -- Server service type
