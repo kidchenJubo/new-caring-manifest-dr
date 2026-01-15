@@ -3,7 +3,7 @@ kind: Service
 metadata:
 {{- if eq "Development" $.Values.App.Env }}
   annotations:
-    cloud.google.com/neg: '{"ingress": false, "exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
+    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
 {{- end }}
   name: "{{ .Chart.Name }}"
 spec:
