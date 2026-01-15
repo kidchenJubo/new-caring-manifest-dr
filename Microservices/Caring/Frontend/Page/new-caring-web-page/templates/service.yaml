@@ -3,8 +3,8 @@ kind: Service
 metadata:
 {{- if eq "dev" $.Values.App.ConfigMap.Data.DEPLOY }}
   annotations:
-    cloud.google.com/neg: '{"exposed_ports": {"80":{}}}'
-#    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
+    #     cloud.google.com/neg: '{"exposed_ports": {"80":{}}}'
+    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
 {{- end }}
   name: "{{ .Chart.Name }}"
 spec:
