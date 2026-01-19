@@ -27,6 +27,8 @@ App:
     EndPoint: "http://jcp-release-api.jubo.health.internal"
     Ca: "ShareITN01CA01"
     Cs: "f8f44b836dba473da5a25d908c642f84"
+    CaringEndPoint: "https://jcp-release-api-caring.jubo.health"
+    SSOUrl: "https://jcp-release-sso.jubo.health/caring/login"
     CloudPubSub:
       ProjectId: "jubo-care-platform"
       OrganizationEventHandlingSubscriptionId: "release_caring_organization_data_sync_sub"

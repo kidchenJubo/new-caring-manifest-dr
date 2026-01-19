@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.0.11
+  Version: 2.1.0.11-dev-1
   UseHPA: false
   UsePDB:
     enabled: false
@@ -27,6 +27,8 @@ App:
     EndPoint: "http://jcp-dev-api.jubo.health.internal"
     Ca: "ShareITN01CA01"
     Cs: "f8f44b836dba473da5a25d908c642f84"
+    CaringEndPoint: "https://jcp-dev-api-caring.jubo.health"
+    SSOUrl: "https://jcp-dev-sso.jubo.health/caring/login"
     CloudPubSub:
       ProjectId: "jubo-care-platform"
       OrganizationEventHandlingSubscriptionId: "dev_caring_organization_data_sync_sub"
