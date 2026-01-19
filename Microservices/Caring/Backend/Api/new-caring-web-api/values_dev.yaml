@@ -10,7 +10,7 @@ App:
   Env: Development
   AppResources:
     requests:
-      cpu: 200m
+      cpu: 50m
       memory: 512Mi
     limits:
       cpu: 1000m

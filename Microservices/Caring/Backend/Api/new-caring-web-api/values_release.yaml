@@ -1,7 +1,7 @@
 App:
-  Replicas: 6
-  MinReplicas: 6
-  MaxReplicas: 18
+  Replicas: 3
+  MinReplicas: 3
+  MaxReplicas: 6
   Version: 2.0.5.4
   UseHPA: true
   UsePDB:
@@ -10,7 +10,7 @@ App:
   Env: release
   AppResources:
     requests:
-      cpu: 500m
+      cpu: 50m
       memory: 512Mi
     limits:
       cpu: 1000m
