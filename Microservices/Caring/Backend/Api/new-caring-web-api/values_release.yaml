@@ -10,7 +10,7 @@ App:
   Env: release
   AppResources:
     requests:
-      cpu: 50m
+      cpu: 150m
       memory: 512Mi
     limits:
       cpu: 1000m
