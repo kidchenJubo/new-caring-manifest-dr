@@ -46,7 +46,7 @@ SqlProxy:
   InstanceName: static-map-242406:asia-east1:caring-dev-pg
   SqlProxyResources:
     requests:
-      cpu: 5m
+      cpu: 50m
       memory: 32Mi
     limits:
       cpu: 200m
