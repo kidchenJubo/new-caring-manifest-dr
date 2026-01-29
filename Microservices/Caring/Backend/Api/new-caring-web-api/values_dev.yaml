@@ -28,7 +28,8 @@ App:
   Redis:
     ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
   JCP:
-    EndPoint: "http://jcp-dev-api.jubo.health.internal"
+    EndPoint_: "http://jcp-dev-api.jubo.health.internal"
+    EndPoint: "https://jcp-dev-api.jubo.health"
     Brand: "JCP"
     Product: "Caring"
     Environment: "dev"
