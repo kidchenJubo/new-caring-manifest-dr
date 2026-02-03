@@ -1,11 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-{{- if ne "release" $.Values.App.ConfigMap.Data.DEPLOY }}
   annotations:
     #     cloud.google.com/neg: '{"exposed_ports": {"80":{}}}'
     cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
-{{- end }}
   name: "{{ .Chart.Name }}"
 spec:
   type: ClusterIP
