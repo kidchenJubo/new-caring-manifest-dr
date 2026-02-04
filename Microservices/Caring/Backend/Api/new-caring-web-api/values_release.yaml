@@ -2,7 +2,7 @@ App:
   Replicas: 3
   MinReplicas: 3
   MaxReplicas: 6
-  Version: 2.1.0.13
+  Version: 2.1.0.13-hotfix-1
   UseHPA: true
   UsePDB:
     enabled: true
