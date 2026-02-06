@@ -24,6 +24,8 @@ spec:
     - match:
         - uri:
             prefix: /m/api
+        - uri:
+            prefix: /m/swagger/
       route:
         - destination:
             host: new-caring-mobile-api.new-caring-mobile-api-dev.svc.cluster.local
