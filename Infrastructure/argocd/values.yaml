@@ -3838,7 +3838,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-web-mobile-dev
+    - name: new-caring-mobile-api-dev
       namespace: argocd
       project: default
       annotations:
@@ -3855,7 +3855,7 @@
               - values_dev.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: new-caring-web-mobile-dev
+        namespace: new-caring-mobile-api-dev
       revisionHistoryLimit: 3
       syncPolicy: {}
 
