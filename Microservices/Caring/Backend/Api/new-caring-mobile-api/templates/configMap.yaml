@@ -1,0 +1,21 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ .Chart.Name }}-config"
+data:
+  ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
+
+  ConnectionStrings__PostgreSqlMaster: "{{ .Values.App.ConnectionStrings.PostgreSqlMaster }}"
+  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App.ConnectionStrings.PostgreSqlSlave }}"
+  ConnectionStrings__CHomeConnection: "{{ .Values.App.ConnectionStrings.CHomeConnection }}"
+  ConnectionStrings__OldCaringConnection: "{{ .Values.App.ConnectionStrings.OldCaringConnection }}"
+  OpenTelemetry__EndPoint: "{{ .Values.App.OpenTelemetry.EndPoint }}"
+  OpenTelemetry__Protocol: "{{ .Values.App.OpenTelemetry.Protocol }}"
+  Redis__ConnectionString: "{{ .Values.App.Redis.ConnectionString }}"
+  JCP__EndPoint: "{{ .Values.App.JCP.EndPoint }}"
+  AppAuthentication__ApiSharedSecret: "{{ .Values.App.AppAuthentication.ApiSharedSecret }}"
+  AppAuthentication__MaxAllowedTimeDriftInSeconds: "{{ .Values.App.AppAuthentication.MaxAllowedTimeDriftInSeconds }}"
+
+  {{- if .Values.App.ServiceAccountCredentials }}
+  GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
+  {{- end }}

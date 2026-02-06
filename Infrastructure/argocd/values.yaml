@@ -3838,6 +3838,27 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
+    - name: new-caring-web-mobile-dev
+      namespace: argocd
+      project: default
+      annotations:
+        meta.helm.sh/release-name: argocd
+        meta.helm.sh/release-namespace: argocd
+      labels:
+        app.kubernetes.io/managed-by: Helm
+      sources:
+        - repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+          targetRevision: main
+          path: Microservices/Caring/Backend/Api/new-caring-mobile-api
+          helm:
+            valueFiles:
+              - values_dev.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: new-caring-web-mobile-dev
+      revisionHistoryLimit: 3
+      syncPolicy: {}
+
     - name: new-caring-event-consumer-dev
       namespace: argocd
       project: default
