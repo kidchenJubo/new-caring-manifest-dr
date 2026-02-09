@@ -34,29 +34,3 @@ spec:
             host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
             port:
               number: 80
-
-    - name: mobile-api
-      corsPolicy:
-        allowOrigins:
-          - exact: "http://localhost:3000"
-          - exact: "https://*.jubo.health"
-          - exact: "https://*.caringcm.com.tw"
-        allowMethods:
-          - OPTIONS
-          - GET
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        allowHeaders:
-          - "*"
-        allowCredentials: true
-        maxAge: "24h"
-      match:
-        - uri:
-            regex: "(?i)/m/api/.*"
-      route:
-        - destination:
-            host: new-caring-mobile-api.new-caring-mobile-api-dev.svc.cluster.local
-            port:
-              number: 80
