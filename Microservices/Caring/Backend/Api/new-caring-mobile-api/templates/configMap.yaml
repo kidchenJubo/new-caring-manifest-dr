@@ -15,7 +15,3 @@ data:
   JCP__EndPoint: "{{ .Values.App.JCP.EndPoint }}"
   AppAuthentication__ApiSharedSecret: "{{ .Values.App.AppAuthentication.ApiSharedSecret }}"
   AppAuthentication__MaxAllowedTimeDriftInSeconds: "{{ .Values.App.AppAuthentication.MaxAllowedTimeDriftInSeconds }}"
-
-  {{- if .Values.App.ServiceAccountCredentials }}
-  GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
-  {{- end }}

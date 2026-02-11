@@ -1,0 +1,43 @@
+App:
+  Replicas: 1
+  MinReplicas: 1
+  MaxReplicas: 1
+  Version: 2.1.0.17-dev-3
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  Env: qat
+  AppResources:
+    requests:
+      cpu: 150m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+  ConnectionStrings:
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    CHomeConnection: "Server=10.140.15.234,9900;Database=QAT_CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+    OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+  OpenTelemetry:
+    EndPoint: "http://opentelemetry-collector.opentelemetry.svc.cluster.local:4317"
+    Protocol: "grpc"
+  Redis:
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=1"
+  JCP:
+    EndPoint: "http://jcp-qat-api.jubo.health.internal"
+  AppAuthentication:
+    ApiSharedSecret: "cc656962cc2c44adb7665bbb1356f845"
+    MaxAllowedTimeDriftInSeconds: "300"
+
+SqlProxy:
+  Version: 2.18.1
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
+  SqlProxyResources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi

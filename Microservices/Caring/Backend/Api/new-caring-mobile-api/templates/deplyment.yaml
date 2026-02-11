@@ -53,11 +53,6 @@ spec:
                   fieldPath: spec.serviceAccountName
             - name: ASPNETCORE_URLS
               value: "http://+:8080"
-          {{- if .Values.App.ServiceAccountCredentials }}
-          volumeMounts:
-            - mountPath: /app/secrets
-              name: secret-sa-volume
-          {{- end }}
           ports:
             - containerPort: 8080
           livenessProbe:

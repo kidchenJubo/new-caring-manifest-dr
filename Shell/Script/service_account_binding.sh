@@ -68,6 +68,33 @@ kubectl -n new-caring-event-consumer-demo annotate --overwrite serviceaccount \
     caring-event-consumer \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
 
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-mobile-api-dev/new-caring-mobile-api]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n new-caring-mobile-api-dev annotate --overwrite serviceaccount \
+    new-caring-mobile-api \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-mobile-api-qat/new-caring-mobile-api]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n new-caring-mobile-api-qat annotate --overwrite serviceaccount \
+    new-caring-mobile-api \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-mobile-api-demo/new-caring-mobile-api]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n new-caring-mobile-api-demo annotate --overwrite serviceaccount \
+    new-caring-mobile-api \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
 # Release
 
 gcloud iam service-accounts add-iam-policy-binding \
@@ -86,6 +113,15 @@ gcloud iam service-accounts add-iam-policy-binding \
 
 kubectl -n new-caring-event-consumer-release annotate --overwrite serviceaccount \
     caring-event-consumer \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-mobile-api-release/new-caring-mobile-api]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n new-caring-mobile-api-release annotate --overwrite serviceaccount \
+    new-caring-mobile-api \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
 
 # 賦予 JCP pubsub 權限

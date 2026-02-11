@@ -17,13 +17,6 @@ spec:
         target:
           type: Utilization
           averageUtilization: 80
-# 在 Kubernetes 的 HPA（橫向自動擴展）設定中，對於 C# (.NET) 服務，強烈不建議將記憶體（Memory）作為主要的 Scale 依據
-#    - type: Resource
-#      resource:
-#        name: memory
-#        target:
-#          type: Utilization
-#          averageUtilization: 85
   behavior:
       scaleUp:
         selectPolicy: Max

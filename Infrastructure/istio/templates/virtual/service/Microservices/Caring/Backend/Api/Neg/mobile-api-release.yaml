@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: new-caring-mobile-api-neg-release
+  namespace: istio-system
+spec:
+  hosts:
+    - "mobile-api-release.caringcm.com.tw"
+  gateways:
+    - istio-system/infra-gateway-neg-release
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: new-caring-mobile-api.new-caring-mobile-api-release.svc.cluster.local
+            port:
+              number: 80
