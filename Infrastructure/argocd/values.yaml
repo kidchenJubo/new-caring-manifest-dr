@@ -187,8 +187,8 @@
 
       # Dex configuration
       # 從 yaml 改為 json 以方便 jenksin 替換 secret
-      dex.config: |
-        {"connectors": [{"type": "microsoft", "id": "microsoft", "name": "Microsoft", "config": {"clientID": "50b6ed34-b030-4104-a14d-c8bc139b7d2b", "clientSecret": "kj38Q~VOegP9nCoFSltZ5JN06QTDPmKO3MDmBdmv", "tenant": "organizations", "hostedDomains": ["jubo.health"]}}]}
+      # dex.config: |
+      #  {"connectors": [{"type": "microsoft", "id": "microsoft", "name": "Microsoft", "config": {"clientID": "50b6ed34-b030-4104-a14d-c8bc139b7d2b", "clientSecret": "kj38Q~VOegP9nCoFSltZ5JN06QTDPmKO3MDmBdmv", "tenant": "organizations", "hostedDomains": ["jubo.health"]}}]}
 
       # 修改 Argo CD 自己的主設定 ConfigMap
       # resource.customizations: |
@@ -424,8 +424,7 @@
     ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters
     ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/security/#external-cluster-credentials
     ## - https://argo-cd.readthedocs.io/en/stable/user-guide/projects/#project-scoped-repositories-and-clusters
-    clusterCredentials:
-      []
+    clusterCredentials: {}
       # - name: mycluster
       #   server: https://mycluster.example.com
       #   labels: {}
@@ -3211,8 +3210,7 @@
 
     # -- Contains centrally managed global application subscriptions
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/subscriptions/
-    subscriptions:
-      []
+    subscriptions: []
       # subscription for on-sync-status-unknown trigger notifications
       # - recipients:
       #     - teams:new-caring-notification-channel
@@ -3705,7 +3703,7 @@
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
   applications:
     # argocd
-    - name: argocd
+    argocd:
       namespace: argocd
       project: default
       annotations:
@@ -3741,7 +3739,7 @@
             - /data
 
     # istio
-    - name: istio
+    istio:
       namespace: argocd
       project: default
       annotations:
@@ -3796,7 +3794,7 @@
     # dev ↓↓↓
 
     # Caring
-    - name: new-caring-web-api-dev
+    new-caring-web-api-dev:
       namespace: argocd
       project: default
       annotations:
@@ -3817,7 +3815,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-web-page-dev
+    new-caring-web-page-dev:
       namespace: argocd
       project: default
       annotations:
@@ -3838,7 +3836,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-mobile-api-dev
+    new-caring-mobile-api-dev:
       namespace: argocd
       project: default
       annotations:
@@ -3859,7 +3857,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-event-consumer-dev
+    new-caring-event-consumer-dev:
       namespace: argocd
       project: default
       annotations:
@@ -3885,7 +3883,7 @@
     # qat ↓↓↓
 
     # Caring
-    - name: new-caring-web-api-qat
+    new-caring-web-api-qat:
       namespace: argocd
       project: default
       annotations:
@@ -3906,7 +3904,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-web-page-qat
+    new-caring-web-page-qat:
       namespace: argocd
       project: default
       annotations:
@@ -3927,7 +3925,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-event-consumer-qat
+    new-caring-event-consumer-qat:
       namespace: argocd
       project: default
       annotations:
@@ -3953,7 +3951,7 @@
     # demo ↓↓↓
 
     # Caring
-    - name: new-caring-web-api-demo
+    new-caring-web-api-demo:
       namespace: argocd
       project: default
       annotations:
@@ -3974,7 +3972,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-web-page-demo
+    new-caring-web-page-demo:
       namespace: argocd
       project: default
       annotations:
@@ -3995,7 +3993,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-event-consumer-demo
+    new-caring-event-consumer-demo:
       namespace: argocd
       project: default
       annotations:
@@ -4021,7 +4019,7 @@
     # release ↓↓↓
 
     # Caring
-    - name: new-caring-web-api-release
+    new-caring-web-api-release:
       namespace: argocd
       project: default
       annotations:
@@ -4042,7 +4040,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-web-page-release
+    new-caring-web-page-release:
       namespace: argocd
       project: default
       annotations:
@@ -4063,7 +4061,7 @@
       revisionHistoryLimit: 3
       syncPolicy: {}
 
-    - name: new-caring-event-consumer-release
+    new-caring-event-consumer-release:
       namespace: argocd
       project: default
       annotations:
@@ -4129,17 +4127,17 @@
   # -- Deploy Argo CD Projects within this helm release
   # @default -- `[]` (See [values.yaml])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-  projects:
-    - name: deprecate
-      namespace: argocd
-      sourceRepos:
-        - "*"
-      destinations:
-        - namespace: "*"
-          server: "*"
-      clusterResourceWhitelist:
-        - group: "*"
-          kind: "*"
+  # projects:
+  #  - name: deprecate
+  #    namespace: argocd
+  #    sourceRepos:
+  #      - "*"
+  #    destinations:
+  #      - namespace: "*"
+  #        server: "*"
+  #    clusterResourceWhitelist:
+  #      - group: "*"
+  #        kind: "*"
   # - name: guestbook
   #   namespace: argocd
   #   additionalLabels: {}
@@ -4186,7 +4184,7 @@
   # -- Deploy Argo CD ApplicationSets within this helm release
   # @default -- `[]` (See [values.yaml])
   ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
-  applicationsets: []
+  applicationsets: {}
   # - name: guestbook
   #   namespace: argocd
   #   additionalLabels: {}

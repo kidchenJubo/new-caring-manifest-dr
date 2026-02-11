@@ -97,6 +97,27 @@ kubectl get svc -A
 kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
 ```
 
+### ArgoCD 版本
+
+#### 1. 取得最新版本
+```shell
+helm search repo argo/argo-cd --versions # 查詢 argo-cd 最新的 app version 及 chart version
+helm search repo argo/argocd-apps --versions # 查詢 argocd-apps 最新的 chart version
+```
+
+#### 2. 修改版本號
+修改 Infrastructure/argocd/Chart.yaml
+```yaml
+appVersion: "3.3.0"    # 對應 ArgoCD 本身版本
+dependencies:
+  - name: argo-cd
+    repository: https://argoproj.github.io/argo-helm
+    version: ">=6.2.0"
+  - name: argocd-apps
+    repository: https://argoproj.github.io/argo-helm
+    version: ">=1.6.2"
+```
+
 ### Build Dependency
 
 ```shell
