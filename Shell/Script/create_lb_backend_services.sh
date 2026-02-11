@@ -45,7 +45,8 @@ update_health_check()
 # update_health_check
 # exit
 
-for env in qat demo; do
+# for env in qat demo; do
+for env in release; do
   for app in new-caring-web-page new-caring-web-api; do
       create_backend_services $env $app
   done
