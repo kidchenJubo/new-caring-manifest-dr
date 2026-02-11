@@ -161,6 +161,10 @@ helm list -n argocd
 batch                      Job                 argocd     argocd-redis-secret-init                    Running             PreSync  job.batch/argocd-redis-secret-init created
 ```
 
+### ArgoCD 使用 Azure 登入說明
+
+ArgoCD 的 Azure 密碼使用 Jenkins (https://jenkins.smart-aging.tech/view/OPS/job/azure-credentials-rotator/) 維護, 一個月輪替一次
+
 ### Istio Sidecar Injection
 #### need kubernetes 1.28 and above
 #### Inject Sidecar To Namespace
