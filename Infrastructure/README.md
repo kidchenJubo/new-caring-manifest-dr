@@ -148,6 +148,19 @@ helm uninstall argocd -n argocd
 helm list -n argocd
 ```
 
+### ArgoCD 更新後同步失敗解救辦法
+1. kubectl edit configmap argocd-cm // 修改密碼 (如果不知道密碼，請到其他 cluster 查詢，缺少這步驟以下登入會失敗)
+2. argocd login new-caring-argocd.jubo.health --sso --sso-launch-browser --grpc-web
+3. argocd app get argocd/argocd // 取得 argocd 狀況
+4. argocd app terminate-op argocd/argocd // 停止同步
+5. kubectl delete job argocd-redis-secret-init -n argocd // 刪除卡住的 job
+6. argocd app sync argocd/argocd --strategy apply // 重新同步
+
+同步狀態, 發現卡在 PreSync
+```text
+batch                      Job                 argocd     argocd-redis-secret-init                    Running             PreSync  job.batch/argocd-redis-secret-init created
+```
+
 ### Istio Sidecar Injection
 #### need kubernetes 1.28 and above
 #### Inject Sidecar To Namespace
