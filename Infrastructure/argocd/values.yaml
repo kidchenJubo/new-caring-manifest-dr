@@ -11,6 +11,7 @@ argo-cd:
     rbac:
       policy.default: "role:admin"
     cm:
+      # 修正 oidc: expected audience "argo-cd-cli" got ["argo-cd"]" 錯誤
       dex.config: |
         connectors:
           - type: microsoft

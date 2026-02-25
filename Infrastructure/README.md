@@ -145,6 +145,19 @@ argocd 若已安裝, 不需要再用以下 helm 的方式升級, 直接在 git �
 helm upgrade -f ./Infrastructure/argocd/values.yaml argocd ./Infrastructure/argocd --create-namespace -n argocd
 ```
 
+#### ArgoCD 升級失敗
+問題發生在 istio-proxy 有自動注入 Proxy Sidecar，當主任務執行完後，Sidecar 還活著，這會導致 redisSecretInit 永遠不會變成 Completed。
+
+解決方法：
+
+values.yaml 在 redisSecretInit
+```yaml
+argo-cd:
+  redisSecretInit:
+    podLabels:
+      sidecar.istio.io/inject: "false"
+```
+
 ### Uninstall ArgoCD
 
 注意：解除安裝經常機率會卡在 Finalizer
