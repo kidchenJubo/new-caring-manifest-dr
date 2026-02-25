@@ -158,6 +158,22 @@ argo-cd:
       sidecar.istio.io/inject: "false"
 ```
 
+移除 istio-injection
+argocd 不使用 istion, 因此可以直接將 label 移除
+```shell
+kubectl label namespace argocd istio-injection-
+kubectl get namespace -L istio-injection
+```
+
+刪除 Istio 程式並不會自動移除 Pod 裡的 istio-proxy 容器。
+
+必須重啟所有原本有注入 Sidecar 的 Pod，它們才會恢復成「純淨」的狀態：
+```shell
+# 重啟特定 Namespace 下的所有 Deployment
+kubectl rollout restart deployment -n argocd
+kubectl rollout restart statefulset -n argocd
+```
+
 ### Uninstall ArgoCD
 
 注意：解除安裝經常機率會卡在 Finalizer
