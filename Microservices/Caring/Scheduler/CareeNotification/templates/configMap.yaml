@@ -1,0 +1,70 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ .Chart.Name }}-config"
+data:
+  #################################
+  # Logging
+  #################################
+  Logging__LogLevel__Default: "Warning"
+  Logging__LogLevel__Microsoft: "Warning"
+  Logging__LogLevel__Microsoft.Hosting.Lifetime: "Warning"
+  #################################
+  # Worker
+  #################################
+  Settings__Worker__Brand: "{{ .Values.App.JCP.Brand }}"
+  Settings__Worker__Product: "{{ .Values.App.JCP.Product }}"
+  Settings__Worker__Environment: "{{ .Values.App.Env }}"
+  Settings__Worker__Name: "{{ .Values.App.JCP.Name }}"
+  Settings__Worker__Version: "{{ .Values.App.Version }}"
+  #################################
+  # Database
+  #################################
+  Settings__Database__0__Provider: "PostgreSql"
+  Settings__Database__0__Name: "Caring_V2"
+  Settings__Database__0__Options__0__Type: "Master"
+  Settings__Database__0__Options__0__IsUse: "1"
+  Settings__Database__0__Options__0__Connection: "{{ .Values.App.CaringConnection.Master }}"
+  Settings__Database__0__Options__0__CommandTimeout: "60"
+  Settings__Database__0__Options__0__RetryCount: "3"
+  Settings__Database__0__Options__0__RetryDelayTime: "1"
+  Settings__Database__0__Options__1__Type: "Slave"
+  Settings__Database__0__Options__1__IsUse: "1"
+  Settings__Database__0__Options__1__Connection: "{{ .Values.App.CaringConnection.Slave }}"
+  Settings__Database__0__Options__1__CommandTimeout: "60"
+  Settings__Database__0__Options__1__RetryCount: "3"
+  Settings__Database__0__Options__1__RetryDelayTime: "1"
+  #################################
+  # Cache
+  #################################
+  Settings__Cache__0__Provider: "Redis"
+  Settings__Cache__0__Name: "Caring"
+  Settings__Cache__0__Options__IsUse: "1"
+  Settings__Cache__0__Options__Connection: "{{ .Values.App.Redis.ConnectionString }}"
+  Settings__Cache__0__Options__MaxCacheTime: "30"
+  Settings__Cache__0__Options__RetryCount: "3"
+  Settings__Cache__0__Options__RetryDelayTime: "1"
+  #################################
+  # Notification
+  #################################
+  Settings__Notification__Cloud__Message__Push__0__Provider: "Firebase"
+  Settings__Notification__Cloud__Message__Push__0__Name: "Caring"
+  Settings__Notification__Cloud__Message__Push__0__Options__ProjectId: "{{ .Values.App.FCM.ProjectId }}"
+  Settings__Notification__Cloud__Message__Push__0__Options__IsUse: "1"
+  #################################
+  # Url
+  #################################
+  Settings__Url__0__Provider: "Backend"
+  Settings__Url__0__Name: "Caring"
+  Settings__Url__0__Options__IsUse: "1"
+  Settings__Url__0__Options__Connection: "http://jcp-dev-api-caring.jubo.health.internal"
+  Settings__Url__0__Options__DefaultContentType: "application/json"
+  Settings__Url__0__Options__Timeout: "60"
+  #################################
+  # Localizer
+  #################################
+  Settings__Localizer__0__Provider: "Memory"
+  Settings__Localizer__0__Name: "Caring"
+  Settings__Localizer__0__Options__IsUse: "1"
+  Settings__Localizer__0__Options__Connection: "Resource/{0}/{1}.json"
+  
