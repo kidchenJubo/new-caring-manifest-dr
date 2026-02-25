@@ -37,6 +37,11 @@ argo-cd:
         # 提供 neg 接口給自建的 LB 整合
         cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "new-caring-argocd-80"}}}'
 
+  # 不要對 SecretInit 注入 sidecar, 會導致 job 無法結束
+  redisSecretInit:
+    podLabels:
+      sidecar.istio.io/inject: "false"
+
   # TODO 將 Azure Group 對應至 ArgoCD 權限
   #rbac:
   #  policy.csv: |
