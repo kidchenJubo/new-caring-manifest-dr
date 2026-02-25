@@ -21,6 +21,9 @@ argo-cd:
               clientSecret: $argocd-dex-ms-secret:clientSecret
               tenant: "organizations"
               hostedDomains: ["jubo.health"]
+              allowedAudiences:
+                - argo-cd
+                - argo-cd-cli
 
     params:
       # 告訴 ArgoCD 不要自己在內部強制轉跳 HTTPS，交給 Gateway 處理
