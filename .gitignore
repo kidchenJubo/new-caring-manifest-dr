@@ -7,3 +7,9 @@
 out
 gen
 *.tgz
+.vscode/
+.idea/
+charts/
+*.tgz
+.DS_Store
+Thumbs.db

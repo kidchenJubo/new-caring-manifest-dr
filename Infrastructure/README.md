@@ -101,8 +101,11 @@ kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
 
 #### 1. 取得最新版本
 ```shell
-helm search repo argo/argo-cd --versions # 查詢 argo-cd 最新的 app version 及 chart version
-helm search repo argo/argocd-apps --versions # 查詢 argocd-apps 最新的 chart version
+# 查詢 argo-cd 最新的 app version 及 chart version
+helm search repo argo/argo-cd --versions
+
+# 查詢 argocd-apps 最新的 chart version (不再需要)
+# helm search repo argo/argocd-apps --versions
 ```
 
 #### 2. 修改版本號
@@ -113,9 +116,11 @@ dependencies:
   - name: argo-cd
     repository: https://argoproj.github.io/argo-helm
     version: ">=6.2.0"
-  - name: argocd-apps
-    repository: https://argoproj.github.io/argo-helm
-    version: ">=1.6.2"
+
+# 不使用 argocd-apps 的方式建置 applications
+#  - name: argocd-apps
+#    repository: https://argoproj.github.io/argo-helm
+#    version: ">=1.6.2"
 ```
 
 ### Build Dependency
@@ -123,21 +128,26 @@ dependencies:
 ```shell
 helm dependency update ./Infrastructure/argocd
 
-helm dependency build ./Infrastructure/argocd
+# helm dependency build ./Infrastructure/argocd
 ```
 
 ### Install / Upgrade ArgoCD With Environment
 
+第一次全新安裝 argocd 時
 ```shell
-helm upgrade --force --install -f ./Infrastructure/argocd/values.yaml argocd ./Infrastructure/argocd --create-namespace -n argocd
+helm upgrade --install -f ./Infrastructure/argocd/values.yaml argocd ./Infrastructure/argocd --create-namespace -n argocd
 ```
 
 ### Upgrade ArgoCD
+
+argocd 若已安裝, 不需要再用以下 helm 的方式升級, 直接在 git 修改即可, 以下僅供參考
 ```shell
-helm upgrade --force -f ./Infrastructure/argocd/values.yaml argocd ./Infrastructure/argocd --create-namespace -n argocd
+helm upgrade -f ./Infrastructure/argocd/values.yaml argocd ./Infrastructure/argocd --create-namespace -n argocd
 ```
 
 ### Uninstall ArgoCD
+
+注意：解除安裝經常機率會卡在 Finalizer
 ```shell
 helm uninstall argocd -n argocd
 ```
@@ -146,19 +156,6 @@ helm uninstall argocd -n argocd
 
 ```shell
 helm list -n argocd
-```
-
-### ArgoCD 更新後同步失敗解救辦法
-1. kubectl edit configmap argocd-cm // 修改密碼 (如果不知道密碼，請到其他 cluster 查詢，缺少這步驟以下登入會失敗)
-2. argocd login new-caring-argocd.jubo.health --sso --sso-launch-browser --grpc-web
-3. argocd app get argocd/argocd // 取得 argocd 狀況
-4. argocd app terminate-op argocd/argocd // 停止同步
-5. kubectl delete job argocd-redis-secret-init -n argocd // 刪除卡住的 job
-6. argocd app sync argocd/argocd --strategy apply // 重新同步
-
-同步狀態, 發現卡在 PreSync
-```text
-batch                      Job                 argocd     argocd-redis-secret-init                    Running             PreSync  job.batch/argocd-redis-secret-init created
 ```
 
 ### ArgoCD 使用 Azure 登入說明

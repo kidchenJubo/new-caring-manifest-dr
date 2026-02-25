@@ -1,0 +1,51 @@
+{{- if and .Values.apps .Values.apps.applications }}
+{{- range $appName, $appData:= .Values.apps.applications }}
+{{- if not $appData }}
+{{- continue }}
+{{- end }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $appName }}
+  namespace: argocd
+  annotations:
+    meta.helm.sh/release-name: argocd
+    meta.helm.sh/release-namespace: argocd
+    {{- with $appData.syncWave }}
+    argocd.argoproj.io/sync-wave: {{ . | quote }}
+    {{- end }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+spec:
+  project: default
+  source:
+    repoURL: {{ $.Values.apps.global.repoURL }}
+    targetRevision: {{ $.Values.apps.global.targetRevision }}
+    path: {{ $appData.sourcePath }}
+    {{- with $appData.sourceHelm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  destination:
+    namespace: {{ $appData.destinationNamespace }}
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: {{ dig "syncPolicy" "automated" "prune" true $appData }}
+      selfHeal: {{ dig "syncPolicy" "automated" "selfHeal" true $appData }}
+    syncOptions:
+    - CreateNamespace=true
+    {{- with $appData.extraSyncOptions }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  revisionHistoryLimit: 3
+  {{- if $appData.ignoreReplicasDifferences }}
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+      - /spec/replicas
+  {{- end }}
+{{- end }}
+{{- end }}
