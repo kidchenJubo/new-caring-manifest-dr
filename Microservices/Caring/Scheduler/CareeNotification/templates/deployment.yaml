@@ -72,14 +72,14 @@ spec:
               value: "{{ .Values.App.OldCaringConnection.User }}"
             - name: CARING_DB_PWD
               value: "{{ .Values.App.OldCaringConnection.Pwd }}"
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 8080
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   failureThreshold: 5
           resources: 
 {{ toYaml .Values.App.AppResources | indent 11 }}
         - name: cloud-sql-proxy
