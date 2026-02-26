@@ -25,7 +25,7 @@ App:
     Master: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     Slave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
   OldCaringConnection:
-    IP: "35.189.173.199"
+    IP: "10.140.15.234"
     Port: 9900
     Name: "CHOME"
     User: "sso_admin"
