@@ -62,15 +62,15 @@ spec:
             - name: INTERVAL_EXTRACT_TRANSFORM_LOAD_CARING_CAREE_NOTIFICATION
               value: "{{ .Values.App.IntervalExtractTransformLoadCaringCareeNotification }}"
             - name: CARING_DB_IP
-              value: "{{ .Values.OldCaringConnection.IP }}"
+              value: "{{ .Values.App.OldCaringConnection.IP }}"
             - name: CARING_DB_PORT
-              value: "{{ .Values.OldCaringConnection.Port }}"
+              value: "{{ .Values.App.OldCaringConnection.Port }}"
             - name: CARING_DB_NAME
-              value: "{{ .Values.OldCaringConnection.Name }}"
+              value: "{{ .Values.App.OldCaringConnection.Name }}"
             - name: CARING_DB_USER
-              value: "{{ .Values.OldCaringConnection.User }}"
+              value: "{{ .Values.App.OldCaringConnection.User }}"
             - name: CARING_DB_PWD
-              value: "{{ .Values.OldCaringConnection.Pwd }}"
+              value: "{{ .Values.App.OldCaringConnection.Pwd }}"
           livenessProbe:
             httpGet:
               path: /health
