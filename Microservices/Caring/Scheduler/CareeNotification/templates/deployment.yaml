@@ -15,13 +15,7 @@ spec:
       serviceAccountName: {{ .Chart.Name }}
       containers:
         - name: caree-notification-worker
-          # image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/jcp-dotnet-cron-job-share:{{ .Values.App.Version }}"
           image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-dotnet-cron-job-share:{{ .Values.App.Version }}"
-          # image: "registry.smart-aging.tech/jcp/jcp-dotnet/jcp-dotnet-cron-job/jcp-dotnet-cron-job-share:{{ .Values.App.Version }}"
-          # securityContext:
-          #   runAsUser: 1000
-          #   runAsGroup: 1000
-          #   runAsNonRoot: true
           envFrom:
             - configMapRef:
                 name: "{{ .Chart.Name }}-config"
