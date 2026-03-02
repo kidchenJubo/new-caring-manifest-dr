@@ -55,11 +55,17 @@ data:
   # Url
   #################################
   Settings__Url__0__Provider: "Backend"
-  Settings__Url__0__Name: "Caring"
+  Settings__Url__0__Name: "Share"
   Settings__Url__0__Options__IsUse: "1"
-  Settings__Url__0__Options__Connection: "http://jcp-dev-api-caring.jubo.health.internal"
+  Settings__Url__0__Options__Connection: "http://jcp-dev-api-share.jubo.health.internal"
   Settings__Url__0__Options__DefaultContentType: "application/json"
   Settings__Url__0__Options__Timeout: "60"
+  Settings__Url__1__Provider: "Backend"
+  Settings__Url__1__Name: "Caring"
+  Settings__Url__1__Options__IsUse: "1"
+  Settings__Url__1__Options__Connection: "http://jcp-dev-api-caring.jubo.health.internal"
+  Settings__Url__1__Options__DefaultContentType: "application/json"
+  Settings__Url__1__Options__Timeout: "60"
   #################################
   # Localizer
   #################################
