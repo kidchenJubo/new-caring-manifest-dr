@@ -70,7 +70,11 @@ data:
   # Localizer
   #################################
   Settings__Localizer__0__Provider: "Memory"
-  Settings__Localizer__0__Name: "Caring"
+  Settings__Localizer__0__Name: "Share"
   Settings__Localizer__0__Options__IsUse: "1"
   Settings__Localizer__0__Options__Connection: "Resource/{0}/{1}.json"
+  Settings__Localizer__1__Provider: "Memory"
+  Settings__Localizer__1__Name: "Caring"
+  Settings__Localizer__1__Options__IsUse: "1"
+  Settings__Localizer__1__Options__Connection: "Resource/{0}/{1}.json"
   
