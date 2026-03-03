@@ -103,6 +103,14 @@ apps:
           - values_dev.yaml
       destinationNamespace: new-caring-event-consumer-dev
       ignoreReplicasDifferences: false
+
+    caree-notification-dev:
+      sourcePath: Microservices/Caring/Scheduler/CareeNotification
+      sourceHelm:
+        valueFiles:
+          - values_dev.yaml
+      destinationNamespace: caree-notification-dev
+      ignoreReplicasDifferences: false
     # dev ↑↑↑
 
     # qat ↓↓↓

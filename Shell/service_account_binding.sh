@@ -124,6 +124,15 @@ kubectl -n new-caring-mobile-api-release annotate --overwrite serviceaccount \
     new-caring-mobile-api \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
 
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[caree-notification-dev/caree-notification]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n caree-notification-dev annotate --overwrite serviceaccount \
+    caree-notification \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
 # 賦予 JCP pubsub 權限
 gcloud projects add-iam-policy-binding jubo-care-platform --member="serviceAccount:n-c-b-a@static-map-242406.iam.gserviceaccount.com" --role="roles/pubsub.subscriber"
 

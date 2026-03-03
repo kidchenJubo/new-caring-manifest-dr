@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.App.Replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      serviceAccountName: {{ .Chart.Name }}
+      containers:
+        - name: caree-notification-worker
+          image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-dotnet-cron-job-share:{{ .Values.App.Version }}"
+          envFrom:
+            - configMapRef:
+                name: "{{ .Chart.Name }}-config"
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MY_POD_SERVICE_ACCOUNT
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
+            - name: DOTNNET_ENVIRONMENT
+              value: "{{ .Values.App.Env }}"
+            - name: NLOG_JSON_LAYOUT_WORKER_BRAND
+              value: "{{ .Values.App.JCP.Brand }}"
+            - name: NLOG_JSON_LAYOUT_WORKER_PRODUCT
+              value: "{{ .Values.App.JCP.Product }}"
+            - name: NLOG_JSON_LAYOUT_WORKER_ENVIRONMENT
+              value: "{{ .Values.App.Env }}"
+            - name: NLOG_JSON_LAYOUT_WORKER_NAME
+              value: "{{ .Values.App.JCP.Name }}"
+            - name: NLOG_JSON_LAYOUT_WORKER_VERSION
+              value: "{{ .Values.App.JCP.Version }}"
+            - name: NLOG_REDIS_CONNECTION_HOST
+              value: "{{ .Values.App.NLog.Redis.Host }}"
+            - name: NLOG_REDIS_CONNECTION_PORT  
+              value: "{{ .Values.App.NLog.Redis.Port }}"
+            - name: NLOG_KAFKA_CONNECTION_BROKERS
+              value: "{{ .Values.App.NLog.Kafka.ConnectionString }}"
+            - name: INTERVAL_EXTRACT_TRANSFORM_LOAD_CARING_CAREE_NOTIFICATION
+              value: "{{ .Values.App.IntervalExtractTransformLoadCaringCareeNotification }}"
+            - name: CARING_DB_IP
+              value: "{{ .Values.App.OldCaringConnection.IP }}"
+            - name: CARING_DB_PORT
+              value: "{{ .Values.App.OldCaringConnection.Port }}"
+            - name: CARING_DB_NAME
+              value: "{{ .Values.App.OldCaringConnection.Name }}"
+            - name: CARING_DB_USER
+              value: "{{ .Values.App.OldCaringConnection.User }}"
+            - name: CARING_DB_PWD
+              value: "{{ .Values.App.OldCaringConnection.Pwd }}"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 8080
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   failureThreshold: 5
+          resources: 
+{{ toYaml .Values.App.AppResources | indent 11 }}
+        - name: cloud-sql-proxy
+          image: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:{{ .Values.SqlProxy.Version }}"
+          args:
+            - "--private-ip"
+            - "--auto-iam-authn"
+            - "--port=5432"
+            - "{{ .Values.SqlProxy.InstanceName }}"
+          resources: 
+{{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true
