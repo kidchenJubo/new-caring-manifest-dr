@@ -51,7 +51,7 @@ argo-cd:
   #  policy.csv: |
   #    g, "Azure-Admins-Group-ID", role:admin
   #    g, "Azure-Dev-Group-ID", role:readonly
-  
+
 # 簡化版本的 argocd apps, 去除掉重複的設定
 apps:
   global:
@@ -131,6 +131,14 @@ apps:
       destinationNamespace: new-caring-web-page-qat
       ignoreReplicasDifferences: false
 
+    new-caring-mobile-api-qat:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-mobile-api
+      sourceHelm:
+        valueFiles:
+          - values_qat.yaml
+      destinationNamespace: new-caring-mobile-api-qat
+      ignoreReplicasDifferences: false
+
     new-caring-event-consumer-qat:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:
@@ -156,6 +164,14 @@ apps:
         valueFiles:
           - values_demo.yaml
       destinationNamespace: new-caring-web-page-demo
+      ignoreReplicasDifferences: false
+
+    new-caring-mobile-api-demo:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-mobile-api
+      sourceHelm:
+        valueFiles:
+          - values_demo.yaml
+      destinationNamespace: new-caring-mobile-api-demo
       ignoreReplicasDifferences: false
 
     new-caring-event-consumer-demo:
