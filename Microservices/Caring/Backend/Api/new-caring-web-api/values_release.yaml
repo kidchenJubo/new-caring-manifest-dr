@@ -6,12 +6,12 @@ App:
   UseHPA: true
   UsePDB:
     enabled: true
-    UseUnavailable: false # use this should set replicas to 2 above
+    UseUnavailable: true # use maxUnavailable for better flexibility with HPA
   Env: release
   AppResources:
     requests:
-      cpu: 150m
-      memory: 512Mi
+      cpu: 250m
+      memory: 768Mi
     limits:
       cpu: 1000m
       memory: 1280Mi
