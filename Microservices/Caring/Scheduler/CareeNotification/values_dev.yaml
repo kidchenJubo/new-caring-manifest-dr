@@ -40,6 +40,9 @@ App:
       ConnectionString: "localhost:9092"
   FCM:
     ProjectId: "caree-7e2b6"
+  BackendUrl:
+    Share: "https://jcp-dev-api-share.jubo.health"
+    Caring: "https://jcp-dev-api-caring.jubo.health"
 
 SqlProxy:
   Version: 2.18.1
