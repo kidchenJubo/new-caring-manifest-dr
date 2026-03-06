@@ -146,6 +146,14 @@ apps:
           - values_qat.yaml
       destinationNamespace: new-caring-event-consumer-qat
       ignoreReplicasDifferences: false
+
+    caree-notification-qat:
+      sourcePath: Microservices/Caring/Scheduler/CareeNotification
+      sourceHelm:
+        valueFiles:
+          - values_qat.yaml
+      destinationNamespace: caree-notification-qat
+      ignoreReplicasDifferences: false
     # qat ↑↑↑
 
     # demo ↓↓↓
@@ -180,6 +188,14 @@ apps:
         valueFiles:
           - values_demo.yaml
       destinationNamespace: new-caring-event-consumer-demo
+      ignoreReplicasDifferences: false
+
+    caree-notification-demo:
+      sourcePath: Microservices/Caring/Scheduler/CareeNotification
+      sourceHelm:
+        valueFiles:
+          - values_demo.yaml
+      destinationNamespace: caree-notification-demo
       ignoreReplicasDifferences: false
     # demo ↑↑↑
 

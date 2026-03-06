@@ -1,0 +1,56 @@
+App:
+  Replicas: 1
+  MinReplicas: 1
+  MaxReplicas: 1
+  Version: 1.0.34
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  Env: qat
+  AppResources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
+  JCP:
+    Brand: "jcp"
+    Product: "share"
+    Name: "jcp-dotnet-cron-job-share"
+  IntervalExtractTransformLoadCaringCareeNotification: 600
+  CaringConnection:
+    Master: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    Slave: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+  OldCaringConnection:
+    IP: "10.140.15.234"
+    Port: 9900
+    Name: "QAT_CHOME"
+    User: "sso_admin"
+    Pwd: "5086@Jubo_SSO@8012"
+  Redis:
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
+  NLog:
+    Redis:
+      Host: "127.0.0.1"
+      Port: "6379"
+    Kafka:
+      ConnectionString: "localhost:9092"
+  FCM:
+    ProjectId: "caree-7e2b6"
+  BackendUrl:
+    Share: "https://jcp-qat-api-share.jubo.health"
+    Caring: "https://jcp-qat-api-caring.jubo.health"
+
+SqlProxy:
+  Version: 2.18.1
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
+  SqlProxyResources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
