@@ -10,11 +10,11 @@ App:
   Env: Development
   AppResources:
     requests:
-      cpu: 150m
+      cpu: 50m
       memory: 512Mi
     limits:
-      cpu: 1000m
-      memory: 1280Mi
+      cpu: 300m
+      memory: 768Mi
   ConnectionStrings:
     PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"

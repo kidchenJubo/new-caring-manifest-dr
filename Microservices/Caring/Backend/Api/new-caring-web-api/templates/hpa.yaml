@@ -29,12 +29,12 @@ spec:
         selectPolicy: Max
         policies:
           - type: Pods
-            value: 3
-            periodSeconds: 30
+            value: 2
+            periodSeconds: 60
           - type: Percent
-            value: 100
-            periodSeconds: 30
-        stabilizationWindowSeconds: 30
+            value: 50
+            periodSeconds: 60
+        stabilizationWindowSeconds: 120
       scaleDown:
         selectPolicy: Min
         policies:
@@ -44,5 +44,5 @@ spec:
           - type: Percent
             value: 25
             periodSeconds: 60
-        stabilizationWindowSeconds: 300
+        stabilizationWindowSeconds: 600
 {{- end }}
