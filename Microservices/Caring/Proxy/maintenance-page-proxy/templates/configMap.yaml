@@ -39,12 +39,15 @@ data:
 
             # Proxy all other requests to GCS
             location / {
+                # Redirect root path to index.html
+                rewrite ^/$ /index.html break;
+                
                 # Resolve DNS dynamically
                 resolver 8.8.8.8 8.8.4.4 valid=300s;
                 resolver_timeout 5s;
 
                 # Proxy to GCS bucket
-                proxy_pass https://storage.googleapis.com/{{ .Values.App.GcsBucket }}/index.html;
+                proxy_pass https://storage.googleapis.com/{{ .Values.App.GcsBucket }}$uri;
                 
                 # Proxy settings
                 proxy_set_header Host storage.googleapis.com;
