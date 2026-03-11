@@ -1,0 +1,13 @@
+App:
+  Env: release
+  Replicas: 1
+  Image: nginx:1.25-alpine
+  GcsBucket: "maintenance-caringcm-com-tw"
+  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
+  AppResources:
+    requests:
+      memory: "64Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"
