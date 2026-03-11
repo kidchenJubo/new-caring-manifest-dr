@@ -30,6 +30,14 @@ data:
             listen 80;
             server_name _;
 
+            # Custom 404 error handling
+            error_page 404 = @custom_404;
+            
+            location @custom_404 {
+                default_type text/plain;
+                return 404 "no found\n";
+            }
+
             # Health check endpoint
             location /health {
                 access_log off;
@@ -39,8 +47,10 @@ data:
 
             # Proxy all other requests to GCS
             location / {
-                # Redirect root path to index.html
-                rewrite ^/$ /index.html break;
+                # Redirect requests without file extension to index.html
+                if ($uri !~* \.[a-z0-9]+$) {
+                    rewrite ^(.*)$ /index.html break;
+                }
                 
                 # Resolve DNS dynamically
                 resolver 8.8.8.8 8.8.4.4 valid=300s;
@@ -48,6 +58,9 @@ data:
 
                 # Proxy to GCS bucket
                 proxy_pass https://storage.googleapis.com/{{ .Values.App.GcsBucket }}$uri;
+                
+                # Intercept backend errors to use custom error pages
+                proxy_intercept_errors on;
                 
                 # Proxy settings
                 proxy_set_header Host storage.googleapis.com;
