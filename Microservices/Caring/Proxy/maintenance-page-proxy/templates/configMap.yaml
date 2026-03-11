@@ -34,7 +34,7 @@ data:
             error_page 404 = @custom_404;
             
             location @custom_404 {
-                default_type text/plain;
+                add_header Content-Type "text/plain; charset=utf-8" always;
                 return 404 "no found\n";
             }
 
