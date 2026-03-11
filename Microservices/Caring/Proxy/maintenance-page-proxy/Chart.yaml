@@ -1,5 +1,5 @@
 apiVersion: v2
-name: maintain-page-proxy
+name: maintenance-page-proxy
 description: Nginx proxy for forwarding requests to GCS
 
 # A chart can be either an 'application' or a 'library' chart.

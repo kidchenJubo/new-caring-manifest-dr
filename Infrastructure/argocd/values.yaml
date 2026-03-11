@@ -225,11 +225,13 @@ apps:
       destinationNamespace: new-caring-event-consumer-release
       ignoreReplicasDifferences: true
 
-    new-caring-maintain-page-release:
-      sourcePath: Microservices/Caring/Proxy/maintain-page-proxy
+    # release ↑↑↑
+
+    new-caring-maintenance-page:
+      sourcePath: Microservices/Caring/Proxy/maintenance-page-proxy
       sourceHelm:
         valueFiles:
-          - values_release.yaml
-      destinationNamespace: new-caring-maintain-page-release
+          - values.yaml
+      destinationNamespace: new-caring-maintenance-page
       ignoreReplicasDifferences: true
-    # release ↑↑↑
+
