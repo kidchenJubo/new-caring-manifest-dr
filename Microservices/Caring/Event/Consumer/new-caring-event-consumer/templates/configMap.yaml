@@ -12,6 +12,7 @@ data:
   CloudPubSub__ProjectId: "{{ .Values.App.CloudPubSub.ProjectId }}"
   CloudPubSub__TopicId: "{{ .Values.App.CloudPubSub.UserActivityLogTopicId }}"
   CloudPubSub__UserActivityLogSubscriptionId: "{{ .Values.App.CloudPubSub.UserActivityLogTopicId }}-sub"
+  CloudPubSub__UserEventHandlingTopicId: "{{ .Values.App.CloudPubSub.UserEventHandlingTopicId }}"
   CloudPubSub__UserEventHandlingSubscriptionId: "{{ .Values.App.CloudPubSub.UserEventHandlingSubscriptionId }}-sub"
   JCP__EndPoint: "{{ .Values.App.JCP.EndPoint }}"
   JCP__Ca: "{{ .Values.App.JCP.Ca }}"

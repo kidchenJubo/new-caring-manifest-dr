@@ -37,6 +37,7 @@ App:
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-qat-user-activity-log"
+    UserEventHandlingTopicId: "caring-qat-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-qat-user-event-handling"
 
 SqlProxy:
