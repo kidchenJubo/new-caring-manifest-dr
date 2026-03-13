@@ -21,7 +21,7 @@ App:
     CHomeConnection: "Server=10.140.15.234,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
-    EndPoint: "http://127.0.0.1:4317"
+    EndPoint: "http://opentelemetry-collector.opentelemetry.svc.cluster.local:4317"
     Protocol: "grpc"
   JCP:
     EndPoint: "http://jcp-dev-api.jubo.health.internal"
