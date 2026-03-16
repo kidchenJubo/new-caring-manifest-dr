@@ -6,7 +6,7 @@ App:
       DEPLOY: release
   AppResources:
     requests:
-      cpu: 50m
+      cpu: 100m
       memory: 200Mi
     limits:
       cpu: 1000m
