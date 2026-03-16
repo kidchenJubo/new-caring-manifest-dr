@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.0.19-hotfix-1
+  Version: 2.1.3.2
   UseHPA: false
   UsePDB:
     enabled: false
