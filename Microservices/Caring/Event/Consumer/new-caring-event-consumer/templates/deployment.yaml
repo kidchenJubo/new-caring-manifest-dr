@@ -48,6 +48,10 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 5
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]
           resources: 
 {{ toYaml .Values.App.AppResources | indent 11 }}
         - name: cloud-sql-proxy
