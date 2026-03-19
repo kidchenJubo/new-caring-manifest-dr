@@ -24,6 +24,13 @@ spec:
           secret:
             secretName: "{{ .Chart.Name }}-sa-secret"
       {{- end }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: {{ .Chart.Name }}
       containers:
         - name: {{ .Chart.Name }}
           image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-web-api:{{ .Values.App.Version }}"
@@ -76,6 +83,10 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]
           resources: 
 {{ toYaml .Values.App.AppResources | indent 11 }}
         - name: cloud-sql-proxy
