@@ -31,7 +31,6 @@ spec:
           labelSelector:
             matchLabels:
               app: {{ .Chart.Name }}
-      terminationGracePeriodSeconds: 40
       containers:
         - name: {{ .Chart.Name }}
           image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-web-api:{{ .Values.App.Version }}"
@@ -87,7 +86,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "sleep 20"]
+                command: ["/bin/sh", "-c", "sleep 10"]
           resources: 
 {{ toYaml .Values.App.AppResources | indent 11 }}
         - name: cloud-sql-proxy
@@ -103,7 +102,3 @@ spec:
             # The default Cloud SQL proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.
             runAsNonRoot: true
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/bin/sh", "-c", "sleep 25"]
