@@ -2,7 +2,8 @@ App:
   Replicas: 3
   MinReplicas: 3
   MaxReplicas: 6
-  Version: 2.1.3.2
+  Version: hotfix_20260320
+  #Version: 2.1.3.2
   UseHPA: true
   UsePDB:
     enabled: true
