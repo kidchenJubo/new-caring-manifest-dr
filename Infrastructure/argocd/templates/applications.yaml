@@ -31,9 +31,11 @@ spec:
     namespace: {{ $appData.destinationNamespace }}
     server: https://kubernetes.default.svc
   syncPolicy:
+  {{- if dig "syncPolicy" "automated" "enabled" false $appData }}
     automated:
       prune: {{ dig "syncPolicy" "automated" "prune" true $appData }}
       selfHeal: {{ dig "syncPolicy" "automated" "selfHeal" true $appData }}
+  {{- end }}
     syncOptions:
     - CreateNamespace=true
     {{- with $appData.extraSyncOptions }}
