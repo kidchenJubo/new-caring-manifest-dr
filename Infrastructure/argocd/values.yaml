@@ -225,6 +225,13 @@ apps:
       destinationNamespace: new-caring-event-consumer-release
       ignoreReplicasDifferences: true
 
+    caree-notification-release:
+      sourcePath: Microservices/Caring/Scheduler/CareeNotification
+      sourceHelm:
+        valueFiles:
+          - values_release.yaml
+      destinationNamespace: caree-notification-release
+      ignoreReplicasDifferences: false
     # release ↑↑↑
 
     new-caring-maintenance-page:
