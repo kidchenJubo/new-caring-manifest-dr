@@ -217,6 +217,14 @@ apps:
       destinationNamespace: new-caring-web-page-release
       ignoreReplicasDifferences: true
 
+    new-caring-mobile-api-release:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-mobile-api
+      sourceHelm:
+        valueFiles:
+          - values_release.yaml
+      destinationNamespace: new-caring-mobile-api-release
+      ignoreReplicasDifferences: false
+
     new-caring-event-consumer-release:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:
