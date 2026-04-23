@@ -80,6 +80,14 @@ apps:
       destinationNamespace: new-caring-web-api-dev
       ignoreReplicasDifferences: false
 
+    new-caring-web-api-dev2:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-web-api
+      sourceHelm:
+        valueFiles:
+          - values_dev2.yaml
+      destinationNamespace: new-caring-web-api-dev2
+      ignoreReplicasDifferences: false
+
     new-caring-web-page-dev:
       sourcePath: Microservices/Caring/Frontend/Page/new-caring-web-page
       sourceHelm:

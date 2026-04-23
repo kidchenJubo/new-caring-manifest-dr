@@ -1,0 +1,52 @@
+App:
+  Replicas: 1
+  MinReplicas: 1
+  MaxReplicas: 1
+  Version: 2.1.5.6-dev-2
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  Env: Development
+  AppResources:
+    requests:
+      cpu: 50m
+      memory: 512Mi
+    limits:
+      cpu: 300m
+      memory: 768Mi
+  ConnectionStrings:
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    CHomeConnection: "Server=10.140.15.234,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+    OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+  OpenTelemetry:
+    EndPoint: "http://opentelemetry-collector.opentelemetry.svc.cluster.local:4317"
+    Protocol: "grpc"
+  Redis:
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
+  JCP:
+    EndPoint: "http://jcp-dev-api.jubo.health.internal"
+    Brand: "JCP"
+    Product: "Caring"
+    Environment: "dev"
+    Name: "caring-dev"
+    Version: "1.0.0"
+    ManageJcpCA: "ShareITN01CA01"
+    ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
+  CloudPubSub:
+    ProjectId: "static-map-242406"
+    DataSyncTopicId: "caring-dev-data-sync"
+    UserActivityLogTopicId: "caring-dev-user-activity-log"
+    UserEventHandlingTopicId: "caring-dev-user-event-handling"
+
+SqlProxy:
+  Version: 2.18.1
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
+  SqlProxyResources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
