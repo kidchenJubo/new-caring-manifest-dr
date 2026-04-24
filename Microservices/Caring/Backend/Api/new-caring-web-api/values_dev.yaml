@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.5.7-dev-patients
+  Version: 2.1.5.7-dev-patients-2
   UseHPA: false
   UsePDB:
     enabled: false
