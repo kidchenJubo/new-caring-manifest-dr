@@ -88,12 +88,28 @@ apps:
       destinationNamespace: new-caring-web-api-dev2
       ignoreReplicasDifferences: false
 
+    new-caring-web-api-dev3:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-web-api
+      sourceHelm:
+        valueFiles:
+          - values_dev3.yaml
+      destinationNamespace: new-caring-web-api-dev3
+      ignoreReplicasDifferences: false
+
     new-caring-web-page-dev:
       sourcePath: Microservices/Caring/Frontend/Page/new-caring-web-page
       sourceHelm:
         valueFiles:
           - values_dev.yaml
       destinationNamespace: new-caring-web-page-dev
+      ignoreReplicasDifferences: false
+
+    new-caring-web-page-dev3:
+      sourcePath: Microservices/Caring/Frontend/Page/new-caring-web-page
+      sourceHelm:
+        valueFiles:
+          - values_dev3.yaml
+      destinationNamespace: new-caring-web-page-dev3
       ignoreReplicasDifferences: false
 
     new-caring-mobile-api-dev:

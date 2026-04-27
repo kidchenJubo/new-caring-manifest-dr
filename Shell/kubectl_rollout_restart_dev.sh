@@ -13,6 +13,7 @@ gcloud container clusters get-credentials caring-tw --region=asia-east1
 
 kubectl rollout restart deployment new-caring-web-api -n new-caring-web-api-dev
 kubectl rollout restart deployment new-caring-web-api -n new-caring-web-api-dev2
+kubectl rollout restart deployment new-caring-web-api -n new-caring-web-api-dev3
 kubectl rollout restart deployment new-caring-web-api -n new-caring-web-api-qat
 kubectl rollout restart deployment new-caring-web-api -n new-caring-web-api-demo
 
