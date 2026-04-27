@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: "{{ .Chart.Name }}-config"
 data:
-  ConnectionStrings__CaringDbContext: {{ .Values.App.ConnectionStrings.PostgreSqlMaster | quote }}
+  ConnectionStrings__PostgreSqlMaster: {{ .Values.App.ConnectionStrings.PostgreSqlMaster | quote }}
   ConnectionStrings__PostgreSqlSlave: {{ .Values.App.ConnectionStrings.PostgreSqlSlave | quote }}
   ConnectionStrings__CHomeConnection: {{ .Values.App.ConnectionStrings.CHomeConnection | quote }}
   ConnectionStrings__OldCaringConnection: {{ .Values.App.ConnectionStrings.OldCaringConnection | quote }}
