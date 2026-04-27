@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
+  name: "{{ .Chart.Name }}"
+spec:
+  type: ClusterIP
+  selector:
+    app: "{{ .Chart.Name }}"
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: {{ .Values.App.ContainerPort }}

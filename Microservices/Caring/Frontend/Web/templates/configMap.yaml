@@ -1,0 +1,19 @@
+﻿kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ .Chart.Name }}-config"
+data:
+  ConnectionStrings__CaringDbContext: {{ .Values.App.ConnectionStrings.PostgreSqlMaster | quote }}
+  ConnectionStrings__PostgreSqlSlave: {{ .Values.App.ConnectionStrings.PostgreSqlSlave | quote }}
+  ConnectionStrings__CHomeConnection: {{ .Values.App.ConnectionStrings.CHomeConnection | quote }}
+  ConnectionStrings__OldCaringConnection: {{ .Values.App.ConnectionStrings.OldCaringConnection | quote }}
+  OpenIdConnect__Authority: {{ .Values.App.OpenIdConnect.Authority | quote }}
+  OpenIdConnect__ClientId: {{ .Values.App.OpenIdConnect.ClientId | quote }}
+  OpenIdConnect__ClientSecret: {{ .Values.App.OpenIdConnect.ClientSecret | quote }}
+  OpenIdConnect__ResponseType: {{ .Values.App.OpenIdConnect.ResponseType | quote }}
+  OpenIdConnect__Scope: {{ .Values.App.OpenIdConnect.Scope | quote }}
+  OpenIdConnect__CallbackPath: {{ .Values.App.OpenIdConnect.CallbackPath | quote }}
+  OpenIdConnect__SignedOutCallbackPath: {{ .Values.App.OpenIdConnect.SignedOutCallbackPath | quote }}
+  OpenIdConnect__SaveTokens: {{ .Values.App.OpenIdConnect.SaveTokens | quote }}
+  OpenIdConnect__GetClaimsFromUserInfoEndpoint: {{ .Values.App.OpenIdConnect.GetClaimsFromUserInfoEndpoint | quote }}
+  OpenIdConnect__RequireHttpsMetadata: {{ .Values.App.OpenIdConnect.RequireHttpsMetadata | quote }}

@@ -1,0 +1,43 @@
+App:
+  Replicas: 1
+  Version: 2.1.5.7-dev3-1
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  ContainerPort: 8080
+  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
+  AppResources:
+    requests:
+      cpu: 50m
+      memory: 200Mi
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+  ConnectionStrings:
+    PostgreSqlMaster: "Server=localhost;Port=5432;Database=caring_local;Userid=postgres;Password=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=localhost;Port=5432;Database=caring_local;Userid=postgres;Password=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    CHomeConnection: "Server=localhost,9900;Database=CHOME;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=true;"
+    OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sa;Password=P@ssw0rd;TrustServerCertificate=true;"
+  OpenIdConnect:
+    Authority: "https://localhost:5001"
+    ClientId: "caring-web-dev3"
+    ClientSecret: "dev3-secret"
+    ResponseType: "code"
+    Scope: "openid profile email"
+    CallbackPath: "/signin-oidc"
+    SignedOutCallbackPath: "/signout-callback-oidc"
+    SaveTokens: true
+    GetClaimsFromUserInfoEndpoint: true
+    RequireHttpsMetadata: false
+
+SqlProxy:
+  Version: 2.18.1
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
+  SqlProxyResources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi

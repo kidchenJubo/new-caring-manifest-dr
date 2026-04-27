@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: new-caring-web-page-neg-dev
+  name: new-caring-web-page-neg-dev3
   namespace: istio-system
 spec:
   hosts:
