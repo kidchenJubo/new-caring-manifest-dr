@@ -97,7 +97,7 @@ apps:
       ignoreReplicasDifferences: false
 
     new-caring-web-dev3:
-      sourcePath: Microservices/Caring/Frontend/Web/new-caring-web
+      sourcePath: Microservices/Caring/Frontend/Web
       sourceHelm:
         valueFiles:
           - values_dev3.yaml
