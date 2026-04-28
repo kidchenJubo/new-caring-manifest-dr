@@ -128,21 +128,21 @@ apps:
       destinationNamespace: new-caring-mobile-api-dev
       ignoreReplicasDifferences: false
 
-    # new-caring-event-consumer-dev:
-    #   sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
-    #   sourceHelm:
-    #     valueFiles:
-    #       - values_dev.yaml
-    #   destinationNamespace: new-caring-event-consumer-dev
-    #   ignoreReplicasDifferences: false
+    new-caring-event-consumer-dev:
+      sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
+      sourceHelm:
+        valueFiles:
+          - values_dev.yaml
+      destinationNamespace: new-caring-event-consumer-dev
+      ignoreReplicasDifferences: false
 
-    # new-caring-event-consumer-dev2:
-    #   sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
-    #   sourceHelm:
-    #     valueFiles:
-    #       - values_dev2.yaml
-    #   destinationNamespace: new-caring-event-consumer-dev2
-    #   ignoreReplicasDifferences: false
+    new-caring-event-consumer-dev2:
+      sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
+      sourceHelm:
+        valueFiles:
+          - values_dev2.yaml
+      destinationNamespace: new-caring-event-consumer-dev2
+      ignoreReplicasDifferences: false
 
     caree-notification-dev:
       sourcePath: Microservices/Caring/Scheduler/CareeNotification
