@@ -31,6 +31,8 @@ App:
     SaveTokens: true
     GetClaimsFromUserInfoEndpoint: true
     RequireHttpsMetadata: false
+  Redis:
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=5"
 
 SqlProxy:
   Version: 2.18.1
