@@ -7,6 +7,7 @@ data:
   ConnectionStrings__PostgreSqlSlave: {{ .Values.App.ConnectionStrings.PostgreSqlSlave | quote }}
   ConnectionStrings__CHomeConnection: {{ .Values.App.ConnectionStrings.CHomeConnection | quote }}
   ConnectionStrings__OldCaringConnection: {{ .Values.App.ConnectionStrings.OldCaringConnection | quote }}
+  Redis__ConnectionString: {{ .Values.App.Redis.ConnectionString | quote }}
   OpenIdConnect__Authority: {{ .Values.App.OpenIdConnect.Authority | quote }}
   OpenIdConnect__ClientId: {{ .Values.App.OpenIdConnect.ClientId | quote }}
   OpenIdConnect__ClientSecret: {{ .Values.App.OpenIdConnect.ClientSecret | quote }}
