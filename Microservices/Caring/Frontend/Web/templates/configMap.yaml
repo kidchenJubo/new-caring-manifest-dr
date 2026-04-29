@@ -8,6 +8,14 @@ data:
   ConnectionStrings__CHomeConnection: {{ .Values.App.ConnectionStrings.CHomeConnection | quote }}
   ConnectionStrings__OldCaringConnection: {{ .Values.App.ConnectionStrings.OldCaringConnection | quote }}
   Redis__ConnectionString: {{ .Values.App.Redis.ConnectionString | quote }}
+  JCP__EndPoint: {{ .Values.App.JCP.EndPoint }}
+  JCP__Brand: {{ .Values.App.JCP.Brand }}
+  JCP__Product: {{ .Values.App.JCP.Product }}
+  JCP__Environment: {{ .Values.App.JCP.Environment }}
+  JCP__Name: {{ .Values.App.JCP.Name }}
+  JCP__Version: {{ .Values.App.JCP.Version }}
+  JCP__ManageJcpCA: {{ .Values.App.JCP.ManageJcpCA }}
+  JCP__ManageJcpCS: {{ .Values.App.JCP.ManageJcpCS }}
   OpenIdConnect__Authority: {{ .Values.App.OpenIdConnect.Authority | quote }}
   OpenIdConnect__ClientId: {{ .Values.App.OpenIdConnect.ClientId | quote }}
   OpenIdConnect__ClientSecret: {{ .Values.App.OpenIdConnect.ClientSecret | quote }}
