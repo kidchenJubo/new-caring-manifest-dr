@@ -31,9 +31,9 @@ App:
     SSOUrl: "https://jcp-dev-sso.jubo.health/caring/login"
     CloudPubSub:
       ProjectId: "jubo-care-platform"
-      OrganizationEventHandlingSubscriptionId: "dev_caring_organization_data_sync_sub"
-      JcpUserEventHandlingSubscriptionId: "dev_caring_user_data_sync_sub"
-      JcpUserPrivilegeEventHandlingSubscriptionId: "dev_organization_user_privilege_sync_caring_sub"
+      OrganizationEventHandlingSubscriptionId: "dev2_caring_organization_data_sync_sub"
+      JcpUserEventHandlingSubscriptionId: "dev2_caring_user_data_sync_sub"
+      JcpUserPrivilegeEventHandlingSubscriptionId: "dev2_organization_user_privilege_sync_caring_sub"
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-dev2-user-activity-log"
