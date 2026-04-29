@@ -19,3 +19,20 @@ spec:
             host: new-caring-web-api.new-caring-web-api-dev3.svc.cluster.local
             port:
               number: 80
+    - match:
+        - uri:
+            prefix: /v2
+      route:
+        - destination:
+            host: new-caring-web-page.new-caring-web-page-dev3.svc.cluster.local
+            port:
+              number: 80
+
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: new-caring-web.new-caring-web-dev3.svc.cluster.local
+            port:
+              number: 80
