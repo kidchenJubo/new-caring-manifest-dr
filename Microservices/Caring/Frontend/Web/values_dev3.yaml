@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.5.7-asp-refactor-5
+  Version: 2.1.5.7-asp-refactor-6
   UseHPA: false
   UsePDB:
     enabled: false
