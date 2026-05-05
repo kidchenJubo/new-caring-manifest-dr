@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.5.7-dev3-2
+  Version: 2.1.5.7-patients
   UseHPA: false
   UsePDB:
     enabled: false
@@ -39,6 +39,8 @@ App:
     UserActivityLogTopicId: "caring-dev2-user-activity-log"
     UserEventHandlingTopicId: "caring-dev2-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-dev2-user-event-handling"
+    PendingFileCleanupSubscriptionId: "caring-dev2-pending-file-cleanup"
+
 
 SqlProxy:
   Version: 2.18.1
