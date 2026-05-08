@@ -20,7 +20,7 @@ App:
     CHomeConnection: "Server=10.140.15.234,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   Redis:
-    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=5"
   JCP:
     EndPoint: "http://jcp-dev-api.jubo.health.internal"
     Brand: "JCP"
