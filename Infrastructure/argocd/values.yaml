@@ -163,6 +163,14 @@ apps:
       destinationNamespace: new-caring-web-api-qat
       ignoreReplicasDifferences: false
 
+    new-caring-web-api-qat2:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-web-api
+      sourceHelm:
+        valueFiles:
+          - values_qat2.yaml
+      destinationNamespace: new-caring-web-api-qat2
+      ignoreReplicasDifferences: false
+
     new-caring-web-page-qat:
       sourcePath: Microservices/Caring/Frontend/Page/new-caring-web-page
       sourceHelm:
@@ -185,6 +193,14 @@ apps:
         valueFiles:
           - values_qat.yaml
       destinationNamespace: new-caring-event-consumer-qat
+      ignoreReplicasDifferences: false
+
+    new-caring-event-consumer-qat2:
+      sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
+      sourceHelm:
+        valueFiles:
+          - values_qat2.yaml
+      destinationNamespace: new-caring-event-consumer-qat2
       ignoreReplicasDifferences: false
 
     caree-notification-qat:

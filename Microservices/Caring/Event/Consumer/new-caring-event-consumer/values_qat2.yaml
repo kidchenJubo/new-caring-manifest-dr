@@ -1,0 +1,52 @@
+App:
+  Replicas: 1
+  MinReplicas: 1
+  MaxReplicas: 1
+  Version: 2.1.4.15
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  Env: qat
+  AppResources:
+    requests:
+      cpu: 50m
+      memory: 512Mi
+    limits:
+      cpu: 300m
+      memory: 768Mi
+  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
+  ConnectionStrings:
+    CaringDbContext: "Server=127.0.0.1;Port=5432;Database=caring_qat2;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    CHomeConnection: "Server=10.140.15.234,9900;Database=QAT_CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+    OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+  OpenTelemetry:
+    EndPoint: "http://opentelemetry-collector.opentelemetry.svc.cluster.local:4317"
+    Protocol: "grpc"
+  JCP:
+    EndPoint: "http://jcp-qat-api.jubo.health.internal"
+    Ca: "ShareITN01CA01"
+    Cs: "f8f44b836dba473da5a25d908c642f84"
+    CaringEndPoint: "https://jcp-qat-api-caring.jubo.health"
+    SSOUrl: "https://jcp-qat-sso.jubo.health/caring/login"
+    CloudPubSub:
+      ProjectId: "jubo-care-platform"
+      OrganizationEventHandlingSubscriptionId: "qat2_caring_organization_data_sync_sub"
+      JcpUserEventHandlingSubscriptionId: "qat2_caring_user_data_sync_sub"
+      JcpUserPrivilegeEventHandlingSubscriptionId: "qat2_organization_user_privilege_sync_caring_sub"
+  CloudPubSub:
+    ProjectId: "static-map-242406"
+    UserActivityLogTopicId: "caring-qat2-user-activity-log"
+    UserEventHandlingTopicId: "caring-qat2-user-event-handling"
+    UserEventHandlingSubscriptionId: "caring-qat2-user-event-handling"
+
+SqlProxy:
+  Version: 2.18.1
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
+  SqlProxyResources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi

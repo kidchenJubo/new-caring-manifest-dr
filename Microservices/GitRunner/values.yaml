@@ -15,7 +15,6 @@ github:
     - "self-hosted"
     - "linux"
     - "x64"
-    - "caring"
   workDir: "/tmp/runner/work"
 
 resources:

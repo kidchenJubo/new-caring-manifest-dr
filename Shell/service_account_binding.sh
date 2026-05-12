@@ -61,6 +61,15 @@ kubectl -n new-caring-web-api-qat annotate --overwrite serviceaccount \
 
 gcloud iam service-accounts add-iam-policy-binding \
     --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-web-api-qat2/new-caring-web-api]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n new-caring-web-api-qat2 annotate --overwrite serviceaccount \
+    new-caring-web-api \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
     --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-web-api-demo/new-caring-web-api]" \
     n-c-b-a@static-map-242406.iam.gserviceaccount.com
 
@@ -92,6 +101,15 @@ gcloud iam service-accounts add-iam-policy-binding \
     n-c-b-a@static-map-242406.iam.gserviceaccount.com
 
 kubectl -n new-caring-event-consumer-qat annotate --overwrite serviceaccount \
+    caring-event-consumer \
+    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-event-consumer-qat2/caring-event-consumer]" \
+    n-c-b-a@static-map-242406.iam.gserviceaccount.com
+
+kubectl -n new-caring-event-consumer-qat2 annotate --overwrite serviceaccount \
     caring-event-consumer \
     iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
 
