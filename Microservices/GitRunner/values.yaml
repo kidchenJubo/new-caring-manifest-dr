@@ -1,0 +1,52 @@
+deployment:
+  enabled: true
+  replicaCount: 1
+
+image:
+  repository: "myoung34/github-runner"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+github:
+  repoUrl: "https://github.com/jubo-health/new-caring-monorepo"
+  runnerScope: "repo"
+  runnerGroup: "Default"
+  labels:
+    - "self-hosted"
+    - "linux"
+    - "x64"
+    - "caring"
+  workDir: "/tmp/runner/work"
+
+resources:
+  requests:
+    cpu: "1000m"
+    memory: "1Gi"
+  limits:
+    cpu: "2000m"
+    memory: "2Gi"
+
+probes:
+  readiness:
+    enabled: true
+    initialDelaySeconds: 20
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+  liveness:
+    enabled: true
+    initialDelaySeconds: 60
+    periodSeconds: 20
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+serviceAccount:
+  create: true
+  name: "github-runner"
+
+authSecret:
+  # Keep false for GitOps safety. Create the secret outside git,
+  # or set this true and inject token from CI/CD at deploy time.
+  create: false
+  name: "github-runner-auth"
+  githubToken: "BE2XCHJUCD3JVH5RTZR35JLKAMDHA"

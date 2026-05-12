@@ -290,3 +290,11 @@ apps:
       destinationNamespace: new-caring-maintenance-page
       ignoreReplicasDifferences: true
 
+    github-runner:
+      sourcePath: Microservices/GitRunner
+      sourceHelm:
+        valueFiles:
+          - values.yaml
+      destinationNamespace: github-runner
+      ignoreReplicasDifferences: false
+
