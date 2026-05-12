@@ -35,6 +35,6 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "sleep 10"]
+                command: ["/bin/sh", "-c", "sleep 20"]
           resources:
 {{ toYaml .Values.App.AppResources | indent 11 }}

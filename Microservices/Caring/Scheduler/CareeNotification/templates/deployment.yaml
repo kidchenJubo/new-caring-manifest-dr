@@ -13,6 +13,7 @@ spec:
         app: {{ .Chart.Name }}
     spec:
       serviceAccountName: {{ .Chart.Name }}
+      terminationGracePeriodSeconds: 40
       containers:
         - name: caree-notification-worker
           image: "asia-east1-docker.pkg.dev/jubo-care-platform/jcp-docker-registry/jcp-dotnet-cron-job-share:{{ .Values.App.Version }}"
@@ -78,6 +79,10 @@ spec:
           #   periodSeconds: 10
           #   timeoutSeconds: 5
           #   failureThreshold: 5
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 20"]
           resources: 
 {{ toYaml .Values.App.AppResources | indent 11 }}
         - name: cloud-sql-proxy
@@ -87,6 +92,10 @@ spec:
             - "--auto-iam-authn"
             - "--port=5432"
             - "{{ .Values.SqlProxy.InstanceName }}"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 25"]
           resources: 
 {{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
           securityContext:
