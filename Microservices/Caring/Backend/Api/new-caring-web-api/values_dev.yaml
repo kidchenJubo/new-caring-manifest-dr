@@ -43,7 +43,7 @@ App:
 
 SqlProxy:
   Version: 2.18.1
-  InstanceName: static-map-242406:asia-east1:caring-dev-back
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
   SqlProxyResources:
     requests:
       cpu: 50m
