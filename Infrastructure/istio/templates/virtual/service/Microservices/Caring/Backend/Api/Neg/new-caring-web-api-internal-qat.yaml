@@ -6,7 +6,6 @@ metadata:
 spec:
   hosts:
     - "upgrade-qat-01.caringcm.com.tw"
-    - "upgrade-qat-02.caringcm.com.tw"
   gateways:
     # - istio-system/infra-gateway-neg-qat
     - istio-system/infra-gateway-neg-dev
