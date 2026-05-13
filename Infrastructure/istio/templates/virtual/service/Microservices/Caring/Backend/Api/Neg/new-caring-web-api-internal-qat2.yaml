@@ -1,19 +1,19 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: new-caring-web-api-internal-qat
+  name: new-caring-web-api-neg-qat
   namespace: istio-system
 spec:
   hosts:
-    - "upgrade-qat-01.caringcm.com.tw"
+    - "upgrade-qat-02.caringcm.com.tw"
   gateways:
-    - istio-system/infra-gateway-internal-qat
+    - istio-system/infra-gateway-neg-dev
   http:
     - match:
         - uri:
             prefix: /api
       route:
         - destination:
-            host: new-caring-web-api.new-caring-web-api-qat.svc.cluster.local
+            host: new-caring-web-api.new-caring-web-api-qat2.svc.cluster.local
             port:
               number: 80
