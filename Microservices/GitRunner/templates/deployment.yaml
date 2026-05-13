@@ -39,11 +39,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.authSecret.name }}
                   key: access_token
-            - name: RUNNER_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.authSecret.name }}
-                  key: runner_token
           {{- if .Values.probes.readiness.enabled }}
           readinessProbe:
             exec:

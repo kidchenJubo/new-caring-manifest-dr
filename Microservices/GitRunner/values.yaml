@@ -49,4 +49,3 @@ authSecret:
   create: true
   name: "github-runner-auth"
   accessToken: "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"
-  runnerToken: "BE2XCHJUCD3JVH5RTZR35JLKAMDHA"
