@@ -46,6 +46,6 @@ serviceAccount:
 authSecret:
   # Keep false for GitOps safety. Create the secret outside git,
   # or set this true and inject token from CI/CD at deploy time.
-  create: false
+  create: true
   name: "github-runner-auth"
   githubToken: "BE2XCHJUCD3JVH5RTZR35JLKAMDHA"
