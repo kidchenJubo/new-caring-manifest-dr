@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.5.7-asp-refactor-13
+  Version: 2.1.5.7-asp-refactor-14
   UseHPA: false
   UsePDB:
     enabled: false
