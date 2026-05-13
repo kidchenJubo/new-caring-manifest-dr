@@ -68,6 +68,14 @@ spec:
             timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
             failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
           {{- end }}
+          volumeMounts:
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
 {{- end }}
