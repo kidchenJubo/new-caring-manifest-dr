@@ -48,4 +48,5 @@ authSecret:
   # or set this true and inject token from CI/CD at deploy time.
   create: true
   name: "github-runner-auth"
-  githubToken: "BE2XCHJUCD3JVH5RTZR35JLKAMDHA"
+  accessToken: "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"
+  runnerToken: "BE2XCHJUCD3JVH5RTZR35JLKAMDHA"

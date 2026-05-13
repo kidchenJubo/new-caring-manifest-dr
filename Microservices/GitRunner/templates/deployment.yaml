@@ -34,11 +34,16 @@ spec:
               value: {{ .Values.github.workDir | quote }}
             - name: LABELS
               value: {{ join "," .Values.github.labels | quote }}
+            - name: ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.authSecret.name }}
+                  key: access_token
             - name: RUNNER_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.authSecret.name }}
-                  key: github_token
+                  key: runner_token
           {{- if .Values.probes.readiness.enabled }}
           readinessProbe:
             exec:
