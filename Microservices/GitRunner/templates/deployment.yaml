@@ -34,7 +34,7 @@ spec:
               value: {{ .Values.github.workDir | quote }}
             - name: LABELS
               value: {{ join "," .Values.github.labels | quote }}
-            - name: ACCESS_TOKEN
+            - name: RUNNER_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.authSecret.name }}
