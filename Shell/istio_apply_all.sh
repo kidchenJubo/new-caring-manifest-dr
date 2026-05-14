@@ -51,13 +51,11 @@ kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/t
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Internal/new-caring-web-api-internal-demo.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Internal/new-caring-web-api-internal-dev.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Internal/new-caring-web-api-internal-dev2.yaml
-kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Internal/new-caring-web-api-internal-dev3.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Internal/new-caring-web-api-internal-qat.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Internal/new-caring-web-api-internal-release.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Neg/new-caring-web-api-internal-demo.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Neg/new-caring-web-api-internal-dev.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Neg/new-caring-web-api-internal-dev2.yaml
-kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Neg/new-caring-web-api-internal-dev3.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Neg/new-caring-web-api-internal-qat.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Neg/new-caring-web-api-internal-release.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/Storage/new-caring-web-api-storage-demo.yaml
@@ -72,12 +70,10 @@ kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/t
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Backend/Api/new-caring-web-api-release.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Internal/new-caring-web-page-internal-demo.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Internal/new-caring-web-page-internal-dev.yaml
-kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Internal/new-caring-web-page-internal-dev3.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Internal/new-caring-web-page-internal-qat.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Internal/new-caring-web-page-internal-release.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Neg/new-caring-web-page-internal-demo.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Neg/new-caring-web-page-internal-dev.yaml
-kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Neg/new-caring-web-page-internal-dev3.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Neg/new-caring-web-page-internal-qat.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/Neg/new-caring-web-page-internal-release.yaml
 kubectl apply -f /Users/ianchang/Work/new-caring/manifest/Infrastructure/istio/templates/virtual/service/Microservices/Caring/Frontend/Page/new-caring-web-page-demo.yaml

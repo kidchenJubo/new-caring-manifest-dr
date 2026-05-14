@@ -34,24 +34,6 @@ kubectl -n new-caring-web-api-dev2 annotate --overwrite serviceaccount \
 
 gcloud iam service-accounts add-iam-policy-binding \
     --role="roles/iam.workloadIdentityUser" \
-    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-web-api-dev3/new-caring-web-api]" \
-    n-c-b-a@static-map-242406.iam.gserviceaccount.com
-
-kubectl -n new-caring-web-api-dev3 annotate --overwrite serviceaccount \
-    new-caring-web-api \
-    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
-
-gcloud iam service-accounts add-iam-policy-binding \
-    --role="roles/iam.workloadIdentityUser" \
-    --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-web-dev3/new-caring-web]" \
-    n-c-b-a@static-map-242406.iam.gserviceaccount.com
-
-kubectl -n new-caring-web-dev3 annotate --overwrite serviceaccount \
-    new-caring-web \
-    iam.gke.io/gcp-service-account=n-c-b-a@static-map-242406.iam.gserviceaccount.com
-
-gcloud iam service-accounts add-iam-policy-binding \
-    --role="roles/iam.workloadIdentityUser" \
     --member="serviceAccount:static-map-242406.svc.id.goog[new-caring-web-api-qat/new-caring-web-api]" \
     n-c-b-a@static-map-242406.iam.gserviceaccount.com
 

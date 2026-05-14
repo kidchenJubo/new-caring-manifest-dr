@@ -6,6 +6,7 @@ metadata:
 spec:
   hosts:
     - "upgrade-dev-01.caringcm.com.tw"
+    - "upgrade-dev-03.caringcm.com.tw"
   gateways:
     - istio-system/infra-gateway-neg-dev
   http:
@@ -17,5 +18,22 @@ spec:
       route:
         - destination:
             host: new-caring-web-api.new-caring-web-api-dev.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /v2
+      route:
+        - destination:
+            host: new-caring-web-page.new-caring-web-page-dev.svc.cluster.local
+            port:
+              number: 80
+
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: new-caring-web.new-caring-web-dev.svc.cluster.local
             port:
               number: 80

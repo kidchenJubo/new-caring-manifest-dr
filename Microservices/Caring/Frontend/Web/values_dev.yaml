@@ -32,8 +32,8 @@ App:
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
   OpenIdConnect:
     Authority: "https://localhost:5001"
-    ClientId: "caring-web-dev3"
-    ClientSecret: "dev3-secret"
+    ClientId: "caring-web-dev"
+    ClientSecret: "dev-secret"
     ResponseType: "code"
     Scope: "openid profile email"
     CallbackPath: "/signin-oidc"
