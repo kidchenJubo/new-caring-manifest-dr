@@ -155,6 +155,14 @@ apps:
       destinationNamespace: new-caring-web-api-qat2
       ignoreReplicasDifferences: false
 
+    new-caring-web-qat:
+      sourcePath: Microservices/Caring/Frontend/Web
+      sourceHelm:
+        valueFiles:
+          - values_qat.yaml
+      destinationNamespace: new-caring-web-qat
+      ignoreReplicasDifferences: false
+
     new-caring-web-page-qat:
       sourcePath: Microservices/Caring/Frontend/Page/new-caring-web-page
       sourceHelm:
@@ -206,6 +214,14 @@ apps:
       destinationNamespace: new-caring-web-api-demo
       ignoreReplicasDifferences: false
 
+    new-caring-web-demo:
+      sourcePath: Microservices/Caring/Frontend/Web
+      sourceHelm:
+        valueFiles:
+          - values_demo.yaml
+      destinationNamespace: new-caring-web-demo
+      ignoreReplicasDifferences: false
+
     new-caring-web-page-demo:
       sourcePath: Microservices/Caring/Frontend/Page/new-caring-web-page
       sourceHelm:
@@ -247,6 +263,14 @@ apps:
         valueFiles:
           - values_release.yaml
       destinationNamespace: new-caring-web-api-release
+      ignoreReplicasDifferences: true
+
+    new-caring-web-release:
+      sourcePath: Microservices/Caring/Frontend/Web
+      sourceHelm:
+        valueFiles:
+          - values_release.yaml
+      destinationNamespace: new-caring-web-release
       ignoreReplicasDifferences: true
 
     new-caring-web-page-release:
