@@ -55,7 +55,7 @@ argo-cd:
 # 簡化版本的 argocd apps, 去除掉重複的設定
 apps:
   global:
-    repoURL: https://gitlab.smart-aging.tech/caringcm/new-caring/manifest.git
+    repoURL: https://github.com/jubo-health/new-caring-manifest
     targetRevision: main
 
   # -- Deploy Argo CD Applications within this helm release
@@ -314,11 +314,4 @@ apps:
       destinationNamespace: new-caring-maintenance-page
       ignoreReplicasDifferences: true
 
-    # github-runner:
-    #   sourcePath: Microservices/GitRunner
-    #   sourceHelm:
-    #     valueFiles:
-    #       - values.yaml
-    #   destinationNamespace: github-runner
-    #   ignoreReplicasDifferences: false
 
