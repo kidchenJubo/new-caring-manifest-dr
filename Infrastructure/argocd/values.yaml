@@ -314,4 +314,28 @@ apps:
       destinationNamespace: new-caring-maintenance-page
       ignoreReplicasDifferences: true
 
+    # 還原演練 ↓↓↓
+    new-caring-web-api-rs:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-web-api
+      sourceHelm:
+        valueFiles:
+          - values_rs.yaml
+      destinationNamespace: new-caring-web-api-rs
+      ignoreReplicasDifferences: true
 
+    new-caring-web-rs:
+      sourcePath: Microservices/Caring/Frontend/Web
+      sourceHelm:
+        valueFiles:
+          - values_rs.yaml
+      destinationNamespace: new-caring-web-rs
+      ignoreReplicasDifferences: true
+
+    new-caring-event-consumer-rs:
+      sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
+      sourceHelm:
+        valueFiles:
+          - values_rs.yaml
+      destinationNamespace: new-caring-event-consumer-rs
+      ignoreReplicasDifferences: false
+    # 還原演練 ↑↑↑
