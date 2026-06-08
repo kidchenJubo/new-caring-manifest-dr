@@ -15,6 +15,7 @@ data:
   CloudPubSub__UserEventHandlingTopicId: "{{ .Values.App.CloudPubSub.UserEventHandlingTopicId }}"
   CloudPubSub__UserEventHandlingSubscriptionId: "{{ .Values.App.CloudPubSub.UserEventHandlingSubscriptionId }}-sub"
   CloudPubSub__PendingFileCleanupSubscriptionId: "{{ .Values.App.CloudPubSub.PendingFileCleanupSubscriptionId }}-sub"
+  CloudPubSub__SyncPatientLeaveStatusSubscriptionId: "{{ .Values.App.CloudPubSub.SyncPatientLeaveStatusSubscriptionId }}-sub"
   JCP__EndPoint: "{{ .Values.App.JCP.EndPoint }}"
   JCP__Ca: "{{ .Values.App.JCP.Ca }}"
   JCP__Cs: "{{ .Values.App.JCP.Cs }}"
