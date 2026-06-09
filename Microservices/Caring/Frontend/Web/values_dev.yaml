@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-bug-20260521
+  Version: razor-dev-1780996421
   UseHPA: false
   UsePDB:
     enabled: false
