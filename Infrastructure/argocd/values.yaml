@@ -315,7 +315,7 @@ apps:
       ignoreReplicasDifferences: true
 
     # 還原演練 ↓↓↓
-    new-caring-web-api-rs:
+    new-caring-web-api-rs2:
       sourcePath: Microservices/Caring/Backend/Api/new-caring-web-api
       sourceHelm:
         valueFiles:
@@ -323,7 +323,7 @@ apps:
       destinationNamespace: new-caring-web-api-rs
       ignoreReplicasDifferences: true
 
-    new-caring-web-rs:
+    new-caring-web-rs2:
       sourcePath: Microservices/Caring/Frontend/Web
       sourceHelm:
         valueFiles:
@@ -331,7 +331,7 @@ apps:
       destinationNamespace: new-caring-web-rs
       ignoreReplicasDifferences: true
 
-    new-caring-event-consumer-rs:
+    new-caring-event-consumer-rs2:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:
         valueFiles:
