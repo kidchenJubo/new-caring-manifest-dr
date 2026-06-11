@@ -320,7 +320,7 @@ apps:
       sourceHelm:
         valueFiles:
           - values_rs.yaml
-      destinationNamespace: new-caring-web-api-rs
+      destinationNamespace: new-caring-web-api-rs2
       ignoreReplicasDifferences: true
 
     new-caring-web-rs2:
@@ -328,7 +328,7 @@ apps:
       sourceHelm:
         valueFiles:
           - values_rs.yaml
-      destinationNamespace: new-caring-web-rs
+      destinationNamespace: new-caring-web-rs2
       ignoreReplicasDifferences: true
 
     new-caring-event-consumer-rs2:
@@ -336,6 +336,6 @@ apps:
       sourceHelm:
         valueFiles:
           - values_rs.yaml
-      destinationNamespace: new-caring-event-consumer-rs
+      destinationNamespace: new-caring-event-consumer-rs2
       ignoreReplicasDifferences: false
     # 還原演練 ↑↑↑
