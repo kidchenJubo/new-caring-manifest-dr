@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: razor-dev-1781509705
+  Version: razor-dev-1781540501
   UseHPA: false
   UsePDB:
     enabled: false
