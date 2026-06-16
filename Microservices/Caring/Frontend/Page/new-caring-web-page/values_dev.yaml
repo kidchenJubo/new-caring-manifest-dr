@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 3.6.97-caring
+  Version: 3.6.100-caring
   ConfigMap:
     Data:
       DEPLOY: dev
