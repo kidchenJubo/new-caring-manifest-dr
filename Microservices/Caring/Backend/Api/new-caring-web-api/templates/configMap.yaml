@@ -20,6 +20,13 @@ data:
   JCP__Version: "{{ .Values.App.JCP.Version }}"
   JCP__ManageJcpCA: "{{ .Values.App.JCP.ManageJcpCA }}"
   JCP__ManageJcpCS: "{{ .Values.App.JCP.ManageJcpCS }}"
+  {{- if .Values.App.JcpClient }}
+  JcpClient__ClientId: "{{ .Values.App.JcpClient.ClientId }}"
+  JcpClient__ClientSecret: "{{ .Values.App.JcpClient.ClientSecret }}"
+  JcpClient__IdentityBaseUrl: "{{ .Values.App.JcpClient.IdentityBaseUrl }}"
+  JcpClient__StorageBaseUrl: "{{ .Values.App.JcpClient.StorageBaseUrl }}"
+  JcpClient__Scope: "{{ .Values.App.JcpClient.Scope }}"
+  {{- end }}
   CloudPubSub__ProjectId: "{{ .Values.App.CloudPubSub.ProjectId }}"
   CloudPubSub__DataSyncTopicId: "{{ .Values.App.CloudPubSub.DataSyncTopicId }}"
   CloudPubSub__UserActivityLogTopicId: "{{ .Values.App.CloudPubSub.UserActivityLogTopicId }}"
