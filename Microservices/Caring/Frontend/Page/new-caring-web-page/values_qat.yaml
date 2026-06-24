@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 3.6.120-caring
+  Version: 3.6.123-caring
   ConfigMap:
     Data:
       DEPLOY: qat
