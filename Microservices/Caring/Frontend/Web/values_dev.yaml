@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: razor-dev-20260521Variner8
+  Version: razor-dev-20260521Variner9
   UseHPA: false
   UsePDB:
     enabled: false
