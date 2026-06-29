@@ -25,6 +25,7 @@ data:
   JcpClient__ClientSecret: "{{ .Values.App.JcpClient.ClientSecret }}"
   JcpClient__IdentityBaseUrl: "{{ .Values.App.JcpClient.IdentityBaseUrl }}"
   JcpClient__StorageBaseUrl: "{{ .Values.App.JcpClient.StorageBaseUrl }}"
+  JcpClient__OrganizationBaseUrl: "{{ .Values.App.JcpClient.OrganizationBaseUrl }}"
   JcpClient__Scope: "{{ .Values.App.JcpClient.Scope }}"
   {{- end }}
   CloudPubSub__ProjectId: "{{ .Values.App.CloudPubSub.ProjectId }}"
