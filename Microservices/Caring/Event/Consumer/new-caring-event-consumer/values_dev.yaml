@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.9.1-dev-1
+  Version: fix-jcp-user-failure-log
   UseHPA: false
   UsePDB:
     enabled: false
