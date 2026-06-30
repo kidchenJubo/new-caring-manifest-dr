@@ -43,7 +43,7 @@ App:
     ClientSecret: "222126EA-7035-4638-BAC2-93A50490BF8D"
     IdentityBaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal/api/identity"
     StorageBaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal/api/storage"
-    OrganizationBaseUrl: "https://jcp2-api-gateway-dev.jubo.health.internal/api/organization"
+    OrganizationBaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal/api/organization"
     Scope: "storage:write storage:read organization:read"
   CloudPubSub:
     ProjectId: "static-map-242406"
