@@ -39,6 +39,7 @@ App:
   # TODO: IdentityBaseUrl / StorageBaseUrl / ClientSecret 需向 JCP 團隊取得 dev1 環境實際值後填入。
   JcpClient:
     ClientId: "ltc-web"
+    BaseUrl: "http://jcp2-api-gateway.jubo.health.internal/"
     ClientSecret: "04C89CB6-2A5F-43F5-B9A9-E9D40818F3D2"
     IdentityBaseUrl: "http://jcp2-api-gateway.jubo.health.internal/api/identity"
     StorageBaseUrl: "http://jcp2-api-gateway.jubo.health.internal/api/storage"
