@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.9.1-dev-7
+  Version: JCP-2322-2
   UseHPA: false
   UsePDB:
     enabled: false
