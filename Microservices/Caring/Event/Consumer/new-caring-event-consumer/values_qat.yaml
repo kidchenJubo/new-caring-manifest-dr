@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: fix-jcp-user-failure-log
+  Version: fix-jcp-batch-create-user
   UseHPA: false
   UsePDB:
     enabled: false
