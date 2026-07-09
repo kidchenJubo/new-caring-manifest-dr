@@ -13,7 +13,29 @@ spec:
         app: {{ .Chart.Name }}
     spec:
       serviceAccountName: {{ .Chart.Name }}
-      terminationGracePeriodSeconds: 40
+      terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: cloud-sql-proxy
+          restartPolicy: Always
+          image: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:{{ .Values.SqlProxy.Version }}"
+          args:
+            - "--private-ip"
+            - "--auto-iam-authn"
+            - "--port=5432"
+            - "--health-check"
+            - "--http-address=0.0.0.0"
+            - "--http-port=9090"
+            - "{{ .Values.SqlProxy.InstanceName }}"
+          resources:
+{{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
+          securityContext:
+            runAsNonRoot: true
+          startupProbe:
+            httpGet:
+              path: /startup
+              port: 9090
+            periodSeconds: 2
+            failureThreshold: 30
       containers:
         - name: event-consumer-worker
           image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-event-consumer-worker:{{ .Values.App.Version }}"
@@ -55,20 +77,3 @@ spec:
                 command: ["/bin/sh", "-c", "sleep 20"]
           resources: 
 {{ toYaml .Values.App.AppResources | indent 11 }}
-        - name: cloud-sql-proxy
-          image: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:{{ .Values.SqlProxy.Version }}"
-          args:
-            - "--private-ip"
-            - "--auto-iam-authn"
-            - "--port=5432"
-            - "{{ .Values.SqlProxy.InstanceName }}"
-          resources: 
-{{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
-          securityContext:
-            # The default Cloud SQL proxy image runs as the
-            # "nonroot" user and group (uid: 65532) by default.
-            runAsNonRoot: true
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/bin/sh", "-c", "sleep 25"]
