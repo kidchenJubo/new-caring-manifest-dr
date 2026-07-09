@@ -33,7 +33,3 @@ data:
   CloudPubSub__DataSyncTopicId: "{{ .Values.App.CloudPubSub.DataSyncTopicId }}"
   CloudPubSub__UserActivityLogTopicId: "{{ .Values.App.CloudPubSub.UserActivityLogTopicId }}"
   CloudPubSub__UserEventHandlingTopicId: "{{ .Values.App.CloudPubSub.UserEventHandlingTopicId }}"
-
-  {{- if .Values.App.ServiceAccountCredentials }}
-  GOOGLE_APPLICATION_CREDENTIALS: "/app/secrets/service-account-credentials.json"
-  {{- end }}
