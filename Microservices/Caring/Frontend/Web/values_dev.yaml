@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: razor-dev-1783582543
+  Version: auth-cookie-redis-ticket-store
   UseHPA: false
   UsePDB:
     enabled: false
