@@ -40,7 +40,7 @@ App:
     UserEventHandlingTopicId: "caring-dev2-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-dev2-user-event-handling"
     PendingFileCleanupSubscriptionId: "caring-dev2-pending-file-cleanup"
-    SyncPatientLeaveStatusSubscriptionId: "caring-dev2-sync-patient-leave-status"
+    SyncPatientSubscriptionId: "caring-dev2-sync-patient"
 
 
 SqlProxy:

@@ -40,7 +40,7 @@ App:
     UserEventHandlingTopicId: "caring-qat2-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-qat2-user-event-handling"
     PendingFileCleanupSubscriptionId: "caring-qat2-pending-file-cleanup"
-    SyncPatientLeaveStatusSubscriptionId: "caring-qat2-sync-patient-leave-status"
+    SyncPatientSubscriptionId: "caring-qat2-sync-patient"
 
 
 SqlProxy:
