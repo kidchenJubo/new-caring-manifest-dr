@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git commit*)",
+      "Bash(git add*)",
+      "Bash(git reset*)",
+      "Bash(git rebase*)",
+      "Bash(git merge*)",
+      "Bash(git checkout*)",
+      "Bash(git restore*)",
+      "Bash(git clean*)",
+      "Bash(git branch -D*)",
+      "Bash(git branch -d*)",
+      "Bash(git stash drop*)",
+      "Bash(argocd *)",
+      "Bash(gcloud iam *)",
+      "Bash(gcloud projects add-iam-policy-binding*)",
+      "Bash(gcloud projects remove-iam-policy-binding*)",
+      "Bash(gcloud iam service-accounts create*)",
+      "Bash(gcloud iam service-accounts delete*)",
+      "Bash(gcloud iam service-accounts disable*)",
+      "Bash(./Shell/*)",
+      "Bash(bash Shell/*)",
+      "Bash(sh Shell/*)",
+      "Write(CLAUDE.md)",
+      "Edit(CLAUDE.md)",
+      "Write(.claude/*)",
+      "Edit(.claude/*)"
+    ]
+  }
+}
