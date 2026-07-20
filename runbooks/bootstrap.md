@@ -56,6 +56,17 @@ AI 於每次對話開始時，先確認 `.claude/gcp-env.md` 是否存在。**�
    任何搜尋結果都代表遺漏，需回頭修正；改到 0 筆結果才算步驟 1 完成。
 
 2. **校正 `docs/conventions.md` 與 `runbooks/*.md`**
+
+   **先執行刪除，再執行改寫。**
+
+   掃描所有 `runbooks/*.md`，找出檔案開頭含有以下標記的 runbook：
+
+   ```
+   > **[Manifest 專屬]**
+   ```
+
+   找到標記的檔案**直接刪除整個檔案**，不嘗試改寫或弱化後保留。完成後再執行以下改寫步驟。
+
    - 依步驟 1 檢查清單中「不符時需改寫的位置」欄位，逐一修正 `docs/conventions.md` 與對應 runbook
    - 不確定影響範圍時，對步驟 1 表格「CLAUDE.md 預設寫法」欄位出現的關鍵字（如 `charts/`、`values-`、`scripts/`、`ApplicationSet`）在 `docs/` 與 `runbooks/` 全文搜尋，確認是否也需要修正
    - 依下方「docs/conventions.md 與 runbooks 假設值檢查清單」逐一確認每個檔案內建立在 JCP 專案機制上的段落是否適用

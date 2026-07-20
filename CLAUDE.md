@@ -22,6 +22,7 @@ AI 在以下情境**必須主動讀取**對應文件，不得僅依賴本文件�
 | 執行 git push 前的安全檢查、環境升級確認、回滾                                | `runbooks/deployment.md`                                            |
 | 命名慣例、範本規格、ArgoCD Application range 模式、Cloud SQL / WI 慣例、Secret 現況 | `docs/conventions.md`                                               |
 | `.claude/gcp-env.md` 不存在（首次進入本專案）                                 | `runbooks/bootstrap.md`                                             |
+| 切換／取消維護模式（GCLB 導轉維護頁）                                        | `runbooks/maintenance-mode.md`                                      |
 
 ---
 

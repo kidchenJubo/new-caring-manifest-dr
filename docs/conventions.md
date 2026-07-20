@@ -239,6 +239,18 @@ syncPolicy:
 
 ---
 
+## Manifest 專屬 Runbook 標記
+
+新增只適用於本 manifest 專案的 runbook 時，必須在檔案**第一行**加上以下標記：
+
+```markdown
+> **[Manifest 專屬]** <一句話說明為何只適用於本專案，例如：此流程依賴 JCP 特有的 PSC 架構>
+```
+
+bootstrap 流程掃描到這個標記時，會直接刪除整個檔案，不移植至其他 manifest 專案。
+
+---
+
 ## 與 JCP 平台的整合
 
 Caring 平台的部分服務（`new-caring-mobile-api` 等）會呼叫另一個稱為 **JCP** 的平台的 API（例如 `App.JCP.EndPoint: "http://jcp-dev-api.jubo.health.internal"`），透過 Private Service Connect（PSC）私有連線；同時也有反方向的 PSC 資源讓 JCP 平台呼叫回 Caring 的 mobile-api。這兩組 PSC 資源的細節（對接的 project ID、producer/consumer 方向）記錄在 `.claude/gcp-env.md`「PSC 對接」章節，部分細節待操作者確認。新增服務若需要對接 JCP 平台的 API，先確認該環境是否已有對應的 PSC 內部網域可用，而不是假設可以直接建立新的對接。
