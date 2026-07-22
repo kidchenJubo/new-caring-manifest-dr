@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: refactor-razor-auth
+  Version: integration-auth-title-test
   UseHPA: false
   UsePDB:
     enabled: false
