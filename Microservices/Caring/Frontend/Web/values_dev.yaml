@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: JCP-2373-fixcss-1
+  Version: integration-auth-title-test
   UseHPA: false
   UsePDB:
     enabled: false
