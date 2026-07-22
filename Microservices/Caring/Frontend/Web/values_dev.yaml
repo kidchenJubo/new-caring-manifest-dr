@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: JCP-2373-fix-6
+  Version: JCP-2373-fix-7
   UseHPA: false
   UsePDB:
     enabled: false
