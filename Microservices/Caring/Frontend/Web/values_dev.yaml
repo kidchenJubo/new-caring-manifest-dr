@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: refactor-razor-auth
+  Version: dev-JCP-2373
   UseHPA: false
   UsePDB:
     enabled: false
