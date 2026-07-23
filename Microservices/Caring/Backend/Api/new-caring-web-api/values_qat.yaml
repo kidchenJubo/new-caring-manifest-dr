@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.11.1-dev
+  Version: razor-dev-1784784807
   UseHPA: false
   UsePDB:
     enabled: false
