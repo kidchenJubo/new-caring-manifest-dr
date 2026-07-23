@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: integration-auth-title-test
+  Version: razor-dev-1784784807
   UseHPA: false
   UsePDB:
     enabled: false
