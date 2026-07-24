@@ -34,8 +34,6 @@ App:
     Version: "1.0.0"
     ManageJcpCA: "ShareITN01CA01"
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
-  # 新版 JuboCarePlatform.Sdk (signed-url 直傳) 用設定。
-  # TODO: IdentityBaseUrl / StorageBaseUrl / ClientSecret 需向 JCP 團隊取得 dev2 環境實際值後填入。
   JcpClient:
     ClientId: "ltc-web"
     ClientSecret: "222126EA-7035-4638-BAC2-93A50490BF8D"
