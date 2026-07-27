@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: patients-24
+  Version: patients-26
   UseHPA: false
   UsePDB:
     enabled: false
