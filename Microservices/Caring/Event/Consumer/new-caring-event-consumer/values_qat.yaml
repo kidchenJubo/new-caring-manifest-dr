@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: fix-jcp-batch-create-user
+  Version: 2.1.12.3
   UseHPA: false
   UsePDB:
     enabled: false
@@ -39,6 +39,7 @@ App:
     UserActivityLogTopicId: "caring-qat-user-activity-log"
     UserEventHandlingTopicId: "caring-qat-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-qat-user-event-handling"
+    SyncPatientSubscriptionId: "caring-qat-sync-patient"
 
 SqlProxy:
   Version: 2.18.1
