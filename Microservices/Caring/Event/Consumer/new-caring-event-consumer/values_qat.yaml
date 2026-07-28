@@ -34,6 +34,11 @@ App:
       OrganizationEventHandlingSubscriptionId: "qat_caring_organization_data_sync_sub"
       JcpUserEventHandlingSubscriptionId: "qat_caring_user_data_sync_sub"
       JcpUserPrivilegeEventHandlingSubscriptionId: "qat_organization_user_privilege_sync_caring_sub"
+  JcpClient:
+    ClientId: "ltc-web"
+    ClientSecret: "222126EA-7035-4638-BAC2-93A50490BF8D"
+    BaseUrl: "http://jcp2-api-gateway-qat.jubo.health.internal"
+    Scope: "storage:write storage:read"
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-qat-user-activity-log"
