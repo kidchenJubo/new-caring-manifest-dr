@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-yao-260728-13
+  Version: razor-dev-1785254098
   UseHPA: false
   UsePDB:
     enabled: false
