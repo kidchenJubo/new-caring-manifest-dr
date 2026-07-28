@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: razor-dev-1784784807
+  Version: 2.1.12.1
   UseHPA: false
   UsePDB:
     enabled: false
@@ -37,9 +37,7 @@ App:
   JcpClient:
     ClientId: "ltc-web"
     ClientSecret: "222126EA-7035-4638-BAC2-93A50490BF8D"
-    IdentityBaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal/api/identity"
-    StorageBaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal/api/storage"
-    OrganizationBaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal/api/organization"
+    BaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal"
     Scope: "storage:write storage:read organization:read"
   CloudPubSub:
     ProjectId: "static-map-242406"
