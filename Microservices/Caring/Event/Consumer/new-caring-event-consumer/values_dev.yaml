@@ -44,6 +44,7 @@ App:
     UserActivityLogTopicId: "caring-dev-user-activity-log"
     UserEventHandlingTopicId: "caring-dev-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-dev-user-event-handling"
+    PendingFileCleanupSubscriptionId: "caring-dev-pending-file-cleanup"
     SyncPatientSubscriptionId: "caring-dev-sync-patient"
 
 SqlProxy:
