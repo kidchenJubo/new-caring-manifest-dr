@@ -8,6 +8,7 @@ App:
     enabled: false
     UseUnavailable: false # use this should set replicas to 2 above
   Env: Development
+  ServiceAccount: "new-caring-mobile-api-dev@static-map-242406.iam.gserviceaccount.com"
   AppResources:
     requests:
       cpu: 50m
@@ -16,8 +17,8 @@ App:
       cpu: 300m
       memory: 768Mi
   ConnectionStrings:
-    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
-    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=new-caring-mobile-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=new-caring-mobile-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     CHomeConnection: "Server=10.140.15.234,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
