@@ -6,7 +6,7 @@ App:
     enabled: false
     UseUnavailable: false # use this should set replicas to 2 above
   ContainerPort: 8080
-  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
+  ServiceAccount: "new-caring-web-dev@static-map-242406.iam.gserviceaccount.com"
   AppResources:
     requests:
       cpu: 50m
@@ -15,8 +15,8 @@ App:
       cpu: 1000m
       memory: 1280Mi
   ConnectionStrings:
-    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
-    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=new-caring-web-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=new-caring-web-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     CHomeConnection: "Server=10.140.0.40,9900;Database=CHome;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   Redis:
