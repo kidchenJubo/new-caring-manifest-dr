@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-yao-260730-14
+  Version: fix-yao-260730-15
   UseHPA: false
   UsePDB:
     enabled: false
