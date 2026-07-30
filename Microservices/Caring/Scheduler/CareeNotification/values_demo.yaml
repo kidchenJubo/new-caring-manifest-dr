@@ -15,15 +15,15 @@ App:
     limits:
       cpu: 1000m
       memory: 1280Mi
-  ServiceAccount: "n-c-b-a@static-map-242406.iam.gserviceaccount.com"
+  ServiceAccount: "caree-notification-dev@static-map-242406.iam.gserviceaccount.com"
   JCP:
     Brand: "jcp"
     Product: "share"
     Name: "jcp-dotnet-cron-job-share"
   IntervalExtractTransformLoadCaringCareeNotification: 600
   CaringConnection:
-    Master: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
-    Slave: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=n-c-b-a@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    Master: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=caree-notification-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    Slave: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=caree-notification-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
   OldCaringConnection:
     IP: "10.140.0.40"
     Port: 9900
