@@ -56,7 +56,7 @@ kubectl -n ${NAMESPACE} describe pod -l app=${SERVICE}
 
 - 環境變數設定錯誤 → 確認該服務的 `values_<env>.yaml` 是否有殘留 `# TODO` 暫用值或結構缺漏（執行 Values 一致性檢查，見 `CLAUDE.md`）
 - 資料庫連線失敗 → 確認 `SqlProxy.InstanceName` 是否正確（對照 `.claude/gcp-env.md`「Cloud SQL」表格），以及 `cloud-sql-proxy` initContainer 的 `startupProbe`（`/startup` port 9090）是否通過
-- Workload Identity 未綁定 → 確認 KSA annotation：`kubectl -n ${NAMESPACE} get serviceaccount ${SERVICE} -o jsonpath='{.metadata.annotations}'`，應指向 `n-c-b-a@static-map-242406.iam.gserviceaccount.com`
+- Workload Identity 未綁定 → 確認 KSA annotation：`kubectl -n ${NAMESPACE} get serviceaccount ${SERVICE} -o jsonpath='{.metadata.annotations}'`，應指向該服務對應的 GSA（見 `docs/conventions.md`「Workload Identity」，每服務有 dev/release 兩個 GSA，不是共用同一個）
 - 映像檔問題 → 確認 image tag，見 ImagePullBackOff SOP
 
 ---
@@ -75,7 +75,7 @@ kubectl -n ${NAMESPACE} get deployment ${SERVICE} \
 **常見根因與處理：**
 
 - Image tag 不存在 → 確認 Artifact Registry `asia-east1-docker.pkg.dev/static-map-242406/new-caring` 是否已推送該 tag（`gcloud artifacts docker images list asia-east1-docker.pkg.dev/static-map-242406/new-caring --project static-map-242406`）；本 repo 沒有 CI/CD pipeline，image 由外部流程建置，若 tag 不存在需回頭確認建置流程是否完成
-- 認證失敗 → 確認 KSA 是否已綁定共用 GSA `n-c-b-a@static-map-242406.iam.gserviceaccount.com`（該 GSA 需有 `roles/artifactregistry.reader` 權限）
+- 認證失敗 → 確認 KSA 是否已綁定該服務對應的 GSA（該 GSA 需有 `roles/artifactregistry.reader` 權限）
 
 ---
 

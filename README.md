@@ -27,7 +27,7 @@ Jubo「Caring」平台的 GitOps manifest 儲存庫，透過 [ArgoCD](https://ar
 │       ├── Scheduler/           # CareeNotification（排程/Worker）
 │       └── Proxy/               # maintenance-page-proxy（維護頁反向代理）
 ├── Shell/
-│   ├── service_account_binding.sh       # 所有服務×環境的 Workload Identity 綁定（單一共用 GSA）
+│   ├── service_account_binding.sh       # 所有服務×環境的 Workload Identity 綁定（每服務各自 dev/release 兩個 GSA，見「GKE Workload Identity」）
 │   ├── create_lb_backend_services.sh    # 建立 GCLB backend-service + NEG
 │   ├── kubectl_rollout_restart_*.sh     # 手動重啟腳本
 │   └── remove_istio.sh                  # 移除 Istio 用（歷史遺留）
@@ -87,17 +87,26 @@ Jubo「Caring」平台的 GitOps manifest 儲存庫，透過 [ArgoCD](https://ar
 
 ## GKE Workload Identity
 
-所有服務、所有環境共用單一個 GSA——pod 無需金鑰檔案即可向 GCP 驗證：
+每個服務各自有一組「非正式環境」（dev/dev2/qat/qat2/demo 共用）+「release」兩個 GSA，服務之間也不共用——pod 無需金鑰檔案即可向 GCP 驗證：
 
-| GSA                                                    |
-| -------------------------------------------------------- |
-| `n-c-b-a@static-map-242406.iam.gserviceaccount.com`     |
+| 服務                       | 非正式環境 GSA                                                       | release GSA                                                   |
+| --------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `new-caring-web-api`       | `new-caring-web-api-dev@static-map-242406.iam.gserviceaccount.com`    | `new-caring-web-api-release@static-map-242406.iam.gserviceaccount.com` |
+| `new-caring-mobile-api`    | `new-caring-mobile-api-dev@static-map-242406.iam.gserviceaccount.com` | `new-caring-mobile-api-release@static-map-242406.iam.gserviceaccount.com` |
+| `new-caring-web`           | `new-caring-web-dev@static-map-242406.iam.gserviceaccount.com`        | `new-caring-web-release@static-map-242406.iam.gserviceaccount.com` |
+| `caring-event-consumer`    | `caring-event-consumer-dev@static-map-242406.iam.gserviceaccount.com` | `caring-event-consumer-release@static-map-242406.iam.gserviceaccount.com` |
+| `caree-notification`      | `caree-notification-dev@static-map-242406.iam.gserviceaccount.com`    | `caree-notification-release@static-map-242406.iam.gserviceaccount.com` |
+| `maintenance-page-proxy`  | `n-c-b-a@static-map-242406.iam.gserviceaccount.com`（尚未拆分）        | 同左                                                              |
+
+`rs`（還原演練）環境不算在「非正式環境」那組，而是沿用 release 的 GSA（`new-caring-web-api`、`new-caring-web`、`caring-event-consumer` 這三個有 `rs` 的服務都適用）——因為 `rs` 的資料庫是從 release 備份還原的，用 release GSA 才能直接沿用還原後資料庫裡既有的 IAM 使用者，見 `docs/conventions.md`「Workload Identity」。
 
 綁定透過以下腳本一次性執行（涵蓋所有既有服務×環境；新增服務/環境需先在腳本中補上對應行）：
 
 ```bash
 ./Shell/service_account_binding.sh
 ```
+
+> 這 10 個新 GSA 尚未在 GCP 建立，`Shell/service_account_binding.sh` 也尚未更新為新的 GSA 對應——建立 GSA、Workload Identity 綁定與更新這份腳本，需操作者自行完成（`gcloud iam` 相關指令為 Claude Code 黑名單）。
 
 ## Cloud SQL Proxy
 

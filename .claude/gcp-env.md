@@ -153,15 +153,22 @@ Caring 平台會呼叫另一個稱為 **JCP** 的平台的 API（見 `new-caring
 
 ## Workload Identity（GSA）
 
-所有服務、所有環境**共用單一個 GSA**，並非依環境或依服務分開：
+每個服務各自有一組「非正式環境」（dev/dev2/qat/qat2/demo/rs 共用）+「release」兩個 GSA，服務之間、release 與非正式環境之間都不共用：
 
-| GSA                                                       |
-| ---------------------------------------------------------- |
-| `n-c-b-a@static-map-242406.iam.gserviceaccount.com`      |
+| 服務（Chart name）        | 非正式環境 GSA                                                       | release GSA                                                   |
+| --------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `new-caring-web-api`      | `new-caring-web-api-dev@static-map-242406.iam.gserviceaccount.com`    | `new-caring-web-api-release@static-map-242406.iam.gserviceaccount.com` |
+| `new-caring-mobile-api`   | `new-caring-mobile-api-dev@static-map-242406.iam.gserviceaccount.com` | `new-caring-mobile-api-release@static-map-242406.iam.gserviceaccount.com` |
+| `new-caring-web`          | `new-caring-web-dev@static-map-242406.iam.gserviceaccount.com`        | `new-caring-web-release@static-map-242406.iam.gserviceaccount.com` |
+| `caring-event-consumer`   | `caring-event-consumer-dev@static-map-242406.iam.gserviceaccount.com` | `caring-event-consumer-release@static-map-242406.iam.gserviceaccount.com` |
+| `caree-notification`     | `caree-notification-dev@static-map-242406.iam.gserviceaccount.com`    | `caree-notification-release@static-map-242406.iam.gserviceaccount.com` |
+| `maintenance-page-proxy` | `n-c-b-a@static-map-242406.iam.gserviceaccount.com`（尚未拆分，沿用舊的共用 GSA） | 同左                                                              |
 
-`serviceAccount.yaml` 中的 KSA annotation（`iam.gke.io/gcp-service-account`）一律指向此 GSA。綁定透過 `Shell/service_account_binding.sh` 執行（非函數化的 `bind_dev()`/`bind_prod()`，是逐一 namespace 條列的完整腳本，新增服務/環境需在其中補上對應的 `gcloud iam service-accounts add-iam-policy-binding` + `kubectl annotate` 兩行）。
+⚠️ 這 10 個新 GSA 尚未在 GCP 建立，manifest 已改為引用這些 email。實際的建立與 Workload Identity 綁定需操作者自行完成（`gcloud iam` 相關指令屬黑名單）。`Shell/service_account_binding.sh` 與 `Microservices/README.md` 仍是舊版內容，尚未更新。
 
-此 GSA 另被授予 `jubo-care-platform` project 的 `roles/pubsub.subscriber`（用於訂閱該 project 的 Pub/Sub topic，見 `Shell/service_account_binding.sh` 末尾）。
+`serviceAccount.yaml` 中的 KSA annotation 透過各服務 `values_<env>.yaml` 的 `App.ServiceAccount` 欄位指向對應 GSA。
+
+`n-c-b-a@static-map-242406.iam.gserviceaccount.com` 被授予 `jubo-care-platform` project 的 `roles/pubsub.subscriber`。改用新 GSA 後，`new-caring-web-api`、`caring-event-consumer` 的新 GSA 需要操作者重新授予這個跨專案角色。
 
 ---
 

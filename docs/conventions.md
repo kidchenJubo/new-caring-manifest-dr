@@ -142,13 +142,13 @@ containers:
 - **`startupProbe`**：確認 proxy 內建 HTTP health check（port 9090、`/startup`）回應正常後，main container 才啟動；不是用 `tcpSocket` 探測 5432。
 - **不設 `preStop`**：native sidecar 由 K8s 保證在所有一般 container 退出後才收到 SIGTERM，不需 sleep 來控制順序。
 
-連線字串使用者名稱格式：`n-c-b-a@static-map-242406.iam`（單一共用 GSA 的 IAM 驗證，不需密碼欄位，見「Workload Identity」）。目前只有 3 個 Cloud SQL instance（`caring-dev-pg`、`caring-release-pg`、`rs`），dev/dev2/qat/qat2/demo 共用 `caring-dev-pg`，release 用 `caring-release-pg`，見 `.claude/gcp-env.md`「Cloud SQL」表格。
+連線字串使用者名稱格式：`<該服務對應的 GSA>@static-map-242406.iam`（IAM 驗證，不需密碼欄位，見「Workload Identity」——每個服務、每組環境對應的 GSA 不同）。目前只有 3 個 Cloud SQL instance（`caring-dev-pg`、`caring-release-pg`、`rs`），dev/dev2/qat/qat2/demo 共用 `caring-dev-pg`，release 用 `caring-release-pg`，見 `.claude/gcp-env.md`「Cloud SQL」表格。
 
 ---
 
 ## Workload Identity（GSA）
 
-**所有服務、所有環境共用單一個 GSA**：`n-c-b-a@static-map-242406.iam.gserviceaccount.com`，不依環境或依服務分開。`serviceAccount.yaml` 的 annotation 一律指向這個 GSA：
+每個服務各自有兩個 GSA：一個給 `dev`/`dev2`/`qat`/`qat2`/`demo`/`rs`（非正式環境）共用，一個給 `release` 專用，兩者互相獨立，服務之間也不共用 GSA。`App.ServiceAccount` 這個 values 欄位決定 `serviceAccount.yaml` 的 annotation 指向哪個 GSA：
 
 ```yaml
 apiVersion: v1
@@ -159,9 +159,22 @@ metadata:
     iam.gke.io/gcp-service-account: {{ .Values.App.ServiceAccount }}
 ```
 
-綁定透過 `Shell/service_account_binding.sh` 執行——這不是像 `bind_dev()`/`bind_prod()` 這種函數化腳本，而是一份逐一列出所有 `namespace × KSA` 組合的完整腳本（每個組合兩行：`gcloud iam service-accounts add-iam-policy-binding` + `kubectl annotate serviceaccount`）。新增服務或新增環境時，需要在這份腳本中補上對應的兩行。
+| 服務（Chart name）        | 非正式環境 GSA（dev/dev2/qat/qat2/demo）                       | release GSA                                                  |
+| --------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `new-caring-web-api`      | `new-caring-web-api-dev@static-map-242406.iam.gserviceaccount.com` | `new-caring-web-api-release@static-map-242406.iam.gserviceaccount.com` |
+| `new-caring-mobile-api`   | `new-caring-mobile-api-dev@static-map-242406.iam.gserviceaccount.com`（僅 dev/qat/demo，此服務無 dev2/qat2/rs） | `new-caring-mobile-api-release@static-map-242406.iam.gserviceaccount.com` |
+| `new-caring-web`          | `new-caring-web-dev@static-map-242406.iam.gserviceaccount.com` | `new-caring-web-release@static-map-242406.iam.gserviceaccount.com` |
+| `caring-event-consumer`   | `caring-event-consumer-dev@static-map-242406.iam.gserviceaccount.com` | `caring-event-consumer-release@static-map-242406.iam.gserviceaccount.com` |
+| `caree-notification`     | `caree-notification-dev@static-map-242406.iam.gserviceaccount.com`（僅 dev/qat/demo，此服務無 dev2/qat2/rs） | `caree-notification-release@static-map-242406.iam.gserviceaccount.com` |
+| `maintenance-page-proxy` | `n-c-b-a@static-map-242406.iam.gserviceaccount.com`（尚未納入本次拆分，仍用舊的共用 GSA） | 同左（此服務無環境區分）                                        |
 
-此 GSA 另外被授予 `jubo-care-platform` 這個**另一個** GCP project 的 `roles/pubsub.subscriber`（見 `Shell/service_account_binding.sh` 末尾），用於訂閱該 project 的 Pub/Sub topic——這是既有的跨專案 IAM 授權，新增服務時通常不需要重複這個步驟。
+**`rs`（還原演練）不屬於上面「非正式環境」那一組，而是用該服務的 release GSA**——`rs` 的 Postgres instance 是從 `caring-release-pg` 的備份還原而來，沿用 release GSA 可以讓還原後資料庫內既有的 IAM 使用者直接生效，不需要另外在 `rs` instance 裡建立一個對應 dev GSA 的資料庫使用者。`SqlProxy.InstanceName` 仍指向 `rs` instance，只有 `App.ServiceAccount`／連線字串的 `Userid` 改用 release GSA，兩者不要混淆（見 `runbooks/rs-drill.md`）。有 `rs` 環境的服務：`new-caring-web-api`、`new-caring-web`、`caring-event-consumer`。
+
+`new-caring-web-api` 與 `new-caring-mobile-api` 的 `templates/serviceAccount.yaml` 原本直接寫死 GSA email（不經過 values），已改為與其他服務一致的 `{{ .Values.App.ServiceAccount }}` 樣板寫法。
+
+綁定透過 `Shell/service_account_binding.sh` 執行——這不是像 `bind_dev()`/`bind_prod()` 這種函數化腳本，而是一份逐一列出所有 `namespace × KSA` 組合的完整腳本（每個組合兩行：`gcloud iam service-accounts add-iam-policy-binding` + `kubectl annotate serviceaccount`）。新增服務或新增環境時，需要在這份腳本中補上對應的兩行；這次的 GSA 拆分也需要把既有的每一行改指向對應的新 GSA。
+
+`n-c-b-a@static-map-242406.iam.gserviceaccount.com` 這個 GSA 被授予 `jubo-care-platform` 這個**另一個** GCP project 的 `roles/pubsub.subscriber`（見 `Shell/service_account_binding.sh` 末尾），用於訂閱該 project 的 Pub/Sub topic。改用新 GSA 後，實際使用 Pub/Sub 的服務（`new-caring-web-api`、`caring-event-consumer`）的新 GSA 也需要這個跨專案授權，否則會遺失既有的 Pub/Sub 訂閱權限——這點需要操作者確認並補上。
 
 ---
 
