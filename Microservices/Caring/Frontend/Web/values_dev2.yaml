@@ -15,12 +15,12 @@ App:
       cpu: 1000m
       memory: 1280Mi
   ConnectionStrings:
-    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=new-caring-web-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
-    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev;Userid=new-caring-web-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_dev2;Userid=new-caring-web-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_dev2;Userid=new-caring-web-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
     CHomeConnection: "Server=10.140.15.234,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   Redis:
-    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=0"
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=4"
   JCP:
     EndPoint: "http://jcp-dev-api.jubo.health.internal"
     Brand: "JCP"
