@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-yao-260731-7
+  Version: fix-yaocheng-260803-1
   UseHPA: false
   UsePDB:
     enabled: false
