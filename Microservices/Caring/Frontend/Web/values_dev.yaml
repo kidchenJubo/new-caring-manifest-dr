@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-yaocheng-260803-5
+  Version: razor-dev-1785803163
   UseHPA: false
   UsePDB:
     enabled: false
