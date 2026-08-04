@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.11.1
+  Version: 2.1.12.5
   UseHPA: false
   UsePDB:
     enabled: false
@@ -34,11 +34,18 @@ App:
       OrganizationEventHandlingSubscriptionId: "release_caring_organization_data_sync_sub"
       JcpUserEventHandlingSubscriptionId: "release_caring_user_data_sync_sub"
       JcpUserPrivilegeEventHandlingSubscriptionId: "release_organization_user_privilege_sync_caring_sub"
+  JcpClient:
+    ClientId: "ltc-web"
+    BaseUrl: "http://jcp2-api-gateway.jubo.health.internal/"
+    ClientSecret: "04C89CB6-2A5F-43F5-B9A9-E9D40818F3D2"
+    Scope: "storage:write storage:read"
   CloudPubSub:
     ProjectId: "static-map-242406"
     UserActivityLogTopicId: "caring-release-user-activity-log"
     UserEventHandlingTopicId: "caring-release-user-event-handling"
     UserEventHandlingSubscriptionId: "caring-release-user-event-handling"
+    SyncPatientSubscriptionId: "caring-release-sync-patient"
+
 
 SqlProxy:
   Version: 2.18.1

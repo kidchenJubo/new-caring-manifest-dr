@@ -2,7 +2,7 @@ App:
   Replicas: 3
   MinReplicas: 3
   MaxReplicas: 6
-  Version: 2.1.11.1
+  Version: 2.1.12.5
   UseHPA: true
   UsePDB:
     enabled: true
@@ -39,9 +39,6 @@ App:
     ClientId: "ltc-web"
     BaseUrl: "http://jcp2-api-gateway.jubo.health.internal/"
     ClientSecret: "04C89CB6-2A5F-43F5-B9A9-E9D40818F3D2"
-    IdentityBaseUrl: "http://jcp2-api-gateway.jubo.health.internal/api/identity"
-    StorageBaseUrl: "http://jcp2-api-gateway.jubo.health.internal/api/storage"
-    OrganizationBaseUrl: "http://jcp2-api-gateway.jubo.health.internal/api/organization"
     Scope: "storage:write storage:read organization:read"
   CloudPubSub:
     ProjectId: "static-map-242406"
