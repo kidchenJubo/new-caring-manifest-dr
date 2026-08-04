@@ -53,7 +53,7 @@ data:
                 }
                 
                 # Resolve DNS dynamically
-                resolver 8.8.8.8 8.8.4.4 valid=300s;
+                resolver 8.8.8.8 8.8.4.4 valid=300s ipv6=off;
                 resolver_timeout 5s;
 
                 # Proxy to GCS bucket
