@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: razor-dev-1785803163
+  Version: hotfix_20260805
   UseHPA: false
   UsePDB:
     enabled: false
