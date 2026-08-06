@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.12.13
+  Version: fix-legacy-check-right-no-parity
   UseHPA: false
   UsePDB:
     enabled: false
