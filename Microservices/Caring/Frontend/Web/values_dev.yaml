@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.12.12-3
+  Version: fix-adl-ass-del-antiforgery
   UseHPA: false
   UsePDB:
     enabled: false
