@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: LTC-2527-TEST
+  Version: LTC-2527-TEST-2
   UseHPA: false
   UsePDB:
     enabled: false
