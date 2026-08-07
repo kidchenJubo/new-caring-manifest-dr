@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: patients-13
+  Version: fix-yao-260807-1
   UseHPA: false
   UsePDB:
     enabled: false

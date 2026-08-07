@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version:  2.1.13.1-dev-2
+  Version:  fix-yao-260807-1
   UseHPA: false
   UsePDB:
     enabled: false
