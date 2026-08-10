@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-yao-260807-2
+  Version: LTC-2627
   UseHPA: false
   UsePDB:
     enabled: false
