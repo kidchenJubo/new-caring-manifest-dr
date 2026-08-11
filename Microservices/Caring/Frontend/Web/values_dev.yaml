@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-year-format-and-ap-print3-parity
+  Version: fix-LTC-2621-1
   UseHPA: false
   UsePDB:
     enabled: false
