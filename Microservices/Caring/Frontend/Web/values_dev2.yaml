@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.13.1-dev-5
+  Version: fix-year-format-and-ap-print3-parity
   UseHPA: false
   UsePDB:
     enabled: false
