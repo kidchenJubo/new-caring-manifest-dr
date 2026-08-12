@@ -24,6 +24,7 @@ AI 在以下情境**必須主動讀取**對應文件，不得僅依賴本文件�
 | `.claude/gcp-env.md` 不存在（首次進入本專案）                                 | `runbooks/bootstrap.md`                                             |
 | 切換／取消維護模式（GCLB 導轉維護頁）                                        | `runbooks/maintenance-mode.md`                                      |
 | 啟動／關閉還原演練模式（rs，Cloud SQL 還原 + backend NEG）                    | `runbooks/rs-drill.md`                                         |
+| 巡查 Log Explorer 的 ERROR/WARNING、彙整已知/未知問題                        | `runbooks/log-audit.md`                                             |
 
 ---
 
