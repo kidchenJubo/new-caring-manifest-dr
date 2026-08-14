@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.14.8
+  Version: LTC-2679-3
   UseHPA: false
   UsePDB:
     enabled: false
