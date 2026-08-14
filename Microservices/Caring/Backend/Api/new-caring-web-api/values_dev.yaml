@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version:  LTC-2679-3
+  Version:  LTC-2679-4
   UseHPA: false
   UsePDB:
     enabled: false
