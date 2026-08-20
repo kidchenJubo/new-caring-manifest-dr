@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: LTC-2735-test2
+  Version: FIX-LTC-2527-1
   UseHPA: false
   UsePDB:
     enabled: false
