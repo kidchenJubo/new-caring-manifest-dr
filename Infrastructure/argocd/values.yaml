@@ -120,6 +120,14 @@ apps:
       destinationNamespace: new-caring-mobile-api-dev
       ignoreReplicasDifferences: false
 
+    new-caring-line-api-dev:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-line-api
+      sourceHelm:
+        valueFiles:
+          - values_dev.yaml
+      destinationNamespace: new-caring-line-api-dev
+      ignoreReplicasDifferences: false
+
     new-caring-event-consumer-dev:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:

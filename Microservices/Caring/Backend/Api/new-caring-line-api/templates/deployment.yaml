@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.App.Replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      serviceAccountName: {{ .Chart.Name }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: {{ .Chart.Name }}
+      terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: cloud-sql-proxy
+          restartPolicy: Always
+          image: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:{{ .Values.SqlProxy.Version }}"
+          args:
+            - "--private-ip"
+            - "--auto-iam-authn"
+            - "--port=5432"
+            - "--health-check"
+            - "--http-address=0.0.0.0"
+            - "--http-port=9090"
+            - "{{ .Values.SqlProxy.InstanceName }}"
+          resources:
+{{ toYaml .Values.SqlProxy.SqlProxyResources | indent 11 }}
+          securityContext:
+            runAsNonRoot: true
+          startupProbe:
+            httpGet:
+              path: /startup
+              port: 9090
+            periodSeconds: 2
+            failureThreshold: 30
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "asia-east1-docker.pkg.dev/static-map-242406/new-caring/caring-line-api:{{ .Values.App.Version }}"
+          envFrom:
+            - configMapRef:
+                name: "{{ .Chart.Name }}-config"
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MY_POD_SERVICE_ACCOUNT
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
+            - name: ASPNETCORE_URLS
+              value: "http://+:8080"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 30
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 20"]
+          resources:
+{{ toYaml .Values.App.AppResources | indent 11 }}

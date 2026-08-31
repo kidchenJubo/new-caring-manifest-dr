@@ -1,0 +1,37 @@
+App:
+  Replicas: 1
+  MinReplicas: 1
+  MaxReplicas: 1
+  Version: "TODO-first-image-tag"
+  UseHPA: false
+  UsePDB:
+    enabled: false
+    UseUnavailable: false # use this should set replicas to 2 above
+  Env: qat
+  ServiceAccount: "new-caring-line-api-dev@static-map-242406.iam.gserviceaccount.com"
+  AppResources:
+    requests:
+      cpu: 50m
+      memory: 512Mi
+    limits:
+      cpu: 300m
+      memory: 768Mi
+  ConnectionStrings:
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=new-caring-line-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_qat;Userid=new-caring-line-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+  OpenTelemetry:
+    EndPoint: "http://opentelemetry-collector.gke-managed-otel.svc.cluster.local:4317"
+    Protocol: "grpc"
+  Redis:
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=1"
+
+SqlProxy:
+  Version: 2.18.1
+  InstanceName: static-map-242406:asia-east1:caring-dev-pg
+  SqlProxyResources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi

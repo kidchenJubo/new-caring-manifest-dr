@@ -1,0 +1,12 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ .Chart.Name }}-config"
+data:
+  ASPNETCORE_ENVIRONMENT: "{{ .Values.App.Env }}"
+
+  ConnectionStrings__PostgreSqlMaster: "{{ .Values.App.ConnectionStrings.PostgreSqlMaster }}"
+  ConnectionStrings__PostgreSqlSlave: "{{ .Values.App.ConnectionStrings.PostgreSqlSlave }}"
+  OpenTelemetry__EndPoint: "{{ .Values.App.OpenTelemetry.EndPoint }}"
+  OpenTelemetry__Protocol: "{{ .Values.App.OpenTelemetry.Protocol }}"
+  Redis__ConnectionString: "{{ .Values.App.Redis.ConnectionString }}"
