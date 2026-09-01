@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: "TODO-first-image-tag"
+  Version: "LINE-1.0.0"
   UseHPA: false
   UsePDB:
     enabled: false
