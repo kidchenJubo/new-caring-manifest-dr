@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: fix-ebc-bod-legacy-parity
+  Version: bf1480eb
   UseHPA: false
   UsePDB:
     enabled: false
