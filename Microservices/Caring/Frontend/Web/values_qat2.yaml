@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: bf1480eb
+  Version: 2.1.15.43
   UseHPA: false
   UsePDB:
     enabled: false
