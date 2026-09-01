@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 4.0.58-caring
+  Version: 4.0.59-caring
   ConfigMap:
     Data:
       DEPLOY: dev
