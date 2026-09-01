@@ -35,7 +35,9 @@ App:
     Version: "1.0.0"
     ManageJcpCA: "ShareITN01CA01"
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
-
+  Line:
+    VerifyEndpoint: "https://api.line.me/oauth2/v2.1/verify"
+    ChannelId: ""
 SqlProxy:
   Version: 2.18.1
   InstanceName: static-map-242406:asia-east1:caring-dev-pg
