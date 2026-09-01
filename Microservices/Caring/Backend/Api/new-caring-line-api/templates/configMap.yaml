@@ -19,3 +19,4 @@ data:
   JCP__Name: "{{ .Values.App.JCP.Name }}"
   Line__VerifyEndpoint: "{{ .Values.App.Line.VerifyEndpoint }}"
   Line__ChannelId: "{{ .Values.App.Line.ChannelId }}"
+  Line__Api: "{{ .Values.App.Line.Api }}"
