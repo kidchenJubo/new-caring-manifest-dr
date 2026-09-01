@@ -20,3 +20,5 @@ data:
   JCP__Version: "{{ .Values.App.JCP.Version }}"
   JCP__ManageJcpCA: "{{ .Values.App.JCP.ManageJcpCA }}"
   JCP__ManageJcpCS: "{{ .Values.App.JCP.ManageJcpCS }}"
+  Line__VerifyEndpoint: "{{ .Values.App.Line.VerifyEndpoint }}"
+  Line__ChannelId: "{{ .Values.App.Line.ChannelId }}"
