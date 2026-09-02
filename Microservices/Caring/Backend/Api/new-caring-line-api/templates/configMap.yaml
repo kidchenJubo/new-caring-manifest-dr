@@ -17,6 +17,3 @@ data:
   JCP__Product: "{{ .Values.App.JCP.Product }}"
   JCP__Environment: "{{ .Values.App.JCP.Environment }}"
   JCP__Name: "{{ .Values.App.JCP.Name }}"
-  Line__VerifyEndpoint: "{{ .Values.App.Line.VerifyEndpoint }}"
-  Line__ChannelId: "{{ .Values.App.Line.ChannelId }}"
-  Line__Api: "{{ .Values.App.Line.Api }}"
