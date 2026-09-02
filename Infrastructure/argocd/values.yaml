@@ -128,6 +128,14 @@ apps:
       destinationNamespace: new-caring-line-api-dev
       ignoreReplicasDifferences: false
 
+    new-caring-line-api-dev2:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-line-api
+      sourceHelm:
+        valueFiles:
+          - values_dev2.yaml
+      destinationNamespace: new-caring-line-api-dev2
+      ignoreReplicasDifferences: false
+
     new-caring-event-consumer-dev:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:
