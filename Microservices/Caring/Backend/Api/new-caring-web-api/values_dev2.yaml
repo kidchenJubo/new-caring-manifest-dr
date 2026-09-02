@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.15.38
+  Version: 2.1.16.1
   UseHPA: false
   UsePDB:
     enabled: false
