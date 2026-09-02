@@ -2,12 +2,12 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: "TODO-first-image-tag"
+  Version: "LINE-1.0.1"
   UseHPA: false
   UsePDB:
     enabled: false
     UseUnavailable: false # use this should set replicas to 2 above
-  Env: demo
+  Env: qat
   ServiceAccount: "new-caring-line-api-dev@static-map-242406.iam.gserviceaccount.com"
   AppResources:
     requests:
@@ -17,21 +17,21 @@ App:
       cpu: 300m
       memory: 768Mi
   ConnectionStrings:
-    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=new-caring-line-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
-    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_demo;Userid=new-caring-line-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
-    CHomeConnection: "Server=10.140.0.40,9900;Database=CHome;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+    PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring_qat2;Userid=new-caring-line-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring_qat2;Userid=new-caring-line-api-dev@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=100;ConnectionLifeTime=60;"
+    CHomeConnection: "Server=10.140.15.234,9900;Database=QAT_CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   OpenTelemetry:
     EndPoint: "http://opentelemetry-collector.gke-managed-otel.svc.cluster.local:4317"
     Protocol: "grpc"
   Redis:
-    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=2"
+    ConnectionString: "jubo-mqtt.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=6"
   JCP:
-    EndPoint: "http://jcp-demo-api.jubo.health.internal"
+    EndPoint: "http://jcp-qat-api.jubo.health.internal"
     Brand: "caring"
     Product: "caring"
-    Environment: "demo"
-    Name: "caring-demo"
+    Environment: "qat"
+    Name: "caring-dev"
     Version: "1.0.0"
     ManageJcpCA: "ShareITN01CA01"
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"

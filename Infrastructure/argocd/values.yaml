@@ -211,6 +211,22 @@ apps:
       destinationNamespace: new-caring-mobile-api-qat
       ignoreReplicasDifferences: false
 
+    new-caring-line-api-qat:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-line-api
+      sourceHelm:
+        valueFiles:
+          - values_qat.yaml
+      destinationNamespace: new-caring-line-api-qat
+      ignoreReplicasDifferences: false
+
+    new-caring-line-api-qat2:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-line-api
+      sourceHelm:
+        valueFiles:
+          - values_qat2.yaml
+      destinationNamespace: new-caring-line-api-qat2
+      ignoreReplicasDifferences: false
+
     new-caring-event-consumer-qat:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:
@@ -270,6 +286,14 @@ apps:
       destinationNamespace: new-caring-mobile-api-demo
       ignoreReplicasDifferences: false
 
+    new-caring-line-api-demo:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-line-api
+      sourceHelm:
+        valueFiles:
+          - values_demo.yaml
+      destinationNamespace: new-caring-line-api-demo
+      ignoreReplicasDifferences: false
+
     new-caring-event-consumer-demo:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
       sourceHelm:
@@ -320,6 +344,14 @@ apps:
           - values_release.yaml
       destinationNamespace: new-caring-mobile-api-release
       ignoreReplicasDifferences: false
+
+    new-caring-line-api-release:
+      sourcePath: Microservices/Caring/Backend/Api/new-caring-line-api
+      sourceHelm:
+        valueFiles:
+          - values_release.yaml
+      destinationNamespace: new-caring-line-api-release
+      ignoreReplicasDifferences: true
 
     new-caring-event-consumer-release:
       sourcePath: Microservices/Caring/Event/Consumer/new-caring-event-consumer
