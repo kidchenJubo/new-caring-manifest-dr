@@ -55,11 +55,6 @@ spec:
             - configMapRef:
                 name: "{{ .Chart.Name }}-config"
           env:
-            - name: LINEJWTSECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.App.Line.JwtSecret.SecretName | quote }}
-                  key: {{ .Values.App.Line.JwtSecret.SecretKey | quote }}
             - name: MY_NODE_NAME
               valueFrom:
                 fieldRef:
