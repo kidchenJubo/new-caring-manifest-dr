@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: "LINE-1.0.8"
+  Version: "LINE-1.0.6"
   UseHPA: false
   UsePDB:
     enabled: false
@@ -40,7 +40,7 @@ App:
     ChannelId: ""
     JwtSecret:
       SecretName: "new-caring-line-api-secret"
-      SecretKey: "KU3u1hXNENtMd86-VVsY0x8Z3-ALs93WaAnifb-T9Oc"
+      SecretKey: "LINEJWTSECRET"
 
 SqlProxy:
   Version: 2.18.1
