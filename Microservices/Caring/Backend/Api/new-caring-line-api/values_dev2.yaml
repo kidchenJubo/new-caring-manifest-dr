@@ -40,7 +40,7 @@ App:
     ChannelId: ""
     JwtSecret:
       SecretName: "new-caring-line-api-secret"
-      SecretKey: "LINEJWTSECRET"
+      SecretKey: "KU3u1hXNENtMd86-VVsY0x8Z3-ALs93WaAnifb-T9Oc"
 
 SqlProxy:
   Version: 2.18.1
