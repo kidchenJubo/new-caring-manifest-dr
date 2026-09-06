@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.15.76
+  Version: 2.1.15.77
   UseHPA: false
   UsePDB:
     enabled: false
