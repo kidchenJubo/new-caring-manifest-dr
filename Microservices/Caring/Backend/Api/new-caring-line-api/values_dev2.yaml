@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: "LINE-1.1.7"
+  Version: "LINE-1.1.8"
   UseHPA: false
   UsePDB:
     enabled: false
@@ -35,6 +35,11 @@ App:
     Version: "1.0.0"
     ManageJcpCA: "ShareITN01CA01"
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
+  JcpClient:
+    ClientId: "ltc-web"
+    ClientSecret: "222126EA-7035-4638-BAC2-93A50490BF8D"
+    BaseUrl: "http://jcp2-api-gateway-dev.jubo.health.internal"
+    Scope: "storage:write storage:read organization:read"
   Line:
     VerifyEndpoint: "https://api.line.me/oauth2/v2.1/verify"
     ChannelId: ""

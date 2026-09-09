@@ -35,6 +35,11 @@ App:
     Version: "1.0.0"
     ManageJcpCA: "ShareITN01CA01"
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
+  JcpClient:
+    ClientId: "ltc-web"
+    BaseUrl: "http://jcp2-api-gateway.jubo.health.internal/"
+    ClientSecret: "04C89CB6-2A5F-43F5-B9A9-E9D40818F3D2"
+    Scope: "storage:write storage:read organization:read"
   Line:
     VerifyEndpoint: "https://api.line.me/oauth2/v2.1/verify"
     ChannelId: ""
