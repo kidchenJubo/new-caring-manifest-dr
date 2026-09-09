@@ -10,3 +10,6 @@ gen
 .idea/
 .DS_Store
 Thumbs.db
+
+# DR script 本機用的密鑰檔（GitHub PAT 等），見 scripts/caring-dr-common.sh，永遠不進 git
+.caring-dr/
