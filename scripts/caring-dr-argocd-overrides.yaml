@@ -1,0 +1,46 @@
+# DR 專用 Helm values overlay，疊加在 Infrastructure/argocd/values.yaml 上面（-f 兩次，後面的優先）。
+# 只在 caring-dr-bootstrap.sh 的 helm install 使用，不影響正式環境的 values.yaml，
+# 也不應該被合併回 git 上正式環境用的那份設定。
+#
+# 只有一個覆蓋，原因見 runbooks/disaster-recovery.md「ArgoCD 安裝：CRD 前置步驟＋登入方式」：
+#   server.service：正式環境用 ClusterIP + NEG annotation（cloud.google.com/neg，指到跟
+#   prod 完全一樣的 NEG 名稱 new-caring-argocd-80），走共用 GCLB 對外。DR 不處理 Dex／SSO，
+#   也不接共用 GCLB，直接用 LoadBalancer 拿一個獨立外部 IP，用 argocd 內建的 admin 帳號
+#   （argocd-initial-admin-secret）登入即可。
+#
+# ⚠️ 2026-09-09 實測踩雷：一開始把 annotations 覆蓋成空 map（`annotations: {}`），結果完全沒清掉
+# cloud.google.com/neg——原因跟 apps.applications 那次一樣，Helm 對 map 的合併是遞迴的，
+# 一個空 map 合併到已經有 key 的 map 上不會清掉任何東西。實際後果：DR cluster 的
+# argocd-server Service 帶著跟 prod 一模一樣的 NEG 名稱，GKE 的 NEG controller 因此想去管理
+# 同一個 NEG（`new-caring-argocd-80`），但這個 NEG 已經被 prod cluster 用不同的 cluster-uid
+# 標記擁有，觸發 `SyncNetworkEndpointGroupFailed`／`conflicting description` 錯誤——這個衝突
+# 偵測機制擋下了實際寫入，prod 沒有被動到，但如果放著繼續重試沒有意義、也有風險。
+#
+# ⚠️ 2026-09-09 又踩一個雷：把這個 key 覆蓋成 null，本地 helm template render 出來是空的，
+# 看起來「清掉了」，但 Autopilot cluster 上有一個 admission webhook
+# （neg-annotation.common-webhooks.networking.gke.io）**只要這個 key 存在**，不管值是什麼，
+# 都會嚴格驗證內容是不是合法 JSON——null 轉成 Kubernetes annotation（map[string]string）之後
+# 變成空字串 ""，不是合法 JSON，webhook 直接擋下整個 apply（"NEG annotation is invalid"），
+# 這在 Standard 模式沒踩到（沒有這個 webhook，只有 NEG controller 事後 reconcile 才會失敗），
+# 但 Autopilot 有這個 webhook，會在 apply 當下就擋掉，比 Standard 更早、更硬地擋。
+#
+# 正確做法：既然這個 key 沒辦法透過 Helm 的 map 合併機制真的「刪掉」（見上面 apps.applications
+# 同一個 bug），也不能給空值／null（會被 webhook 擋），那就**針對這一個具體的 key 給一個
+# 合法、但改成不會跟 prod 撞名的 JSON 值**——沿用本文件其他地方對外曝光服務的做法（改 NEG
+# 名稱加 -dr 字尾），讓 NEG controller／webhook 都滿意，DR 自己會建一個獨立、閒置、不影響
+# 任何流量的 NEG（new-caring-argocd-dr-80），不會跟 prod 的 new-caring-argocd-80 衝突。
+# 這個 NEG 本身用不到（type: LoadBalancer 走的是另一套機制），純粹是繞過「無法清空」的限制。
+#
+# ⚠️ crds.install 刻意不放在這個檔案：這是「要不要讓 Helm 這個 release 管理 CRD」的開關，
+# 一旦這裡設 true，之後 helm install 會嘗試把 CRD 納入這個 release 管理——但本 repo的
+# bootstrap 流程是先用 `helm template --set argo-cd.crds.install=true --show-only ... | kubectl apply`
+# 把 3 個 CRD 獨立建起來（純 template 產生 manifest，不透過 release 追蹤），再用「git 預設的
+# crds.install=false」做正式的 helm install。若在這裡也設 true，正式 install 時 Helm 會想再管一次
+# 已經存在、但不是這個 release 建立的 CRD，導致 "cannot be imported into the current release" 失敗。
+# 見 caring-dr-bootstrap.sh Step 5a／5b 的實作與注解。
+argo-cd:
+  server:
+    service:
+      type: LoadBalancer
+      annotations:
+        cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "new-caring-argocd-dr-80"}}}'

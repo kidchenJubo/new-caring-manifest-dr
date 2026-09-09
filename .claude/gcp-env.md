@@ -176,7 +176,8 @@ Caring 平台會呼叫另一個稱為 **JCP** 的平台的 API（見 `new-caring
 
 | 項目            | 值                        |
 | --------------- | -------------------------- |
-| Cloud NAT 名稱  | `new-caring-nat`          |
-| Cloud Router    | `new-caring-nat-router`   |
-| VPC             | `new-caring-vpc`          |
-| Egress (NAT) IP | `AUTO_ONLY`（自動配置，未固定；需要固定 IP 白名單時需改為 MANUAL_ONLY 並配置靜態位址，目前非此設定） |
+| VPC             | `default`                 |
+| Cloud Router    | `default`                 |
+| Cloud NAT 名稱  | `ha-nat-gateway`（另有 `mohw-whitelist`，僅涵蓋 `mohw` subnet，與本 repo 無關） |
+| Egress (NAT) IP | `MANUAL_ONLY`，固定位址 `35.221.142.73`（保留位址名稱 `ha-nat`） |
+
