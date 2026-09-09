@@ -37,9 +37,24 @@ argo-cd:
 
   server:
     service:
+      # 2026-09-09 DR 演練專用：這兩個值只在 `dr` 這個 branch 上被改掉，正式環境的
+      # `main` branch 完全不受影響（跟上面 apps.global.repoURL 是同一個原因）。
+      #
+      # 原因：`argocd` 這個 Application 沒有帶 sourceHelm.valueFiles，ArgoCD 自己 sync
+      # 自己時只會用這份 values.yaml，完全不會套用 scripts/caring-dr-argocd-overrides.yaml
+      # 那個 helm CLI override——所以 bootstrap 當下用 --set/-f 疊出來的 LoadBalancer／
+      # -dr NEG 名稱，只在「我們手動跑的那次 helm upgrade」有效，一旦操作者在 ArgoCD UI
+      # 手動 sync 這個 argocd 自己的 Application，就會被這份 git 檔案的值蓋回去
+      # （type 蓋回 ClusterIP，NEG 蓋回跟正式環境一樣的 new-caring-argocd-80，
+      # 又會撞名觸發 SyncNetworkEndpointGroupFailed）。
+      # 直接把正確值寫在這裡，不管 sync 幾次都不會跑掉。
+      type: LoadBalancer
       annotations:
         # 提供 neg 接口給自建的 LB 整合
-        cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "new-caring-argocd-80"}}}'
+        # ⚠️ DR：改成 -dr 字尾避免跟正式環境的 new-caring-argocd-80 撞名，見
+        # scripts/caring-dr-argocd-overrides.yaml 的完整實測踩雷說明（包含 Autopilot
+        # 的 neg-annotation admission webhook 不接受空值/null 這件事）。
+        cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "new-caring-argocd-dr-80"}}}'
 
   # 不要對 SecretInit 注入 sidecar, 會導致 job 無法結束
   redisSecretInit:
