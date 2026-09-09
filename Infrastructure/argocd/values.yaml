@@ -55,7 +55,18 @@ argo-cd:
 # 簡化版本的 argocd apps, 去除掉重複的設定
 apps:
   global:
-    repoURL: https://github.com/jubo-health/new-caring-manifest
+    # 2026-09-09 DR 演練專用：這個值只在 `dr` 這個 branch（推去 DR fork repo `dr` remote 的
+    # main 分支）上被改掉，正式環境的 `main` branch 完全不受影響。
+    #
+    # 原因：`--set-string apps.global.repoURL=...` 這種 helm CLI override 只在「當次」
+    # helm install/upgrade 有效——一旦操作者在 ArgoCD UI 手動 sync 這個 argocd 自己的
+    # Application（它會自我管理、從 git 重新 reconcile 這個 chart），ArgoCD 會依照
+    # git 上實際寫的這個值重新套用，CLI override 完全不會留下來。之前 bootstrap.sh
+    # 只靠 CLI override，導致 sync 完之後 repoURL 被打回正式環境的值，argocd-repo-server
+    # 拿正式環境的 repoURL 去找 DR 專用的 repository credential（只註冊了 DR fork 的 URL），
+    # 找不到對應憑證，出現 "authentication required: Repository not found"。
+    # 正確做法是直接把這個值改在 git 追蹤的檔案裡（即這裡），這樣不管 sync 幾次都不會跑掉。
+    repoURL: https://github.com/kidchenJubo/new-caring-manifest-dr.git
     targetRevision: main
 
   # -- Deploy Argo CD Applications within this helm release
