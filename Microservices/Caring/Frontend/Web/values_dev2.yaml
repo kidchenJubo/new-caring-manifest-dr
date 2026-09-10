@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 918561e355355e74f1b596853512bb2eb8ae0fb3
+  Version: 2.1.15.94
   UseHPA: false
   UsePDB:
     enabled: false
@@ -27,7 +27,7 @@ App:
     Product: "Caring"
     Environment: "dev"
     Name: "caring-dev"
-    Version: 918561e355355e74f1b596853512bb2eb8ae0fb3
+    Version: "1.0.0"
     ManageJcpCA: "ShareITN01CA01"
     ManageJcpCS: "f8f44b836dba473da5a25d908c642f84"
   OpenIdConnect:
@@ -43,7 +43,7 @@ App:
     RequireHttpsMetadata: false
 
 SqlProxy:
-  Version: 918561e355355e74f1b596853512bb2eb8ae0fb3
+  Version: 2.18.1
   InstanceName: static-map-242406:asia-east1:caring-dev-pg
   SqlProxyResources:
     requests:
