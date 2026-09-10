@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: 2.1.16.10
+  Version: LTC-2889-test
   UseHPA: false
   UsePDB:
     enabled: false
