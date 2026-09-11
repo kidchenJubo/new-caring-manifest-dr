@@ -1,6 +1,6 @@
 App:
   Replicas: 1
-  Version: 2.1.15.96
+  Version: fix-ltc2653-equlst-query-binding
   UseHPA: false
   UsePDB:
     enabled: false
