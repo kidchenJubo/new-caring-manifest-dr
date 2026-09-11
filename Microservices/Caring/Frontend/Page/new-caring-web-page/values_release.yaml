@@ -1,5 +1,5 @@
 App:
-  Replicas: 3
+  Replicas: 1
   Version: 4.0.65-caring
   ConfigMap:
     Data:

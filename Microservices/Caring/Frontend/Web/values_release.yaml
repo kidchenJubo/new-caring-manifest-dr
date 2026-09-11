@@ -1,5 +1,5 @@
 App:
-  Replicas: 3
+  Replicas: 1
   Version: 2.1.15.46
   UseHPA: false
   UsePDB:
@@ -17,7 +17,7 @@ App:
   ConnectionStrings:
     PostgreSqlMaster: "Server=127.0.0.1;Port=5432;Database=caring;Userid=new-caring-web-release@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=200;ConnectionLifeTime=60;"
     PostgreSqlSlave: "Server=127.0.0.1;Port=5432;Database=caring;Userid=new-caring-web-release@static-map-242406.iam;Pooling=true;MinPoolSize=1;MaxPoolSize=200;ConnectionLifeTime=60;"
-    CHomeConnection: "Server=10.140.15.208,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
+    CHomeConnection: "Server=10.250.0.193,9900;Database=CHOME;User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
     OldCaringConnection: "Server={SERVER},{PORT};Database={DBNAME};User Id=sso_admin;Password=5086@Jubo_SSO@8012;TrustServerCertificate=true;"
   Redis:
     ConnectionString: "caring-redis-drill.asia-east1-b.c.static-map-242406.internal:6379,defaultDatabase=3"
