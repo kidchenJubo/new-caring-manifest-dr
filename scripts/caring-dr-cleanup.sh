@@ -151,7 +151,6 @@ fi
 
 log "=== Cleanup 指令跑完 ==="
 log "仍需人工確認（本 script 不處理，操作者指示先不展開這幾塊的自動化）："
-log "  [ ] DR 專用 GCLB（URL Map／backend-service／NEG／憑證／forwarding rule）是否有殘留"
 log "  [ ] -dr 的 DNS 記錄是否需要移除"
 log "  [ ] 若 DR 專用 target-https-proxy 有引用正式環境的 caringcm2026-all 憑證，"
 log "      務必先刪掉這個 target-proxy，否則會卡住正式環境之後要輪替這張憑證"

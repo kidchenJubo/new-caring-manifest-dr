@@ -17,6 +17,7 @@ REGION="asia-east1"
 DR_VPC="dr-drill-vpc"
 DR_SUBNET="dr-drill-subnet"
 DR_PROXY_SUBNET="dr-drill-proxy-only"
+DR_PROXY_SUBNET_CIDR="10.251.0.0/24"
 
 # ---- Cloud SQL ----
 RELEASE_SQL_INSTANCE="caring-release-pg"
@@ -51,6 +52,29 @@ DR_REDIS_IMAGE_PROJECT="debian-cloud"
 # 本 repo（住宿2.0）GKE pods 需要連到 redis:6379，用獨立 tag／防火牆規則放行 GKE pod range。
 DR_REDIS_ACCESS_TAG="caring-jubo-mqtt-access"
 DR_REDIS_GKE_FIREWALL="dr-drill-redis-gke-access"
+
+# ---- SQL Server drill VM（CHomeConnection／OldCaringConnection 用，既有資源，不是本 script 建的） ----
+# 2026-09-11 實測踩雷：這台 VM（sql-server-drill，10.250.0.193）已經存在，是操作者／住宿1.0
+# 團隊事先建好的，本 script 不建立、不刪除，只補它跟 GKE pod 之間缺的那條防火牆
+# （見 caring-dr-bootstrap.sh 對應段落與 runbook 的詳細說明）。
+DR_SQLSERVER_VM="sql-server-drill"
+DR_SQLSERVER_ZONE="${REGION}-b"
+DR_SQLSERVER_TAG="sql-server-drill"
+DR_SQLSERVER_GKE_FIREWALL="dr-drill-sql-server-gke-access"
+DR_SQLSERVER_PORTS="9900-9999"
+
+# ---- JCP PSC 對接（jcp-release-api，2026-09-11 手動建立驗證過後補進 script） ----
+# app 呼叫 http://jcp-release-api.jubo.health.internal 走的是 PSC（Private Service Connect），
+# 正式環境那筆紀錄／endpoint 只在 default VPC 內有效，dr-drill-vpc 需要自己一組獨立的
+# PSC consumer endpoint＋private DNS zone，不能沿用／不能改正式環境那份共用設定
+# （細節見 runbooks/disaster-recovery.md）。IP 10.250.0.200 是手動測試時選定、目前已在用的值，
+# 落在 dr-drill-subnet（10.250.0.0/24）內，跟現有的 sql-server-drill（.193）等資源不衝突。
+DR_JCP_PSC_NAME="dr-drill-psc-jcp-release-api"
+DR_JCP_PSC_ADDRESS="10.250.0.200"
+DR_JCP_SERVICE_ATTACHMENT="https://www.googleapis.com/compute/v1/projects/jubo-care-platform/regions/asia-east1/serviceAttachments/psc-jcp-release-api-20260129"
+DR_JCP_DNS_ZONE="dr-drill-jubo-health-internal"
+DR_JCP_DNS_NAME="jubo.health.internal."
+DR_JCP_RECORD_NAME="jcp-release-api.jubo.health.internal."
 
 # ---- GKE ----
 RELEASE_CLUSTER="caring-tw"
@@ -133,6 +157,21 @@ RELEASE_APPLICATIONS=(
 )
 
 # ---- 共用工具函式 ----
+
+# ---- GCLB backend-service（DR 專用，接上外部 LB 用；目前只涵蓋操作者已開的兩個 -release 服務） ----
+# 命名刻意跟 NEG 名稱保持一致（見 5 個 chart 的 templates/service.yaml 裡 -dr-80 NEG 命名說明），
+# 一律用 <app>-<env>-dr-80，backend-service 名稱＝NEG 名稱好對應——不沿用正式環境部分服務
+# backend-service 名稱不一致的舊慣例（例如 new-caring-web-release 這個正式資源沒有 -80 尾巴，
+# 是歷史因素，跟它的 NEG 名稱 new-caring-web-release-80 對不上，DR 這裡不重蹈覆轍）。
+DR_BACKEND_HEALTH_CHECK="k8s-health-check-new-caring"   # 沿用正式環境共用的 regional health check，不重複建立
+DR_BACKEND_ENV="release"
+DR_BACKEND_APPS_DEFAULT=("new-caring-web-api" "new-caring-web")
+DR_BACKEND_ZONES=(a b c)
+
+# lb-drill 是住宿1.0team的資源，只在存在時才會嘗試接線（見 caring-dr-backend-add.sh），
+# 這裡只放名稱常數，不代表這兩個資源一定存在。可用環境變數覆蓋，方便測試時指到別的 url-map。
+DR_LB_URLMAP="${DR_LB_URLMAP:-lb-drill}"
+DR_LB_PATH_MATCHER="${DR_LB_PATH_MATCHER:-drill-urlmatcher}"
 
 DRY_RUN=1
 for _arg in "$@"; do

@@ -88,6 +88,23 @@ run gcloud services vpc-peerings connect \
 log "--- Step 2: Cloud SQL ${DR_SQL_INSTANCE} ---"
 if gcloud sql instances describe "${DR_SQL_INSTANCE}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
   log "${DR_SQL_INSTANCE} 已存在，略過建立與還原備份，直接進到下一步（若要重新還原，先手動刪掉這個 instance 再重跑）。"
+
+  # 2026-09-11 實測踩雷：app 端連線字串用 Cloud SQL IAM Authentication 登入
+  # （PostgreSqlMaster Userid=...@static-map-242406.iam），但這是 instance 層級的
+  # database flag，不會跟著「新建 instance + restore 備份」自動帶過來（IAM DB user
+  # 本身雖然會從備份還原回來，但 flag 沒開，驗證一律被拒絕）。
+  # 若 instance 已存在但漏了這個 flag，補上去，不要整台重建。
+  EXISTING_SQL_FLAGS="$(gcloud sql instances describe "${DR_SQL_INSTANCE}" --project="${PROJECT_ID}" \
+    --format="value(settings.databaseFlags[].name)" 2>/dev/null)"
+  if [[ "$EXISTING_SQL_FLAGS" == *"cloudsql.iam_authentication"* ]]; then
+    log "${DR_SQL_INSTANCE} 已有 cloudsql.iam_authentication flag，略過。"
+  else
+    log "${DR_SQL_INSTANCE} 缺少 cloudsql.iam_authentication flag，補上去（需要幾分鐘套用）。"
+    run gcloud sql instances patch "${DR_SQL_INSTANCE}" \
+      --project="${PROJECT_ID}" \
+      --database-flags="cloudsql.iam_authentication=on" \
+      --quiet
+  fi
 else
   run gcloud sql instances create "${DR_SQL_INSTANCE}" \
     --project="${PROJECT_ID}" \
@@ -97,6 +114,7 @@ else
     --tier="${SQL_TIER}" \
     --availability-type="${SQL_AVAILABILITY_TYPE}" \
     --network="projects/${PROJECT_ID}/global/networks/${DR_VPC}" \
+    --database-flags="cloudsql.iam_authentication=on" \
     --no-assign-ip
 
   # 只有這次真的新建了空 instance 才需要還原備份；已存在的 instance 代表之前跑過，
@@ -173,6 +191,133 @@ else
 fi
 
 # -------------------------------------------------------------------------
+# Step 3b：SQL Server drill VM（sql-server-drill）的 GKE pod 存取
+#   2026-09-11 實測踩雷：app 的 CHomeConnection／OldCaringConnection 連線字串指向
+#   10.250.0.193:9900（Server=CHOME 的 MSSQL），這台 sql-server-drill VM 剛好也在
+#   dr-drill-subnet（10.250.0.0/24）內，不是網路不通，是既有的 dr-drill-sql-server-mssql
+#   這條防火牆只開放特定辦公室／VPN IP（DBA 手動連線用），沒涵蓋 GKE pod range，
+#   導致 app 連線出現「Could not open a connection to SQL Server」。這台 VM 本身不是本
+#   script 建的（既有資源），只補一條 GKE pod → VM 的防火牆，不去動既有那條規則。
+# -------------------------------------------------------------------------
+log "--- Step 3b: sql-server-drill 的 GKE pod 存取 ---"
+if gcloud compute instances describe "${DR_SQLSERVER_VM}" --zone="${DR_SQLSERVER_ZONE}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
+  if gcloud compute firewall-rules describe "${DR_SQLSERVER_GKE_FIREWALL}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
+    log "${DR_SQLSERVER_GKE_FIREWALL} 已存在，略過。"
+  else
+    run gcloud compute firewall-rules create "${DR_SQLSERVER_GKE_FIREWALL}" \
+      --project="${PROJECT_ID}" \
+      --network="${DR_VPC}" \
+      --direction=INGRESS \
+      --action=ALLOW \
+      --rules="tcp:${DR_SQLSERVER_PORTS}" \
+      --source-ranges="${DR_GKE_PODS_RANGE_CIDR}" \
+      --target-tags="${DR_SQLSERVER_TAG}"
+  fi
+else
+  log "找不到 ${DR_SQLSERVER_VM} 這台 VM，略過（這是既有資源，不是本 script 建的，可能還沒建好或名稱／zone 跟預期不同）。"
+fi
+
+# -------------------------------------------------------------------------
+# Step 3c：GCLB health check／data-plane 防火牆補強
+#   2026-09-11 系統性比對 default VPC（caring-tw 正式環境）跟 dr-drill-vpc 的防火牆規則差異後，
+#   判斷有兩個缺口值得先補上（其餘差異大多是別的服務/VM 專用，跟本 repo 的 DR 範圍無關，見
+#   runbook 對應段落的完整比對紀錄）：
+#   (a) 正式環境的 health check 規則（allow-health-check-8080／default-allow-health-check）
+#       比 dr-drill-allow-health-check 多兩段來源 IP（209.85.152.0/22、209.85.204.0/22，
+#       較新的 GCLB health check 來源範圍），這裡新增一條補上，不去動既有那條規則。
+#   (b) 正式環境的 k8s-fw 對 LB proxy-only subnet 是開放「全部 port」到 GKE node，
+#       而 dr-drill-allow-lb-proxy 只開 80/8080——這正是前面 web-page 用 3000 撞到那個問題
+#       的根源類型（health check 過但真流量被擋、卡滿 30 秒才 504）。與其每次多一個新服務、
+#       新 port 就再補一條點狀規則，這裡直接開一條涵蓋全部 port 的規則（來源限定在
+#       proxy-only subnet 本身，不是對外開放，風險可控），一次解決同一類問題，
+#       避免以後每個新服務都要重新踩一次雷。
+#   兩條都是新增規則，不動 dr-drill-allow-health-check／dr-drill-allow-lb-proxy 這兩條
+#   既有的、住宿1.0team建立的共用規則本身。
+# -------------------------------------------------------------------------
+log "--- Step 3c: GCLB health check／data-plane 防火牆補強 ---"
+if gcloud compute firewall-rules describe dr-drill-allow-health-check-extra-ranges --project="${PROJECT_ID}" >/dev/null 2>&1; then
+  log "dr-drill-allow-health-check-extra-ranges 已存在，略過。"
+else
+  run gcloud compute firewall-rules create dr-drill-allow-health-check-extra-ranges \
+    --project="${PROJECT_ID}" \
+    --network="${DR_VPC}" \
+    --direction=INGRESS \
+    --action=ALLOW \
+    --rules=tcp:80,tcp:443,tcp:445,tcp:8080,tcp:15021,tcp:3000 \
+    --source-ranges=209.85.152.0/22,209.85.204.0/22
+fi
+
+if gcloud compute firewall-rules describe dr-drill-allow-lb-proxy-all-ports --project="${PROJECT_ID}" >/dev/null 2>&1; then
+  log "dr-drill-allow-lb-proxy-all-ports 已存在，略過。"
+else
+  run gcloud compute firewall-rules create dr-drill-allow-lb-proxy-all-ports \
+    --project="${PROJECT_ID}" \
+    --network="${DR_VPC}" \
+    --direction=INGRESS \
+    --action=ALLOW \
+    --rules=all \
+    --source-ranges="${DR_PROXY_SUBNET_CIDR}"
+fi
+
+# -------------------------------------------------------------------------
+# Step 3d：JCP PSC 對接（jcp-release-api）
+#   2026-09-11 實測踩雷：app 呼叫 http://jcp-release-api.jubo.health.internal 出現
+#   "Name or service not known"——正式環境這個域名（psc-jcp-api-internal-domain 這個
+#   private zone）只授權給 default VPC，dr-drill-vpc 完全不在授權清單內；就算加進授權，
+#   這筆紀錄指到的 10.140.0.126 也是一個只在 default VPC 內部可路由的 PSC consumer
+#   endpoint（default VPC 沒有跟 dr-drill-vpc peering），所以真正需要的是幫 DR 另外建
+#   一組 PSC endpoint＋獨立 private zone，不是改既有共用設定。已確認 JCP 那邊的 service
+#   attachment（psc-jcp-release-api-20260129，在 jubo-care-platform 這個專案）accept list
+#   是用 project 授權（static-map-242406），不是限定特定 VPC，DR 另開一個 endpoint
+#   不需要對方額外開權限。
+# -------------------------------------------------------------------------
+log "--- Step 3d: JCP PSC 對接（jcp-release-api） ---"
+if gcloud compute addresses describe "${DR_JCP_PSC_NAME}" --region="${REGION}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
+  log "${DR_JCP_PSC_NAME}（內部 IP）已存在，略過。"
+else
+  run gcloud compute addresses create "${DR_JCP_PSC_NAME}" \
+    --project="${PROJECT_ID}" \
+    --region="${REGION}" \
+    --subnet="${DR_SUBNET}" \
+    --addresses="${DR_JCP_PSC_ADDRESS}"
+fi
+
+if gcloud compute forwarding-rules describe "${DR_JCP_PSC_NAME}" --region="${REGION}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
+  log "${DR_JCP_PSC_NAME}（PSC forwarding rule）已存在，略過。"
+else
+  run gcloud compute forwarding-rules create "${DR_JCP_PSC_NAME}" \
+    --project="${PROJECT_ID}" \
+    --region="${REGION}" \
+    --network="${DR_VPC}" \
+    --address="${DR_JCP_PSC_NAME}" \
+    --target-service-attachment="${DR_JCP_SERVICE_ATTACHMENT}"
+fi
+
+if gcloud dns managed-zones describe "${DR_JCP_DNS_ZONE}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
+  log "${DR_JCP_DNS_ZONE}（private zone）已存在，略過。"
+else
+  run gcloud dns managed-zones create "${DR_JCP_DNS_ZONE}" \
+    --project="${PROJECT_ID}" \
+    --dns-name="${DR_JCP_DNS_NAME}" \
+    --visibility=private \
+    --networks="${DR_VPC}" \
+    --description="DR 專用，只給 dr-drill-vpc 用，跟 default VPC 的 psc-jcp-api-internal-domain 分開"
+fi
+
+EXISTING_JCP_RECORD="$(gcloud dns record-sets list --zone="${DR_JCP_DNS_ZONE}" --project="${PROJECT_ID}" \
+  --filter="name=${DR_JCP_RECORD_NAME} AND type=A" --format="value(name)" 2>/dev/null || true)"
+if [[ -n "$EXISTING_JCP_RECORD" ]]; then
+  log "${DR_JCP_RECORD_NAME} 這筆 A record 已存在，略過。"
+else
+  run gcloud dns record-sets create "${DR_JCP_RECORD_NAME}" \
+    --project="${PROJECT_ID}" \
+    --zone="${DR_JCP_DNS_ZONE}" \
+    --type=A \
+    --ttl=300 \
+    --rrdatas="${DR_JCP_PSC_ADDRESS}"
+fi
+
+# -------------------------------------------------------------------------
 # Step 4：GKE——先幫 pods/services 兩段 secondary range 加到 dr-drill-subnet，
 #   再開一條 egress 防火牆放行 control-plane CIDR（dr-drill-vpc 預設 egress 拒絕＋白名單，
 #   見 runbook「與住宿1.0演練的關係」一節），最後建 private cluster。
@@ -195,20 +340,48 @@ fi
 if gcloud compute firewall-rules describe "${DR_MASTER_CIDR_FIREWALL}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
   log "${DR_MASTER_CIDR_FIREWALL} 已存在，略過。"
 else
+  # ⚠️ 2026-09-11 實測踩雷：一開始只開 tcp:443，kubectl get/describe/apply 都正常
+  # （這些走一般 kube-apiserver 通訊），但 kubectl logs/exec/port-forward 全部卡
+  # "No agent available"——這幾個走的是 Konnectivity（control plane 反向連回 node
+  # 的通道），node 端要能主動連到 control plane 的 tcp:8132，不是 443，兩個都要開。
   run gcloud compute firewall-rules create "${DR_MASTER_CIDR_FIREWALL}" \
     --project="${PROJECT_ID}" \
     --network="${DR_VPC}" \
     --direction=EGRESS \
     --action=ALLOW \
-    --rules=tcp:443 \
+    --rules=tcp:443,tcp:8132 \
     --destination-ranges="${DR_MASTER_IPV4_CIDR}"
 fi
 
 # 見 common.sh 對 DR_GKE_INTERNAL_EGRESS_FIREWALL 的實測踩雷說明：既有的
 # dr-drill-allow-egress-internal 沒涵蓋 pods/services range，導致 pod 連 cluster DNS
 # 會被 deny-egress-default 擋掉。這條規則要在 cluster 建起來、pod 開始跑之前就先備妥。
+#
+# ⚠️ 2026-09-11 又補一個目的地：Cloud SQL 的 private IP 落在 PSA 保留的 range
+# （dr-drill-psa-range，實測是 10.164.180.0/24，但這是 GCP 自動配的，不是我們自己選的
+# 固定值，所以這裡用查詢的，不寫死），一樣不在原本這條規則涵蓋的 pods/services CIDR 內，
+# 會被擋掉——症狀是 cloud-sql-proxy 一直印 "dial tcp <PSA range IP>:3307: i/o timeout"，
+# app 的 DB health check 因此一直失敗、回 503。這條規則現在包含 3 段目的地：
+# pods CIDR、services CIDR、PSA range CIDR。
+PSA_RANGE_CIDR="$(gcloud compute addresses describe "${DR_PSA_RANGE_NAME}" --global --project="${PROJECT_ID}" \
+  --format="value(address,prefixLength)" 2>/dev/null | awk '{print $1"/"$2}')"
+if [[ -z "$PSA_RANGE_CIDR" ]]; then
+  log "❌ 查不到 ${DR_PSA_RANGE_NAME} 的實際 CIDR，Step 1 的 PSA peering 可能還沒建好，無法繼續。"
+  exit 1
+fi
+DR_GKE_INTERNAL_EGRESS_DESTINATIONS="${DR_GKE_PODS_RANGE_CIDR},${DR_GKE_SERVICES_RANGE_CIDR},${PSA_RANGE_CIDR}"
+
 if gcloud compute firewall-rules describe "${DR_GKE_INTERNAL_EGRESS_FIREWALL}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
-  log "${DR_GKE_INTERNAL_EGRESS_FIREWALL} 已存在，略過。"
+  EXISTING_DESTINATIONS="$(gcloud compute firewall-rules describe "${DR_GKE_INTERNAL_EGRESS_FIREWALL}" \
+    --project="${PROJECT_ID}" --format="value(destinationRanges.list())" 2>/dev/null)"
+  if [[ "$EXISTING_DESTINATIONS" == *"${PSA_RANGE_CIDR}"* ]]; then
+    log "${DR_GKE_INTERNAL_EGRESS_FIREWALL} 已存在，且已涵蓋 ${PSA_RANGE_CIDR}，略過。"
+  else
+    log "${DR_GKE_INTERNAL_EGRESS_FIREWALL} 已存在，但沒涵蓋 PSA range（${PSA_RANGE_CIDR}），補上去。"
+    run gcloud compute firewall-rules update "${DR_GKE_INTERNAL_EGRESS_FIREWALL}" \
+      --project="${PROJECT_ID}" \
+      --destination-ranges="${DR_GKE_INTERNAL_EGRESS_DESTINATIONS}"
+  fi
 else
   run gcloud compute firewall-rules create "${DR_GKE_INTERNAL_EGRESS_FIREWALL}" \
     --project="${PROJECT_ID}" \
@@ -216,7 +389,7 @@ else
     --direction=EGRESS \
     --action=ALLOW \
     --rules=all \
-    --destination-ranges="${DR_GKE_PODS_RANGE_CIDR},${DR_GKE_SERVICES_RANGE_CIDR}"
+    --destination-ranges="${DR_GKE_INTERNAL_EGRESS_DESTINATIONS}"
 fi
 
 if gcloud container clusters describe "${DR_CLUSTER}" --region="${REGION}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
@@ -241,7 +414,8 @@ elif [[ "$GKE_MODE" == "standard" ]]; then
     --max-nodes="${GKE_MAX_NODES}" \
     --location-policy="${GKE_LOCATION_POLICY}" \
     --service-account="${DR_NODE_SA}" \
-    --workload-pool="${PROJECT_ID}.svc.id.goog"
+    --workload-pool="${PROJECT_ID}.svc.id.goog" \
+    --managed-otel-scope=COLLECTION_AND_INSTRUMENTATION_COMPONENTS
 else
   log "GKE_MODE=autopilot（預設），建 Autopilot 模式叢集——不用指定 machine type／node pool／autoscaling，GKE 自己管。"
   run gcloud container clusters create-auto "${DR_CLUSTER}" \
@@ -253,8 +427,21 @@ else
     --services-secondary-range-name="${DR_GKE_SERVICES_RANGE_NAME}" \
     --enable-private-nodes \
     --master-ipv4-cidr="${DR_MASTER_IPV4_CIDR}" \
-    --service-account="${DR_NODE_SA}"
+    --service-account="${DR_NODE_SA}" \
+    --managed-otel-scope=COLLECTION_AND_INSTRUMENTATION_COMPONENTS
 fi
+
+# 2026-09-11 實測踩雷：正式環境 caring-tw 有 gke-managed-otel 這個 namespace（GKE Managed
+# OpenTelemetry Collector），DR cluster 一開始建立時沒帶對應設定，這個 namespace 完全不存在。
+# app 的 OpenTelemetry__EndPoint 設定指向 opentelemetry-collector.gke-managed-otel.svc.cluster.local:4317，
+# 這幾個服務的 Serilog 只走 OTLP sink（沒有 Console fallback），collector 不存在導致 log 整個消失
+# ——不是被防火牆擋、也不是 Cloud Logging 過濾掉，是从源頭就沒有東西可以送，kubectl logs 也是空的。
+# 用 --managed-otel-scope 補上去；已經有的 cluster 也直接補一次（cluster 已經有這個 scope 時
+# 這個 update 基本是 no-op，不用另外查現況）。
+run gcloud container clusters update "${DR_CLUSTER}" \
+  --project="${PROJECT_ID}" \
+  --region="${REGION}" \
+  --managed-otel-scope=COLLECTION_AND_INSTRUMENTATION_COMPONENTS
 
 # 2026-09-09 實測踩雷：這個 cluster 建出來 masterAuthorizedNetworksConfig.enabled 是 true，
 # 但 cidrBlocks 是空的——等於沒有任何來源 IP 能連 control plane 的公開端點，kubectl/helm
