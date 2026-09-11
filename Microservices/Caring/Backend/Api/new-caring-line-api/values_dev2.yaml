@@ -2,7 +2,7 @@ App:
   Replicas: 1
   MinReplicas: 1
   MaxReplicas: 1
-  Version: "LINE-1.1.11"
+  Version: "LINE-1.1.12"
   UseHPA: false
   UsePDB:
     enabled: false
