@@ -73,7 +73,9 @@ cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }
 
 NEG 名稱**直接等於 `<namespace>-80`，且不是 values 可調整的欄位**。因為上一節決定 DR cluster 沿用跟正式環境相同的 namespace 名稱，若不處理，DR cluster 會嘗試在**同一個 GCP 專案、同樣的 zone（`asia-east1-a/b/c`）**建立一個名為 `new-caring-web-api-release-80` 的 Standalone NEG——但正式環境的同名 NEG 已經存在。**NEG／regional backend-service 的名稱在同一個 project＋zone／region 下必須唯一，不受 VPC 區分**，所以會直接撞名失敗（`create_lb_backend_services.sh` 建立的 backend-service 也是同樣的 `$app-$env-80` 命名，一樣會撞名）。
 
-**解法（記錄決策，Phase 2 產生 DR 專用 fork repo 時要落實）**：Workload Identity 綁定看的是 namespace／KSA 名稱，**跟 NEG／backend-service 名稱完全無關**，所以可以只在**獨立維護的 DR fork repo**裡，把會對外曝光的服務（`new-caring-web-api`、`new-caring-web`、`new-caring-web-page`、`new-caring-mobile-api`）的 `templates/service.yaml` 這行 annotation 改成帶固定 `-dr` 字尾的值（例如 `{{ .Release.Namespace }}-dr-80`），`destinationNamespace`／`App.ServiceAccount`（GSA）維持不動。這樣：
+**解法**：Workload Identity 綁定看的是 namespace／KSA 名稱，**跟 NEG／backend-service 名稱完全無關**，所以可以只在**獨立維護的 DR fork repo**裡，把會對外曝光的服務的 `templates/service.yaml` 這行 annotation 改成帶固定 `-dr` 字尾的值（例如 `{{ .Release.Namespace }}-dr-80`），`destinationNamespace`／`App.ServiceAccount`（GSA）維持不動。這樣：
+
+**⚠️ 2026-09-11 已實際落實**：一直到這時候才真的動手改，中間 ArgoCD 已經先把舊版（沒加 `-dr` 字尾）的 chart 同步上去，`new-caring-web-api-release` 這個 Service 因此真的撞名了——`kubectl get pod` 顯示 pod 卡在 `1/2 Ready`，`readinessGates` 是 `cloud.google.com/load-balancer-neg-ready`，事件顯示 `SyncNetworkEndpointGroupFailed: found conflicting description in neg new-caring-web-api-release-80: expected cluster-uid <DR> but got cluster-uid <prod>`——這個 NEG readiness gate 因為名稱衝突永遠不會過，pod 會**永遠卡在 not-ready**，不是等久一點就會自己好。已經把 5 個有這個 annotation 的服務全部改好（`new-caring-web-api`、`new-caring-web`、`new-caring-web-page`、`new-caring-mobile-api`、`new-caring-line-api`——`new-caring-line-api` 原本沒被列在這裡，實際查證後也有這個 annotation，一併補上；`caree-notification`／`new-caring-event-consumer` 沒有對外曝光，本來就沒有這個 annotation），只在 `dr` 這個 branch 改，**需要 commit＋push 到 `dr` remote，並在 ArgoCD 重新 sync 這幾個 Application 才會生效**（改 Service 的 annotation 需要重新 apply，光是 pod 本身沒變不會自動觸發）。
 
 - Workload Identity 綁定完全不用動，不會碰到 `gcloud iam` 黑名單
 - NEG／backend-service 名稱變成 `new-caring-web-api-release-dr-80` 等，不跟正式環境撞名

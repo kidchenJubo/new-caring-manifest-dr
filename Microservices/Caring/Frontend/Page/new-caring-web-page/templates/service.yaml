@@ -3,7 +3,10 @@ kind: Service
 metadata:
   annotations:
     #     cloud.google.com/neg: '{"exposed_ports": {"80":{}}}'
-    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-80"}}}'
+    # 2026-09-11 DR 演練專用：NEG 名稱加 -dr 字尾，避免跟正式環境撞名，見
+    # Microservices/Caring/Frontend/Web/templates/service.yaml 同樣的註解說明。
+    # 只在 `dr` 這個 branch 上改，正式環境 `main` 不受影響。
+    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "{{ .Release.Namespace }}-dr-80"}}}'
   name: "{{ .Chart.Name }}"
 spec:
   type: ClusterIP
